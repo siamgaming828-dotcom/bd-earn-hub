@@ -3,246 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>BD Earn Hub</title>
 
 <style>
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,"Noto Sans Bengali",sans-serif;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
 }
 
 body{
-    background:#eef7f1;
-    min-height:100vh;
-    color:#222;
+  background:#eef7f1;
+  color:#222;
 }
 
 .header{
-    background:#087b18;
-    color:white;
-    padding:18px;
-    text-align:center;
-    font-size:25px;
-    font-weight:bold;
+  background:#087b18;
+  color:white;
+  padding:18px;
+  text-align:center;
+}
+
+.header h1{
+  font-size:25px;
 }
 
 .container{
-    width:100%;
-    max-width:500px;
-    margin:auto;
-    padding:20px;
+  max-width:700px;
+  margin:auto;
+  padding:15px;
 }
 
 .card{
-    background:white;
-    padding:22px;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.10);
-    margin-bottom:18px;
+  background:white;
+  border-radius:15px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.1);
 }
 
 h2{
-    text-align:center;
-    margin-bottom:8px;
+  color:#087b18;
+  margin-bottom:15px;
 }
 
-.subtitle{
-    text-align:center;
-    color:#777;
-    margin-bottom:20px;
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  margin:6px 0 10px;
 }
 
-.tabs{
-    display:flex;
-    gap:8px;
-    margin-bottom:20px;
+button{
+  width:100%;
+  border:0;
+  padding:12px;
+  border-radius:8px;
+  margin-top:7px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.tabs button{
-    flex:1;
-    padding:12px;
-    border:0;
-    border-radius:8px;
-    background:#ddd;
-    font-size:16px;
-    font-weight:bold;
+.green{
+  background:#087b18;
+  color:white;
 }
 
-.tabs button.active{
-    background:#087b18;
-    color:white;
+.red{
+  background:#d00000;
+  color:white;
 }
 
-.form{
-    display:none;
+.blue{
+  background:#1976d2;
+  color:white;
 }
 
-.form.active{
-    display:block;
+.gray{
+  background:#555;
+  color:white;
 }
 
-label{
-    display:block;
-    font-weight:bold;
-    margin:12px 0 6px;
+.yellow{
+  background:#e5a500;
+  color:white;
 }
 
-input{
-    width:100%;
-    padding:14px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
-    outline:none;
+.info{
+  background:#f3f3f3;
+  padding:12px;
+  border-radius:9px;
+  margin-bottom:9px;
 }
 
-input:focus{
-    border-color:#087b18;
+.task,.request,.user{
+  background:#fafafa;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:13px;
+  margin-bottom:10px;
 }
 
-.main-btn{
-    width:100%;
-    border:0;
-    background:#087b18;
-    color:white;
-    padding:15px;
-    border-radius:9px;
-    font-size:17px;
-    font-weight:bold;
-    margin-top:18px;
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:bold;
 }
 
-.error{
-    color:#d00000;
-    text-align:center;
-    margin-top:12px;
+.active{
+  background:#d8f5df;
+  color:#087b18;
 }
 
-.success{
-    color:#087b18;
-    text-align:center;
-    margin-top:12px;
+.pending{
+  background:#fff0b8;
+  color:#856600;
 }
 
-.dashboard{
-    display:none;
+.rejected{
+  background:#ffdada;
+  color:#b00000;
 }
 
-.profile{
-    text-align:center;
-    margin-bottom:20px;
+.hidden{
+  display:none;
 }
 
-.avatar{
-    width:75px;
-    height:75px;
-    background:#087b18;
-    color:white;
-    border-radius:50%;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:30px;
-    font-weight:bold;
+.nav{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:15px;
 }
 
-.profile h2{
-    margin-top:10px;
+.nav button{
+  margin:0;
 }
 
-.balance{
-    background:#087b18;
-    color:white;
-    padding:22px;
-    border-radius:13px;
-    text-align:center;
-    margin-bottom:18px;
+.small{
+  color:#777;
+  font-size:13px;
 }
 
-.balance small{
-    display:block;
-}
-
-.balance strong{
-    font-size:38px;
-}
-
-.menu{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-.menu button{
-    border:0;
-    background:#f5f5f5;
-    padding:18px 8px;
-    border-radius:10px;
-    font-size:16px;
-    font-weight:bold;
-}
-
-.activation{
-    margin-top:18px;
-    border:2px solid #e21c2a;
-    border-radius:12px;
-    padding:18px;
-}
-
-.activation h3{
-    color:#e21c2a;
-    text-align:center;
-    margin-bottom:12px;
-}
-
-.amount{
-    text-align:center;
-    font-size:32px;
-    font-weight:bold;
-    color:#087b18;
-    margin:12px 0;
-}
-
-.number{
-    background:#f3f3f3;
-    padding:14px;
-    text-align:center;
-    border-radius:8px;
-    font-size:22px;
-    font-weight:bold;
-    margin:10px 0;
-}
-
-.copy{
-    width:100%;
-    border:0;
-    background:#555;
-    color:white;
-    padding:11px;
-    border-radius:7px;
-}
-
-.logout{
-    width:100%;
-    background:#d00000;
-    color:white;
-    border:0;
-    padding:14px;
-    border-radius:9px;
-    font-size:17px;
-    font-weight:bold;
-    margin-top:18px;
-}
-
-.footer{
-    text-align:center;
-    color:#777;
-    font-size:13px;
-    padding:20px;
+hr{
+  border:0;
+  border-top:1px solid #ddd;
+  margin:15px 0;
 }
 </style>
 </head>
@@ -250,395 +161,342 @@ input:focus{
 <body>
 
 <div class="header">
-    BD Earn Hub
+  <h1>💰 BD Earn Hub</h1>
+  <p>User & Admin System</p>
 </div>
 
+<div class="container">
 
-<!-- AUTH SECTION -->
-<div id="authSection" class="container">
+<!-- LOGIN -->
+<div id="loginPage" class="card">
 
-    <div class="card">
+<h2>👤 User Login</h2>
 
-        <h2>স্বাগতম 👋</h2>
+<input id="loginPhone"
+       placeholder="মোবাইল নম্বর">
 
-        <div class="subtitle">
-            BD Earn Hub-এ অ্যাকাউন্ট তৈরি করুন
-        </div>
+<input id="loginName"
+       placeholder="আপনার নাম">
 
-        <div class="tabs">
+<button class="green" onclick="loginUser()">
+  Login / Create Account
+</button>
 
-            <button
-                id="loginTab"
-                class="active"
-                onclick="showLogin()">
-                Login
-            </button>
+<hr>
 
-            <button
-                id="registerTab"
-                onclick="showRegister()">
-                Registration
-            </button>
-
-        </div>
-
-
-        <!-- LOGIN -->
-        <div id="loginForm" class="form active">
-
-            <label>ইমেইল অথবা মোবাইল নাম্বার</label>
-
-            <input
-                id="loginUser"
-                type="text"
-                placeholder="Email / Mobile Number"
-            >
-
-            <label>পাসওয়ার্ড</label>
-
-            <input
-                id="loginPassword"
-                type="password"
-                placeholder="Password"
-            >
-
-            <button
-                class="main-btn"
-                onclick="login()">
-                🔐 Login
-            </button>
-
-            <div id="loginMessage"></div>
-
-        </div>
-
-
-        <!-- REGISTRATION -->
-        <div id="registerForm" class="form">
-
-            <label>আপনার নাম</label>
-
-            <input
-                id="regName"
-                type="text"
-                placeholder="পূর্ণ নাম"
-            >
-
-            <label>মোবাইল নাম্বার</label>
-
-            <input
-                id="regPhone"
-                type="tel"
-                placeholder="01XXXXXXXXX"
-            >
-
-            <label>ইমেইল</label>
-
-            <input
-                id="regEmail"
-                type="email"
-                placeholder="example@gmail.com"
-            >
-
-            <label>পাসওয়ার্ড</label>
-
-            <input
-                id="regPassword"
-                type="password"
-                placeholder="Password"
-            >
-
-            <label>সেম পাসওয়ার্ড</label>
-
-            <input
-                id="regConfirm"
-                type="password"
-                placeholder="Confirm Password"
-            >
-
-            <button
-                class="main-btn"
-                onclick="register()">
-                🚀 Create Account
-            </button>
-
-            <div id="registerMessage"></div>
-
-        </div>
-
-    </div>
+<button class="gray" onclick="showAdminLogin()">
+  🔐 Admin Panel
+</button>
 
 </div>
 
 
-<!-- DASHBOARD -->
-<div id="dashboard" class="container dashboard">
+<!-- USER PANEL -->
+<div id="userPanel" class="hidden">
 
-    <div class="card">
+<div class="card">
 
-        <div class="profile">
+<h2>👤 My Account</h2>
 
-            <div id="avatar" class="avatar">
-                U
-            </div>
+<div class="info">
+নাম:
+<b id="userName"></b>
+</div>
 
-            <h2 id="userName">
-                User
-            </h2>
+<div class="info">
+মোবাইল:
+<b id="userPhone"></b>
+</div>
 
-            <p id="userPhone"></p>
+<div class="info">
+Balance:
+<b id="userBalance">৳0</b>
+</div>
 
-        </div>
+<div class="info">
+Status:
+<span id="userStatus" class="badge active">
+Active
+</span>
+</div>
 
-
-        <div class="balance">
-
-            <small>Available Balance</small>
-
-            <strong>৳0.00</strong>
-
-        </div>
-
-
-        <div class="menu">
-
-            <button onclick="alert('Daily Job শীঘ্রই আসছে')">
-                💼 Daily Job
-            </button>
-
-            <button onclick="alert('Recharge শীঘ্রই আসছে')">
-                📱 Recharge
-            </button>
-
-            <button onclick="alert('Withdraw শীঘ্রই আসছে')">
-                💸 Withdraw
-            </button>
-
-            <button onclick="alert('Refer & Earn শীঘ্রই আসছে')">
-                🎁 Refer & Earn
-            </button>
-
-        </div>
-
-
-        <!-- ACTIVATION -->
-        <div class="activation">
-
-            <h3>
-                🔴 Account Activation
-            </h3>
-
-            <p style="text-align:center;">
-                অ্যাকাউন্ট চালু করতে Send Money করুন
-            </p>
-
-            <div class="amount">
-                ৳30
-            </div>
-
-            <p style="text-align:center;">
-                Nagad Send Money
-            </p>
-
-            <div class="number">
-                01865501991
-            </div>
-
-            <button
-                class="copy"
-                onclick="copyNumber()">
-                📋 নম্বর কপি করুন
-            </button>
-
-            <label>
-                Nagad TrxID
-            </label>
-
-            <input
-                id="trxid"
-                type="text"
-                placeholder="আপনার Transaction ID"
-            >
-
-            <button
-                class="main-btn"
-                onclick="submitActivation()">
-                ✅ Active Now
-            </button>
-
-            <div
-                id="activationMessage"
-                style="text-align:center;margin-top:12px;">
-            </div>
-
-        </div>
-
-
-        <button
-            class="logout"
-            onclick="logout()">
-            🚪 Logout
-        </button>
-
-    </div>
+<button class="gray" onclick="logoutUser()">
+🚪 Logout
+</button>
 
 </div>
 
 
-<div class="footer">
-    © 2026 BD Earn Hub. All Rights Reserved.
+<!-- TASKS -->
+<div class="card">
+
+<h2>📋 Available Tasks</h2>
+
+<div id="userTasks"></div>
+
+</div>
+
+
+<!-- SUBMISSIONS -->
+<div class="card">
+
+<h2>📤 My Submissions</h2>
+
+<div id="mySubmissions"></div>
+
+</div>
+
+
+<!-- WITHDRAW -->
+<div class="card">
+
+<h2>💸 Withdraw</h2>
+
+<input id="withdrawAmount"
+       type="number"
+       placeholder="Amount">
+
+<select id="withdrawMethod">
+
+<option value="bKash">bKash</option>
+<option value="Nagad">Nagad</option>
+<option value="Rocket">Rocket</option>
+
+</select>
+
+<input id="withdrawNumber"
+       placeholder="Payment Number">
+
+<button class="green"
+        onclick="submitWithdraw()">
+Submit Withdraw Request
+</button>
+
+</div>
+
+
+<!-- TRANSACTION -->
+<div class="card">
+
+<h2>🧾 Transaction ID</h2>
+
+<input id="trxAmount"
+       type="number"
+       placeholder="Amount">
+
+<input id="trxId"
+       placeholder="Transaction ID">
+
+<button class="green"
+        onclick="submitTransaction()">
+Submit Transaction
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN LOGIN -->
+<div id="adminLogin" class="hidden card">
+
+<h2>🔐 Admin Login</h2>
+
+<input id="adminUser"
+       placeholder="Admin Username">
+
+<input id="adminPass"
+       type="password"
+       placeholder="Admin Password">
+
+<button class="green"
+        onclick="adminLogin()">
+Login
+</button>
+
+<button class="gray"
+        onclick="backToUserLogin()">
+Back
+</button>
+
+<p class="small">
+Demo login: admin / admin123
+</p>
+
+</div>
+
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="hidden">
+
+<div class="card">
+
+<h2>📊 Admin Dashboard</h2>
+
+<div class="info">
+Total Users:
+<b id="totalUsers">0</b>
+</div>
+
+<div class="info">
+Active Users:
+<b id="activeUsers">0</b>
+</div>
+
+<div class="info">
+Total Balance:
+<b id="totalBalance">৳0</b>
+</div>
+
+<div class="info">
+Pending Tasks:
+<b id="pendingTasks">0</b>
+</div>
+
+<div class="info">
+Pending Withdraw:
+<b id="pendingWithdraw">0</b>
+</div>
+
+<div class="info">
+Pending Transactions:
+<b id="pendingTransactions">0</b>
+</div>
+
+</div>
+
+
+<!-- TASK ADMIN -->
+<div class="card">
+
+<h2>📋 Task Management</h2>
+
+<input id="newTaskTitle"
+       placeholder="Task Name">
+
+<input id="newTaskReward"
+       type="number"
+       placeholder="Reward">
+
+<textarea id="newTaskDescription"
+          placeholder="Task Description"></textarea>
+
+<button class="green"
+        onclick="adminAddTask()">
+➕ Create Task
+</button>
+
+<div id="adminTasks"></div>
+
+</div>
+
+
+<!-- USER ADMIN -->
+<div class="card">
+
+<h2>👥 User Management</h2>
+
+<div id="adminUsers"></div>
+
+</div>
+
+
+<!-- SUBMISSION ADMIN -->
+<div class="card">
+
+<h2>📤 Task Submissions</h2>
+
+<div id="adminSubmissions"></div>
+
+</div>
+
+
+<!-- WITHDRAW ADMIN -->
+<div class="card">
+
+<h2>💸 Withdraw Requests</h2>
+
+<div id="adminWithdraws"></div>
+
+</div>
+
+
+<!-- TRANSACTION ADMIN -->
+<div class="card">
+
+<h2>🧾 Transaction Verification</h2>
+
+<div id="adminTransactions"></div>
+
+</div>
+
+
+<button class="red"
+        onclick="adminLogout()">
+🚪 Admin Logout
+</button>
+
+</div>
+
 </div>
 
 
 <script>
 
 /* =========================
-   SHOW LOGIN
+   DATABASE
 ========================= */
 
-function showLogin(){
+let users =
+JSON.parse(localStorage.getItem("bd_users")) || [];
 
-    document.getElementById("loginForm")
-        .classList.add("active");
+let tasks =
+JSON.parse(localStorage.getItem("bd_tasks")) || [];
 
-    document.getElementById("registerForm")
-        .classList.remove("active");
+let submissions =
+JSON.parse(localStorage.getItem("bd_submissions")) || [];
 
-    document.getElementById("loginTab")
-        .classList.add("active");
+let withdraws =
+JSON.parse(localStorage.getItem("bd_withdraws")) || [];
 
-    document.getElementById("registerTab")
-        .classList.remove("active");
-}
+let transactions =
+JSON.parse(localStorage.getItem("bd_transactions")) || [];
+
+let currentUser =
+localStorage.getItem("bd_current_user");
 
 
 /* =========================
-   SHOW REGISTER
+   SAVE
 ========================= */
 
-function showRegister(){
+function save(){
 
-    document.getElementById("registerForm")
-        .classList.add("active");
+localStorage.setItem(
+"bd_users",
+JSON.stringify(users)
+);
 
-    document.getElementById("loginForm")
-        .classList.remove("active");
+localStorage.setItem(
+"bd_tasks",
+JSON.stringify(tasks)
+);
 
-    document.getElementById("registerTab")
-        .classList.add("active");
+localStorage.setItem(
+"bd_submissions",
+JSON.stringify(submissions)
+);
 
-    document.getElementById("loginTab")
-        .classList.remove("active");
-}
+localStorage.setItem(
+"bd_withdraws",
+JSON.stringify(withdraws)
+);
 
+localStorage.setItem(
+"bd_transactions",
+JSON.stringify(transactions)
+);
 
-/* =========================
-   REGISTER
-========================= */
-
-function register(){
-
-    const name =
-        document.getElementById("regName").value.trim();
-
-    const phone =
-        document.getElementById("regPhone").value.trim();
-
-    const email =
-        document.getElementById("regEmail").value.trim();
-
-    const password =
-        document.getElementById("regPassword").value;
-
-    const confirm =
-        document.getElementById("regConfirm").value;
-
-    const message =
-        document.getElementById("registerMessage");
-
-
-    if(!name || !phone || !email ||
-       !password || !confirm){
-
-        message.className = "error";
-        message.innerText =
-            "সবগুলো তথ্য পূরণ করুন।";
-
-        return;
-    }
-
-
-    if(password.length < 6){
-
-        message.className = "error";
-        message.innerText =
-            "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।";
-
-        return;
-    }
-
-
-    if(password !== confirm){
-
-        message.className = "error";
-        message.innerText =
-            "দুইটি পাসওয়ার্ড একই নয়।";
-
-        return;
-    }
-
-
-    const oldUser =
-        JSON.parse(localStorage.getItem("bdEarnUser") || "null");
-
-
-    if(oldUser &&
-       (oldUser.email === email ||
-        oldUser.phone === phone)){
-
-        message.className = "error";
-        message.innerText =
-            "এই Email অথবা Mobile আগে থেকেই ব্যবহার করা হয়েছে।";
-
-        return;
-    }
-
-
-    const user = {
-
-        name:name,
-        phone:phone,
-        email:email,
-        password:password,
-        active:false,
-        trxid:""
-
-    };
-
-
-    localStorage.setItem(
-        "bdEarnUser",
-        JSON.stringify(user)
-    );
-
-
-    message.className = "success";
-    message.innerText =
-        "Registration সফল হয়েছে। এখন Login করুন।";
-
-
-    document.getElementById("regName").value="";
-    document.getElementById("regPhone").value="";
-    document.getElementById("regEmail").value="";
-    document.getElementById("regPassword").value="";
-    document.getElementById("regConfirm").value="";
-
-
-    setTimeout(function(){
-
-        showLogin();
-
-    },1200);
 }
 
 
@@ -646,85 +504,1154 @@ function register(){
    LOGIN
 ========================= */
 
-function login(){
+function loginUser(){
 
-    const username =
-        document.getElementById("loginUser").value.trim();
+let phone =
+document.getElementById("loginPhone")
+.value.trim();
 
-    const password =
-        document.getElementById("loginPassword").value;
+let name =
+document.getElementById("loginName")
+.value.trim();
 
-    const message =
-        document.getElementById("loginMessage");
+if(!phone || !name){
+
+alert("নাম এবং মোবাইল নম্বর দিন।");
+return;
+
+}
+
+let user =
+users.find(u=>u.phone===phone);
+
+if(!user){
+
+user={
+id:Date.now(),
+name:name,
+phone:phone,
+balance:0,
+status:"Active"
+};
+
+users.push(user);
+
+}
+
+currentUser=user.id;
+
+localStorage.setItem(
+"bd_current_user",
+user.id
+);
+
+save();
+
+showUserPanel();
+
+}
 
 
-    const user =
-        JSON.parse(localStorage.getItem("bdEarnUser") || "null");
+function showUserPanel(){
+
+document.getElementById("loginPage")
+.classList.add("hidden");
+
+document.getElementById("adminLogin")
+.classList.add("hidden");
+
+document.getElementById("userPanel")
+.classList.remove("hidden");
+
+renderUser();
+
+}
 
 
-    if(!user){
+function renderUser(){
 
-        message.className = "error";
-        message.innerText =
-            "কোনো অ্যাকাউন্ট পাওয়া যায়নি। আগে Registration করুন।";
+let user=
+users.find(u=>u.id==currentUser);
 
-        return;
-    }
+if(!user) return;
 
+document.getElementById("userName")
+.innerText=user.name;
 
-    if(
-        (username === user.email ||
-         username === user.phone)
-        &&
-        password === user.password
-    ){
+document.getElementById("userPhone")
+.innerText=user.phone;
 
-        localStorage.setItem(
-            "bdEarnLoggedIn",
-            "true"
-        );
+document.getElementById("userBalance")
+.innerText=
+"৳"+Number(user.balance).toFixed(2);
 
-        showDashboard();
+let status=
+document.getElementById("userStatus");
 
-    }else{
+status.innerText=user.status;
 
-        message.className = "error";
-        message.innerText =
-            "Email/Mobile অথবা Password ভুল।";
+status.className=
+"userStatus badge "+
+(user.status==="Active"
+?"active"
+:"rejected");
 
-    }
+renderUserTasks();
+renderMySubmissions();
+
 }
 
 
 /* =========================
-   SHOW DASHBOARD
+   TASKS
 ========================= */
 
-function showDashboard(){
+function renderUserTasks(){
 
-    const user =
-        JSON.parse(localStorage.getItem("bdEarnUser") || "null");
+let box=
+document.getElementById("userTasks");
 
-    if(!user) return;
+box.innerHTML="";
+
+let activeTasks=
+tasks.filter(t=>t.status==="Active");
+
+if(activeTasks.length===0){
+
+box.innerHTML=
+"<p class='small'>এখন কোনো Task নেই।</p>";
+
+return;
+
+}
+
+activeTasks.forEach(task=>{
+
+let already=
+submissions.find(
+s=>s.taskId===task.id &&
+s.userId==currentUser
+);
+
+box.innerHTML+=`
+
+<div class="task">
+
+<h3>📋 ${escapeHTML(task.title)}</h3>
+
+<p>
+💰 Reward:
+<b>৳${task.reward}</b>
+</p>
+
+<p class="small">
+${escapeHTML(task.description)}
+</p>
+
+${
+already
+?
+`<span class="badge ${already.status==="Approved"?"active":already.status==="Rejected"?"rejected":"pending"}">
+${already.status}
+</span>`
+:
+`
+<textarea
+id="proof_${task.id}"
+placeholder="Task সম্পন্ন করার প্রমাণ/তথ্য লিখুন">
+</textarea>
+
+<button
+class="green"
+onclick="submitTask(${task.id})">
+📤 Task Submit
+</button>
+`
+}
+
+</div>
+
+`;
+
+});
+
+}
 
 
-    document.getElementById("authSection")
-        .style.display = "none";
+function submitTask(taskId){
 
-    document.getElementById("dashboard")
-        .style.display = "block";
+let user=
+users.find(u=>u.id==currentUser);
+
+if(!user || user.status!=="Active"){
+
+alert("আপনার Account Active নয়।");
+return;
+
+}
+
+let proof=
+document.getElementById(
+"proof_"+taskId
+).value.trim();
+
+if(!proof){
+
+alert("Task-এর প্রমাণ লিখুন।");
+return;
+
+}
+
+let exists=
+submissions.find(
+s=>s.taskId===taskId &&
+s.userId==currentUser
+);
+
+if(exists){
+
+alert("এই Task ইতিমধ্যে Submit করা হয়েছে।");
+return;
+
+}
+
+submissions.push({
+
+id:Date.now(),
+
+taskId:taskId,
+
+userId:user.id,
+
+userName:user.name,
+
+proof:proof,
+
+status:"Pending",
+
+rewardGiven:false
+
+});
+
+save();
+
+renderUserTasks();
+renderMySubmissions();
+
+alert("Task Submit হয়েছে। Admin Review করবে।");
+
+}
 
 
-    document.getElementById("userName")
-        .innerText = user.name;
+function renderMySubmissions(){
 
-    document.getElementById("userPhone")
-        .innerText = user.phone;
+let box=
+document.getElementById("mySubmissions");
+
+box.innerHTML="";
+
+let mine=
+submissions.filter(
+s=>s.userId==currentUser
+);
+
+if(mine.length===0){
+
+box.innerHTML=
+"<p class='small'>কোনো Submission নেই।</p>";
+
+return;
+
+}
+
+mine.forEach(s=>{
+
+let task=
+tasks.find(t=>t.id===s.taskId);
+
+box.innerHTML+=`
+
+<div class="request">
+
+<b>
+${escapeHTML(task ? task.title : "Task")}
+</b>
+
+<div>
+Status:
+<span class="badge ${
+s.status==="Approved"
+?"active"
+:s.status==="Rejected"
+?"rejected"
+:"pending"
+}">
+${s.status}
+</span>
+</div>
+
+<div class="small">
+${escapeHTML(s.proof)}
+</div>
+
+</div>
+
+`;
+
+});
+
+}
 
 
-    document.getElementById("avatar")
-        .innerText =
-        user.name.charAt(0).toUpperCase();
+/* =========================
+   WITHDRAW
+========================= */
+
+function submitWithdraw(){
+
+let user=
+users.find(u=>u.id==currentUser);
+
+if(!user || user.status!=="Active"){
+
+alert("Account Active নয়।");
+return;
+
+}
+
+let amount=
+Number(
+document.getElementById("withdrawAmount").value
+);
+
+let method=
+document.getElementById("withdrawMethod").value;
+
+let number=
+document.getElementById("withdrawNumber")
+.value.trim();
+
+if(!amount || amount<=0 || !number){
+
+alert("সঠিক তথ্য দিন।");
+return;
+
+}
+
+if(amount>user.balance){
+
+alert("আপনার Balance যথেষ্ট নয়।");
+return;
+
+}
+
+withdraws.push({
+
+id:Date.now(),
+
+userId:user.id,
+
+user:user.name,
+
+amount:amount,
+
+method:method,
+
+number:number,
+
+status:"Pending"
+
+});
+
+save();
+
+document.getElementById("withdrawAmount").value="";
+document.getElementById("withdrawNumber").value="";
+
+alert("Withdraw Request জমা হয়েছে।");
+
+}
+
+
+/* =========================
+   TRANSACTION
+========================= */
+
+function submitTransaction(){
+
+let user=
+users.find(u=>u.id==currentUser);
+
+if(!user){
+
+alert("Login করুন।");
+return;
+
+}
+
+let amount=
+Number(
+document.getElementById("trxAmount").value
+);
+
+let trx=
+document.getElementById("trxId")
+.value.trim();
+
+if(!amount || !trx){
+
+alert("Amount এবং Transaction ID দিন।");
+return;
+
+}
+
+transactions.push({
+
+id:Date.now(),
+
+userId:user.id,
+
+user:user.name,
+
+amount:amount,
+
+trxid:trx,
+
+status:"Pending"
+
+});
+
+save();
+
+document.getElementById("trxAmount").value="";
+document.getElementById("trxId").value="";
+
+alert("Transaction ID জমা হয়েছে। Admin Review করবে।");
+
+}
+
+
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+function showAdminLogin(){
+
+document.getElementById("loginPage")
+.classList.add("hidden");
+
+document.getElementById("adminLogin")
+.classList.remove("hidden");
+
+}
+
+
+function adminLogin(){
+
+let username=
+document.getElementById("adminUser").value;
+
+let password=
+document.getElementById("adminPass").value;
+
+if(username!=="admin" ||
+password!=="admin123"){
+
+alert("Username অথবা Password ভুল।");
+return;
+
+}
+
+document.getElementById("adminLogin")
+.classList.add("hidden");
+
+document.getElementById("adminPanel")
+.classList.remove("hidden");
+
+renderAdmin();
+
+}
+
+
+/* =========================
+   ADMIN DASHBOARD
+========================= */
+
+function renderAdmin(){
+
+renderAdminUsers();
+renderAdminTasks();
+renderSubmissions();
+renderWithdraws();
+renderTransactions();
+updateDashboard();
+
+}
+
+
+function updateDashboard(){
+
+document.getElementById("totalUsers")
+.innerText=users.length;
+
+document.getElementById("activeUsers")
+.innerText=
+users.filter(
+u=>u.status==="Active"
+).length;
+
+document.getElementById("totalBalance")
+.innerText=
+"৳"+
+users.reduce(
+(a,u)=>a+Number(u.balance||0),
+0
+).toFixed(2);
+
+document.getElementById("pendingTasks")
+.innerText=
+submissions.filter(
+s=>s.status==="Pending"
+).length;
+
+document.getElementById("pendingWithdraw")
+.innerText=
+withdraws.filter(
+w=>w.status==="Pending"
+).length;
+
+document.getElementById("pendingTransactions")
+.innerText=
+transactions.filter(
+t=>t.status==="Pending"
+).length;
+
+}
+
+
+/* =========================
+   ADMIN TASK
+========================= */
+
+function adminAddTask(){
+
+let title=
+document.getElementById("newTaskTitle")
+.value.trim();
+
+let reward=
+Number(
+document.getElementById("newTaskReward")
+.value
+);
+
+let description=
+document.getElementById("newTaskDescription")
+.value.trim();
+
+if(!title || !reward){
+
+alert("Task Name এবং Reward দিন।");
+return;
+
+}
+
+tasks.push({
+
+id:Date.now(),
+
+title:title,
+
+reward:reward,
+
+description:description,
+
+status:"Active"
+
+});
+
+save();
+
+document.getElementById("newTaskTitle").value="";
+document.getElementById("newTaskReward").value="";
+document.getElementById("newTaskDescription").value="";
+
+renderAdminTasks();
+renderUserTasks();
+
+}
+
+
+function renderAdminTasks(){
+
+let box=
+document.getElementById("adminTasks");
+
+box.innerHTML="";
+
+tasks.forEach(t=>{
+
+box.innerHTML+=`
+
+<div class="task">
+
+<b>${escapeHTML(t.title)}</b>
+
+<div>
+Reward: ৳${t.reward}
+</div>
+
+<div>
+Status:
+<span class="badge ${
+t.status==="Active"
+?"active"
+:"rejected"
+}">
+${t.status}
+</span>
+</div>
+
+<button
+class="yellow"
+onclick="toggleTask(${t.id})">
+🔄 Active / বন্ধ
+</button>
+
+<button
+class="red"
+onclick="deleteTask(${t.id})">
+🗑️ Delete
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function toggleTask(id){
+
+let task=
+tasks.find(t=>t.id===id);
+
+if(!task)return;
+
+task.status=
+task.status==="Active"
+?"Inactive"
+:"Active";
+
+save();
+
+renderAdminTasks();
+renderUserTasks();
+
+}
+
+
+function deleteTask(id){
+
+if(!confirm("Task Delete করবেন?"))
+return;
+
+tasks=
+tasks.filter(t=>t.id!==id);
+
+save();
+
+renderAdminTasks();
+renderUserTasks();
+
+}
+
+
+/* =========================
+   ADMIN USERS
+========================= */
+
+function renderAdminUsers(){
+
+let box=
+document.getElementById("adminUsers");
+
+box.innerHTML="";
+
+users.forEach(u=>{
+
+box.innerHTML+=`
+
+<div class="user">
+
+<b>👤 ${escapeHTML(u.name)}</b>
+
+<div>
+📱 ${escapeHTML(u.phone)}
+</div>
+
+<div>
+💰 Balance:
+<b>৳${u.balance}</b>
+</div>
+
+<div>
+Status:
+<span class="badge ${
+u.status==="Active"
+?"active"
+:"rejected"
+}">
+${u.status}
+</span>
+</div>
+
+<button
+class="green"
+onclick="setUserStatus(${u.id},'Active')">
+🟢 Active
+</button>
+
+<button
+class="red"
+onclick="setUserStatus(${u.id},'Inactive')">
+🔴 Inactive
+</button>
+
+<button
+class="blue"
+onclick="changeBalance(${u.id})">
+💰 Balance Change
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function setUserStatus(id,status){
+
+let user=
+users.find(u=>u.id===id);
+
+if(!user)return;
+
+user.status=status;
+
+save();
+
+renderAdmin();
+
+}
+
+
+function changeBalance(id){
+
+let user=
+users.find(u=>u.id===id);
+
+if(!user)return;
+
+let amount=
+prompt(
+"নতুন Balance লিখুন:",
+user.balance
+);
+
+amount=Number(amount);
+
+if(isNaN(amount) || amount<0){
+
+alert("সঠিক Balance দিন।");
+return;
+
+}
+
+user.balance=amount;
+
+save();
+
+renderAdmin();
+
+}
+
+
+/* =========================
+   SUBMISSIONS
+========================= */
+
+function renderSubmissions(){
+
+let box=
+document.getElementById("adminSubmissions");
+
+box.innerHTML="";
+
+if(submissions.length===0){
+
+box.innerHTML=
+"<p class='small'>কোনো Submission নেই।</p>";
+
+return;
+
+}
+
+submissions.forEach(s=>{
+
+let task=
+tasks.find(t=>t.id===s.taskId);
+
+box.innerHTML+=`
+
+<div class="request">
+
+<b>📋 ${
+escapeHTML(
+task ? task.title : "Unknown Task"
+)
+}</b>
+
+<div>
+👤 ${escapeHTML(s.userName)}
+</div>
+
+<div>
+Proof:
+${escapeHTML(s.proof)}
+</div>
+
+<div>
+Status:
+<span class="badge ${
+s.status==="Approved"
+?"active"
+:s.status==="Rejected"
+?"rejected"
+:"pending"
+}">
+${s.status}
+</span>
+</div>
+
+${
+s.status==="Pending"
+?
+`
+
+<button
+class="green"
+onclick="approveSubmission(${s.id})">
+✅ Approve + Reward
+</button>
+
+<button
+class="red"
+onclick="rejectSubmission(${s.id})">
+❌ Reject
+</button>
+
+`
+:""
+}
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function approveSubmission(id){
+
+let sub=
+submissions.find(s=>s.id===id);
+
+if(!sub || sub.status!=="Pending")
+return;
+
+let task=
+tasks.find(t=>t.id===sub.taskId);
+
+let user=
+users.find(u=>u.id===sub.userId);
+
+if(!task || !user)return;
+
+sub.status="Approved";
+
+if(!sub.rewardGiven){
+
+user.balance=
+Number(user.balance||0)+
+Number(task.reward||0);
+
+sub.rewardGiven=true;
+
+}
+
+save();
+
+renderAdmin();
+
+}
+
+
+function rejectSubmission(id){
+
+let sub=
+submissions.find(s=>s.id===id);
+
+if(!sub)return;
+
+sub.status="Rejected";
+
+save();
+
+renderAdmin();
+
+}
+
+
+/* =========================
+   WITHDRAW ADMIN
+========================= */
+
+function renderWithdraws(){
+
+let box=
+document.getElementById("adminWithdraws");
+
+box.innerHTML="";
+
+withdraws.forEach(w=>{
+
+box.innerHTML+=`
+
+<div class="request">
+
+<b>💸 Withdraw Request</b>
+
+<div>
+👤 ${escapeHTML(w.user)}
+</div>
+
+<div>
+Amount:
+<b>৳${w.amount}</b>
+</div>
+
+<div>
+Method:
+${escapeHTML(w.method)}
+</div>
+
+<div>
+Number:
+${escapeHTML(w.number)}
+</div>
+
+<div>
+Status:
+<span class="badge ${
+w.status==="Approved"
+?"active"
+:w.status==="Rejected"
+?"rejected"
+:"pending"
+}">
+${w.status}
+</span>
+</div>
+
+${
+w.status==="Pending"
+?
+`
+
+<button
+class="green"
+onclick="approveWithdraw(${w.id})">
+✅ Approve
+</button>
+
+<button
+class="red"
+onclick="rejectWithdraw(${w.id})">
+❌ Reject
+</button>
+
+`
+:""
+}
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function approveWithdraw(id){
+
+let w=
+withdraws.find(x=>x.id===id);
+
+if(!w)return;
+
+let user=
+users.find(u=>u.id===w.userId);
+
+if(!user)return;
+
+if(user.balance<w.amount){
+
+alert("User-এর Balance যথেষ্ট নয়।");
+return;
+
+}
+
+user.balance-=Number(w.amount);
+
+w.status="Approved";
+
+save();
+
+renderAdmin();
+
+}
+
+
+function rejectWithdraw(id){
+
+let w=
+withdraws.find(x=>x.id===id);
+
+if(!w)return;
+
+w.status="Rejected";
+
+save();
+
+renderAdmin();
+
+}
+
+
+/* =========================
+   TRANSACTION ADMIN
+========================= */
+
+function renderTransactions(){
+
+let box=
+document.getElementById("adminTransactions");
+
+box.innerHTML="";
+
+transactions.forEach(t=>{
+
+box.innerHTML+=`
+
+<div class="request">
+
+<b>🧾 Transaction</b>
+
+<div>
+👤 ${escapeHTML(t.user)}
+</div>
+
+<div>
+💰 Amount:
+৳${t.amount}
+</div>
+
+<div>
+🔢 TrxID:
+<b>${escapeHTML(t.trxid)}</b>
+</div>
+
+<div>
+Status:
+<span class="badge ${
+t.status==="Verified"
+?"active"
+:t.status==="Rejected"
+?"rejected"
+:"pending"
+}">
+${t.status}
+</span>
+</div>
+
+${
+t.status==="Pending"
+?
+`
+
+<button
+class="green"
+onclick="verifyTransaction(${t.id})">
+✅ Verify
+</button>
+
+<button
+class="red"
+onclick="rejectTransaction(${t.id})">
+❌ Reject
+</button>
+
+`
+:""
+}
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function verifyTransaction(id){
+
+let t=
+transactions.find(x=>x.id===id);
+
+if(!t)return;
+
+t.status="Verified";
+
+save();
+
+renderAdmin();
+
+}
+
+
+function rejectTransaction(id){
+
+let t=
+transactions.find(x=>x.id===id);
+
+if(!t)return;
+
+t.status="Rejected";
+
+save();
+
+renderAdmin();
+
 }
 
 
@@ -732,100 +1659,44 @@ function showDashboard(){
    LOGOUT
 ========================= */
 
-function logout(){
+function logoutUser(){
 
-    localStorage.removeItem("bdEarnLoggedIn");
+localStorage.removeItem(
+"bd_current_user"
+);
 
-    document.getElementById("dashboard")
-        .style.display = "none";
+location.reload();
 
-    document.getElementById("authSection")
-        .style.display = "block";
+}
 
-    document.getElementById("loginUser").value="";
-    document.getElementById("loginPassword").value="";
 
-    showLogin();
+function adminLogout(){
+
+location.reload();
+
+}
+
+
+function backToUserLogin(){
+
+location.reload();
+
 }
 
 
 /* =========================
-   COPY NAGAD NUMBER
+   ESCAPE HTML
 ========================= */
 
-function copyNumber(){
+function escapeHTML(text){
 
-    const number =
-        "01865501991";
+return String(text ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
-    navigator.clipboard.writeText(number)
-    .then(function(){
-
-        alert(
-            "Nagad নম্বর কপি হয়েছে: " +
-            number
-        );
-
-    })
-    .catch(function(){
-
-        alert(
-            "Nagad নম্বর: " +
-            number
-        );
-
-    });
-}
-
-
-/* =========================
-   ACTIVATION
-========================= */
-
-function submitActivation(){
-
-    const trxid =
-        document.getElementById("trxid")
-        .value.trim();
-
-    const message =
-        document.getElementById("activationMessage");
-
-
-    if(!trxid){
-
-        message.style.color="#d00000";
-
-        message.innerText =
-            "দয়া করে TrxID লিখুন।";
-
-        return;
-    }
-
-
-    const user =
-        JSON.parse(
-            localStorage.getItem("bdEarnUser")
-            || "null"
-        );
-
-
-    if(user){
-
-        user.trxid = trxid;
-
-        localStorage.setItem(
-            "bdEarnUser",
-            JSON.stringify(user)
-        );
-
-    }
-
-
-    message.style.color="#087b18";
-
-    message.innerText =
-        "TrxID জমা হয়েছে। পেমেন্ট যাচাইয়ের পর অ্যাকাউন্ট Active হবে।";
 }
 
 
@@ -833,37 +1704,13 @@ function submitActivation(){
    AUTO LOGIN
 ========================= */
 
-window.onload = function(){
+if(currentUser){
 
-    const loggedIn =
-        localStorage.getItem("bdEarnLoggedIn");
+showUserPanel();
 
-    const user =
-        localStorage.getItem("bdEarnUser");
-
-
-    if(loggedIn === "true" && user){
-
-        showDashboard();
-
-    }else{
-
-        document.getElementById("authSection")
-            .style.display = "block";
-
-        document.getElementById("dashboard")
-            .style.display = "none";
-
-    }
-};
+}
 
 </script>
-<!-- ADMIN PANEL -->
-<div style="text-align:center;margin:20px;">
-  <a href="admin.html"
-     style="color:#087b18;font-weight:bold;text-decoration:none;">
-    🔐 Admin Panel
-  </a>
-</div>
+
 </body>
 </html>
