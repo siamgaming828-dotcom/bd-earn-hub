@@ -2,7 +2,8 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>BD Earn Hub - Admin Panel</title>
 
 <style>
@@ -24,44 +25,100 @@ body{
   color:white;
   padding:18px;
   text-align:center;
-  font-size:24px;
-  font-weight:bold;
+}
+
+.header h1{
+  font-size:25px;
+}
+
+.header p{
+  margin-top:5px;
+  font-size:14px;
 }
 
 .container{
   width:100%;
-  max-width:600px;
+  max-width:700px;
   margin:auto;
-  padding:20px;
+  padding:15px;
 }
 
 .card{
   background:white;
   border-radius:15px;
-  padding:20px;
+  padding:18px;
   margin-bottom:18px;
-  box-shadow:0 3px 12px rgba(0,0,0,.10);
+  box-shadow:0 3px 12px rgba(0,0,0,.12);
 }
 
 .card h2{
-  margin-bottom:15px;
   color:#087b18;
+  margin-bottom:15px;
+  font-size:21px;
 }
 
-.info{
+.stat{
   background:#f3f3f3;
   padding:14px;
   border-radius:10px;
   margin-bottom:10px;
+  font-size:17px;
+}
+
+.user{
+  background:#f5f5f5;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:12px;
+}
+
+.user div{
+  margin:6px 0;
+}
+
+.status{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:20px;
+  font-weight:bold;
+}
+
+.active{
+  background:#d9f7df;
+  color:#087b18;
+}
+
+.inactive{
+  background:#ffdcdc;
+  color:#c40000;
+}
+
+.pending{
+  background:#fff0bd;
+  color:#8a6500;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  margin:6px 0 10px;
+  font-size:15px;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
 }
 
 button{
   width:100%;
   border:0;
   border-radius:8px;
-  padding:13px;
-  margin-top:8px;
-  font-size:16px;
+  padding:12px;
+  margin-top:7px;
+  font-size:15px;
   font-weight:bold;
   cursor:pointer;
 }
@@ -81,27 +138,57 @@ button{
   color:white;
 }
 
-.status{
-  display:inline-block;
-  padding:5px 10px;
-  border-radius:20px;
-  background:#dff5e2;
-  color:#087b18;
-  font-weight:bold;
+.blue{
+  background:#1976d2;
+  color:white;
 }
 
-.warning{
-  background:#fff3cd;
-  color:#856404;
+.orange{
+  background:#ef8b00;
+  color:white;
+}
+
+.small-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.small-buttons button{
+  margin-top:0;
+}
+
+.notice{
+  background:#fff3c4;
+  color:#725600;
   padding:12px;
-  border-radius:8px;
+  border-radius:9px;
   margin-bottom:15px;
+  line-height:1.5;
 }
 
-.footer{
+.empty{
   text-align:center;
-  padding:20px;
   color:#777;
+  padding:15px;
+}
+
+.item{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:13px;
+  margin-bottom:10px;
+}
+
+.item h3{
+  margin-bottom:8px;
+  color:#087b18;
+}
+
+footer{
+  text-align:center;
+  color:#777;
+  padding:25px 10px;
 }
 </style>
 </head>
@@ -109,133 +196,734 @@ button{
 <body>
 
 <div class="header">
-  🔐 BD Earn Hub<br>
-  <small>Demo Admin Panel</small>
+  <h1>🔐 BD Earn Hub</h1>
+  <p>Admin Control Panel</p>
 </div>
 
 <div class="container">
 
+  <div class="notice">
+    ⚠️ এটি Admin Control Panel। এখান থেকে User, Task, Withdraw এবং Transaction Request পরিচালনা করা যাবে।
+  </div>
+
+  <!-- DASHBOARD -->
   <div class="card">
     <h2>📊 Dashboard</h2>
 
-    <div class="info">
+    <div class="stat">
       👥 Total Users:
-      <strong id="totalUsers">0</strong>
+      <b id="totalUsers">0</b>
     </div>
 
-    <div class="info">
+    <div class="stat">
       🟢 Active Users:
-      <strong id="activeUsers">0</strong>
+      <b id="activeUsers">0</b>
     </div>
 
-    <div class="info">
-      ⚪ Inactive Users:
-      <strong id="inactiveUsers">0</strong>
+    <div class="stat">
+      🔴 Inactive Users:
+      <b id="inactiveUsers">0</b>
+    </div>
+
+    <div class="stat">
+      💰 Total Balance:
+      <b id="totalBalance">৳0.00</b>
+    </div>
+
+    <div class="stat">
+      💸 Pending Withdraw:
+      <b id="pendingWithdraw">0</b>
+    </div>
+
+    <div class="stat">
+      🧾 Pending Transaction:
+      <b id="pendingTransaction">0</b>
     </div>
   </div>
 
+  <!-- USERS -->
   <div class="card">
-    <h2>👤 Demo User</h2>
-
-    <div class="info">
-      <strong>নাম:</strong> MD Siam
-    </div>
-
-    <div class="info">
-      <strong>মোবাইল:</strong> 018XXXXXXXX
-    </div>
-
-    <div class="info">
-      <strong>অ্যাকাউন্ট:</strong>
-      <span class="status" id="userStatus">Active</span>
-    </div>
-
-    <button class="green" onclick="setActive()">
-      🟢 Active
-    </button>
-
-    <button class="red" onclick="setInactive()">
-      🔴 Inactive
-    </button>
+    <h2>👥 User Management</h2>
+    <div id="users"></div>
   </div>
 
+  <!-- TASK MANAGEMENT -->
+  <div class="card">
+    <h2>📋 Task Management</h2>
+
+    <label>Task Name</label>
+    <input id="taskName" placeholder="যেমন: ভিডিও দেখুন">
+
+    <label>Reward</label>
+    <input id="taskReward" type="number" placeholder="যেমন: 10">
+
+    <label>Task Link</label>
+    <input id="taskLink" placeholder="https://...">
+
+    <button class="green" onclick="addTask()">
+      ➕ Add Task
+    </button>
+
+    <div id="tasks" style="margin-top:15px;"></div>
+  </div>
+
+  <!-- WITHDRAW -->
+  <div class="card">
+    <h2>💸 Withdraw Requests</h2>
+    <div id="withdraws"></div>
+  </div>
+
+  <!-- TRANSACTION -->
+  <div class="card">
+    <h2>🧾 Transaction ID Management</h2>
+    <div id="transactions"></div>
+  </div>
+
+  <!-- ADMIN CONTROLS -->
   <div class="card">
     <h2>⚙️ Admin Controls</h2>
 
-    <div class="warning">
-      ⚠️ এটি শুধুমাত্র Demo/Test Admin Panel।
-      এখানে কোনো বাস্তব পেমেন্ট বা টাকা লেনদেন যাচাই করা হয় না।
-    </div>
-
-    <button class="gray" onclick="showMessage()">
+    <button class="gray" onclick="loadAll()">
       🔄 Refresh Data
     </button>
 
-    <button class="red" onclick="logoutAdmin()">
+    <button class="red" onclick="clearDemoData()">
+      🗑️ Clear Demo Data
+    </button>
+
+    <button class="red" onclick="logout()">
       🚪 Logout
     </button>
   </div>
 
 </div>
 
-<div class="footer">
-  © 2026 BD Earn Hub
-</div>
+<footer>
+  © 2026 BD Earn Hub — Admin Panel
+</footer>
 
 <script>
 
-let users = 1;
-let active = 1;
+/* =========================
+   DATA STORAGE
+========================= */
 
-function updateDashboard(){
+const USERS_KEY = "bdEarnUsers";
+const TASKS_KEY = "bdEarnTasks";
+const WITHDRAW_KEY = "bdEarnWithdraws";
+const TRANSACTION_KEY = "bdEarnTransactions";
 
-  document.getElementById("totalUsers").innerText = users;
 
-  document.getElementById("activeUsers").innerText = active;
-
-  document.getElementById("inactiveUsers").innerText =
-    users - active;
+function getData(key, fallback=[]){
+  try{
+    return JSON.parse(localStorage.getItem(key)) || fallback;
+  }catch(e){
+    return fallback;
+  }
 }
 
-function setActive(){
 
-  active = 1;
-
-  document.getElementById("userStatus").innerText =
-    "Active";
-
-  updateDashboard();
-
-  alert("Demo user Active করা হয়েছে।");
+function saveData(key,data){
+  localStorage.setItem(key,JSON.stringify(data));
 }
 
-function setInactive(){
 
-  active = 0;
+/* =========================
+   USERS
+========================= */
 
-  document.getElementById("userStatus").innerText =
-    "Inactive";
+function renderUsers(){
 
-  updateDashboard();
+  const users = getData(USERS_KEY);
 
-  alert("Demo user Inactive করা হয়েছে।");
+  const box = document.getElementById("users");
+
+  if(users.length === 0){
+    box.innerHTML =
+      '<div class="empty">কোনো User পাওয়া যায়নি।</div>';
+    return;
+  }
+
+  box.innerHTML = users.map((u,index)=>{
+
+    const name = u.name || "Unknown User";
+    const phone = u.phone || u.mobile || "Unknown";
+    const balance = Number(u.balance || 0);
+    const active = u.active !== false;
+
+    return `
+      <div class="user">
+
+        <div>👤 <b>${escapeHTML(name)}</b></div>
+
+        <div>📱 ${escapeHTML(phone)}</div>
+
+        <div>
+          💰 Balance:
+          <b>৳${balance.toFixed(2)}</b>
+        </div>
+
+        <div>
+          Account:
+          <span class="status ${active ? "active":"inactive"}">
+            ${active ? "Active":"Inactive"}
+          </span>
+        </div>
+
+        <div class="small-buttons">
+
+          <button
+            class="green"
+            onclick="setUserStatus(${index},true)">
+            🟢 Active
+          </button>
+
+          <button
+            class="red"
+            onclick="setUserStatus(${index},false)">
+            🔴 Inactive
+          </button>
+
+        </div>
+
+        <button
+          class="blue"
+          onclick="changeBalance(${index})">
+          💰 Change Balance
+        </button>
+
+        <button
+          class="red"
+          onclick="deleteUser(${index})">
+          🗑️ Delete User
+        </button>
+
+      </div>
+    `;
+
+  }).join("");
 }
 
-function showMessage(){
 
-  updateDashboard();
+function setUserStatus(index,status){
 
-  alert("Dashboard data refresh হয়েছে।");
+  const users = getData(USERS_KEY);
+
+  if(!users[index]) return;
+
+  users[index].active = status;
+
+  saveData(USERS_KEY,users);
+
+  loadAll();
+
+  alert(status ? "User Active করা হয়েছে।":"User Inactive করা হয়েছে।");
 }
 
-function logoutAdmin(){
 
-  alert("Demo Admin থেকে Logout করা হয়েছে।");
+function changeBalance(index){
 
-  window.location.href = "index.html";
+  const users = getData(USERS_KEY);
+
+  if(!users[index]) return;
+
+  const amount = prompt(
+    "নতুন Balance লিখুন:",
+    users[index].balance || 0
+  );
+
+  if(amount === null) return;
+
+  const value = Number(amount);
+
+  if(isNaN(value) || value < 0){
+    alert("সঠিক Amount দিন।");
+    return;
+  }
+
+  users[index].balance = value;
+
+  saveData(USERS_KEY,users);
+
+  loadAll();
+
+  alert("Balance পরিবর্তন হয়েছে।");
 }
 
-updateDashboard();
+
+function deleteUser(index){
+
+  if(!confirm("এই User Delete করতে চান?")) return;
+
+  const users = getData(USERS_KEY);
+
+  users.splice(index,1);
+
+  saveData(USERS_KEY,users);
+
+  loadAll();
+}
+
+
+/* =========================
+   TASK MANAGEMENT
+========================= */
+
+function addTask(){
+
+  const name =
+    document.getElementById("taskName").value.trim();
+
+  const reward =
+    Number(document.getElementById("taskReward").value);
+
+  const link =
+    document.getElementById("taskLink").value.trim();
+
+  if(!name || !reward){
+    alert("Task Name এবং Reward দিন।");
+    return;
+  }
+
+  const tasks = getData(TASKS_KEY);
+
+  tasks.push({
+    id:Date.now(),
+    name:name,
+    reward:reward,
+    link:link,
+    active:true
+  });
+
+  saveData(TASKS_KEY,tasks);
+
+  document.getElementById("taskName").value="";
+  document.getElementById("taskReward").value="";
+  document.getElementById("taskLink").value="";
+
+  renderTasks();
+
+  alert("Task যোগ হয়েছে।");
+}
+
+
+function renderTasks(){
+
+  const tasks = getData(TASKS_KEY);
+
+  const box = document.getElementById("tasks");
+
+  if(tasks.length === 0){
+    box.innerHTML =
+      '<div class="empty">কোনো Task নেই।</div>';
+    return;
+  }
+
+  box.innerHTML = tasks.map((t,index)=>`
+
+    <div class="item">
+
+      <h3>📋 ${escapeHTML(t.name)}</h3>
+
+      <div>💰 Reward: ৳${Number(t.reward||0).toFixed(2)}</div>
+
+      <div>
+        Status:
+        <span class="status ${t.active !== false ? "active":"inactive"}">
+          ${t.active !== false ? "Active":"Inactive"}
+        </span>
+      </div>
+
+      ${
+        t.link
+        ? `<div style="margin-top:5px;word-break:break-all;">
+             🔗 ${escapeHTML(t.link)}
+           </div>`
+        : ""
+      }
+
+      <div class="small-buttons">
+
+        <button
+          class="green"
+          onclick="taskStatus(${index},true)">
+          🟢 Active
+        </button>
+
+        <button
+          class="red"
+          onclick="taskStatus(${index},false)">
+          🔴 Off
+        </button>
+
+      </div>
+
+      <button
+        class="red"
+        onclick="deleteTask(${index})">
+        🗑️ Delete Task
+      </button>
+
+    </div>
+
+  `).join("");
+}
+
+
+function taskStatus(index,status){
+
+  const tasks = getData(TASKS_KEY);
+
+  if(!tasks[index]) return;
+
+  tasks[index].active = status;
+
+  saveData(TASKS_KEY,tasks);
+
+  renderTasks();
+}
+
+
+function deleteTask(index){
+
+  if(!confirm("Task Delete করবেন?")) return;
+
+  const tasks = getData(TASKS_KEY);
+
+  tasks.splice(index,1);
+
+  saveData(TASKS_KEY,tasks);
+
+  renderTasks();
+}
+
+
+/* =========================
+   WITHDRAW REQUESTS
+========================= */
+
+function renderWithdraws(){
+
+  const data = getData(WITHDRAW_KEY);
+
+  const box = document.getElementById("withdraws");
+
+  if(data.length === 0){
+    box.innerHTML =
+      '<div class="empty">কোনো Withdraw Request নেই।</div>';
+    return;
+  }
+
+  box.innerHTML = data.map((w,index)=>`
+
+    <div class="item">
+
+      <h3>💸 Withdraw Request #${index+1}</h3>
+
+      <div>👤 User: ${escapeHTML(w.name || w.phone || "Unknown")}</div>
+
+      <div>📱 Number: ${escapeHTML(w.phone || "-")}</div>
+
+      <div>💰 Amount: ৳${Number(w.amount||0).toFixed(2)}</div>
+
+      <div>
+        Status:
+        <span class="status pending">
+          ${escapeHTML(w.status || "Pending")}
+        </span>
+      </div>
+
+      <div class="small-buttons">
+
+        <button
+          class="green"
+          onclick="withdrawAction(${index},'Approved')">
+          ✅ Approve
+        </button>
+
+        <button
+          class="red"
+          onclick="withdrawAction(${index},'Rejected')">
+          ❌ Reject
+        </button>
+
+      </div>
+
+      <button
+        class="red"
+        onclick="deleteWithdraw(${index})">
+        🗑️ Delete
+      </button>
+
+    </div>
+
+  `).join("");
+}
+
+
+function withdrawAction(index,status){
+
+  const data = getData(WITHDRAW_KEY);
+
+  if(!data[index]) return;
+
+  data[index].status = status;
+
+  saveData(WITHDRAW_KEY,data);
+
+  renderWithdraws();
+  updateStats();
+
+  alert("Withdraw status: " + status);
+}
+
+
+function deleteWithdraw(index){
+
+  if(!confirm("Withdraw Request Delete করবেন?")) return;
+
+  const data = getData(WITHDRAW_KEY);
+
+  data.splice(index,1);
+
+  saveData(WITHDRAW_KEY,data);
+
+  renderWithdraws();
+  updateStats();
+}
+
+
+/* =========================
+   TRANSACTION IDS
+========================= */
+
+function renderTransactions(){
+
+  const data = getData(TRANSACTION_KEY);
+
+  const box = document.getElementById("transactions");
+
+  if(data.length === 0){
+    box.innerHTML =
+      '<div class="empty">কোনো Transaction Request নেই।</div>';
+    return;
+  }
+
+  box.innerHTML = data.map((t,index)=>`
+
+    <div class="item">
+
+      <h3>🧾 Transaction #${index+1}</h3>
+
+      <div>
+        👤 User:
+        ${escapeHTML(t.name || t.phone || "Unknown")}
+      </div>
+
+      <div>
+        📱 Number:
+        ${escapeHTML(t.phone || "-")}
+      </div>
+
+      <div>
+        🆔 Transaction ID:
+        <b>${escapeHTML(t.trxId || t.transactionId || "-")}</b>
+      </div>
+
+      <div>
+        💰 Amount:
+        ৳${Number(t.amount||0).toFixed(2)}
+      </div>
+
+      <div>
+        Status:
+        <span class="status pending">
+          ${escapeHTML(t.status || "Pending")}
+        </span>
+      </div>
+
+      <div class="small-buttons">
+
+        <button
+          class="green"
+          onclick="transactionAction(${index},'Active')">
+          🟢 Active
+        </button>
+
+        <button
+          class="red"
+          onclick="transactionAction(${index},'Rejected')">
+          ❌ Reject
+        </button>
+
+      </div>
+
+      <button
+        class="red"
+        onclick="deleteTransaction(${index})">
+        🗑️ Delete
+      </button>
+
+    </div>
+
+  `).join("");
+}
+
+
+function transactionAction(index,status){
+
+  const data = getData(TRANSACTION_KEY);
+
+  if(!data[index]) return;
+
+  data[index].status = status;
+
+  saveData(TRANSACTION_KEY,data);
+
+  renderTransactions();
+  updateStats();
+
+  alert("Transaction status: " + status);
+}
+
+
+function deleteTransaction(index){
+
+  if(!confirm("Transaction Delete করবেন?")) return;
+
+  const data = getData(TRANSACTION_KEY);
+
+  data.splice(index,1);
+
+  saveData(TRANSACTION_KEY,data);
+
+  renderTransactions();
+  updateStats();
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function updateStats(){
+
+  const users = getData(USERS_KEY);
+  const withdraws = getData(WITHDRAW_KEY);
+  const transactions = getData(TRANSACTION_KEY);
+
+  const active =
+    users.filter(u => u.active !== false).length;
+
+  const inactive =
+    users.length - active;
+
+  const balance =
+    users.reduce(
+      (sum,u)=>sum + Number(u.balance||0),
+      0
+    );
+
+  const pendingW =
+    withdraws.filter(
+      w => !w.status || w.status === "Pending"
+    ).length;
+
+  const pendingT =
+    transactions.filter(
+      t => !t.status || t.status === "Pending"
+    ).length;
+
+  document.getElementById("totalUsers").textContent =
+    users.length;
+
+  document.getElementById("activeUsers").textContent =
+    active;
+
+  document.getElementById("inactiveUsers").textContent =
+    inactive;
+
+  document.getElementById("totalBalance").textContent =
+    "৳" + balance.toFixed(2);
+
+  document.getElementById("pendingWithdraw").textContent =
+    pendingW;
+
+  document.getElementById("pendingTransaction").textContent =
+    pendingT;
+}
+
+
+/* =========================
+   REFRESH
+========================= */
+
+function loadAll(){
+
+  updateStats();
+  renderUsers();
+  renderTasks();
+  renderWithdraws();
+  renderTransactions();
+
+}
+
+
+/* =========================
+   DEMO DATA
+========================= */
+
+function clearDemoData(){
+
+  if(!confirm(
+    "সতর্কতা!\n\nDemo data মুছে ফেলবেন?"
+  )) return;
+
+  localStorage.removeItem(USERS_KEY);
+  localStorage.removeItem(TASKS_KEY);
+  localStorage.removeItem(WITHDRAW_KEY);
+  localStorage.removeItem(TRANSACTION_KEY);
+
+  loadAll();
+
+  alert("Demo data মুছে দেওয়া হয়েছে।");
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+  if(confirm("Admin Panel থেকে বের হতে চান?")){
+    location.href="index.html";
+  }
+
+}
+
+
+/* =========================
+   SECURITY HELP
+========================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadAll();
 
 </script>
 
