@@ -9,323 +9,228 @@
 
 <style>
 *{box-sizing:border-box}
-
 body{
-    margin:0;
-    background:#eef8f2;
-    font-family:Arial,"Noto Sans Bengali",sans-serif;
-    color:#222;
+ margin:0;background:#eef8f2;
+ font-family:Arial,"Noto Sans Bengali",sans-serif;color:#222
 }
-
 header{
-    background:#087b18;
-    color:#fff;
-    text-align:center;
-    padding:18px;
-    font-size:25px;
-    font-weight:700;
+ background:#087b18;color:#fff;text-align:center;
+ padding:18px;font-size:25px;font-weight:bold
 }
-
-.wrap{
-    max-width:680px;
-    margin:auto;
-    padding:16px;
-}
-
+.wrap{max-width:680px;margin:auto;padding:15px}
 .card{
-    background:#fff;
-    border-radius:16px;
-    padding:18px;
-    margin:14px 0;
-    box-shadow:0 4px 18px #0001;
+ background:#fff;border-radius:16px;padding:18px;
+ margin:14px 0;box-shadow:0 4px 18px #0001
 }
-
-h2{
-    color:#087b18;
-    margin-top:0;
+h2{color:#087b18;margin-top:0}
+input,textarea,select{
+ width:100%;padding:12px;margin:6px 0 10px;
+ border:1px solid #ccc;border-radius:9px;font-size:15px
 }
-
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
+textarea{min-height:90px}
 button{
-    width:100%;
-    border:0;
-    border-radius:10px;
-    padding:13px;
-    font-size:16px;
-    font-weight:700;
-    cursor:pointer;
-    background:#087b18;
-    color:white;
-    margin-top:8px;
+ width:100%;border:0;border-radius:10px;padding:13px;
+ margin-top:8px;background:#087b18;color:white;
+ font-size:16px;font-weight:bold
 }
-
-button.red{
-    background:#d90000;
+button.red{background:#d90000}
+button.gray{background:#666}
+button.orange{background:#ed9700}
+.grid{
+ display:grid;grid-template-columns:1fr 1fr;gap:10px
 }
-
-button.gray{
-    background:#666;
-}
-
-button.orange{
-    background:#f39a00;
-}
-
-input,
-textarea,
-select{
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:9px;
-    margin:6px 0 10px;
-    font-size:15px;
-}
-
-textarea{
-    min-height:90px;
-    resize:vertical;
-}
-
 .balance{
-    background:#087b18;
-    color:white;
-    border-radius:14px;
-    text-align:center;
-    padding:22px;
-    font-size:30px;
-    font-weight:700;
+ background:#087b18;color:#fff;border-radius:14px;
+ text-align:center;padding:22px;font-size:30px;font-weight:bold
 }
-
-.small{
-    color:#666;
-    font-size:13px;
-}
-
 .status{
-    padding:5px 9px;
-    border-radius:20px;
-    background:#eee;
-    display:inline-block;
+ display:inline-block;padding:6px 10px;
+ border-radius:20px;background:#ffdede
 }
-
 .item{
-    background:#f5f5f5;
-    padding:12px;
-    border-radius:10px;
-    margin:8px 0;
+ background:#f5f5f5;padding:13px;
+ border-radius:10px;margin:9px 0
 }
-
-.hidden{
-    display:none;
-}
-
 .notice{
-    background:#fff4c7;
-    padding:12px;
-    border-radius:10px;
+ background:#fff4c7;padding:12px;border-radius:10px
 }
-
-.success{
-    background:#d9f6df;
-    padding:12px;
-    border-radius:10px;
-}
-
-.danger{
-    background:#ffdede;
-    padding:12px;
-    border-radius:10px;
-}
-
-a{
-    text-decoration:none;
+.small{font-size:13px;color:#666}
+.hidden{display:none}
+a{text-decoration:none}
+.tabs{display:flex;gap:8px;margin-bottom:10px}
+.tabs button{margin:0}
+@media(max-width:500px){
+ .grid{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    🔐 BD Earn Hub
-</header>
+<header>💰 BD Earn Hub</header>
 
 <div class="wrap">
 
-<!-- USER LOGIN / ACCOUNT -->
-<div id="auth" class="card">
+<!-- ================= AUTH ================= -->
 
-    <h2>👤 User Account</h2>
+<div id="authBox" class="card">
 
-    <input
-        id="name"
-        placeholder="আপনার নাম"
-    >
+<h2>👤 Account</h2>
 
-    <input
-        id="phone"
-        placeholder="মোবাইল নম্বর"
-    >
+<div class="tabs">
+<button id="loginTab" onclick="showLogin()">Login</button>
+<button class="gray" id="signupTab" onclick="showSignup()">Registration</button>
+</div>
 
-    <input
-        id="email"
-        type="email"
-        placeholder="ইমেইল"
-    >
+<div id="loginForm">
 
-    <button onclick="register()">
-        Account তৈরি / Login
-    </button>
+<input id="loginEmail"
+type="email"
+placeholder="ইমেইল">
 
-    <p class="small">
-        একই ইমেইল দিয়ে আবার ঢুকলে আগের account ব্যবহার হবে।
-    </p>
+<input id="loginPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="login()">
+🔐 Login
+</button>
+
+</div>
+
+<div id="signupForm" class="hidden">
+
+<input id="regName"
+placeholder="আপনার নাম">
+
+<input id="regPhone"
+placeholder="মোবাইল নম্বর">
+
+<input id="regEmail"
+type="email"
+placeholder="ইমেইল">
+
+<input id="regPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="signup()">
+👤 Registration
+</button>
+
+</div>
+
+<p id="authMsg" class="small"></p>
 
 </div>
 
 
-<!-- MAIN APP -->
+<!-- ================= USER APP ================= -->
+
 <div id="app" class="hidden">
 
-    <div class="card">
+<div class="card">
 
-        <h2 id="welcome">
-            👤 User
-        </h2>
+<h2 id="welcome">👤 User</h2>
 
-        <div class="balance">
-            Balance
-            <br>
-            ৳<span id="balance">0.00</span>
-        </div>
+<div class="balance">
+Balance<br>
+৳<span id="balance">0.00</span>
+</div>
 
-        <p>
-            Account:
-            <span
-                id="activeStatus"
-                class="status"
-            >
-                Inactive
-            </span>
-        </p>
+<p>
+Account:
+<span id="accountStatus" class="status">
+🔴 Inactive
+</span>
+</p>
 
-    </div>
+</div>
 
 
-    <!-- ACTIVATION -->
-    <div id="activation" class="card">
+<!-- ================= ACTIVATION ================= -->
 
-        <h2>
-            🔴 Account Activation
-        </h2>
+<div id="activationBox" class="card">
 
-        <div class="notice">
+<h2>🔐 Account Activation</h2>
 
-            Nagad Send Money করুন
-            <b>৳30</b>
+<div class="notice">
+<b>Nagad Send Money</b><br><br>
+📱 <b>01865501991</b><br>
+💰 Amount: <b>৳30</b>
+</div>
 
-            <br><br>
+<p>
+উপরের নম্বরে Send Money করার পর Transaction ID দিন।
+</p>
 
-            Send Money Number:
-            <b>01865501991</b>
+<input
+id="activationTrx"
+placeholder="Nagad Transaction ID">
 
-        </div>
+<button onclick="sendActivation()">
+✅ Submit Activation
+</button>
 
-        <p>
-            Send Money করার পর Transaction ID দিন:
-        </p>
+<p id="activationMsg" class="small"></p>
 
-        <input
-            id="activationTrx"
-            placeholder="Nagad Transaction ID"
-        >
-
-        <button onclick="submitActivation()">
-            ✅ Activation Request
-        </button>
-
-        <p
-            id="activationMsg"
-            class="small"
-        ></p>
-
-    </div>
+</div>
 
 
-    <!-- SERVICES -->
-    <div id="services" class="hidden">
+<!-- ================= MAIN MENU ================= -->
 
-        <div class="card">
+<div id="mainMenu" class="hidden">
 
-            <h2>
-                📋 Services
-            </h2>
+<div class="card">
 
-            <div class="grid">
+<h2>📋 Services</h2>
 
-                <button onclick="showTasks()">
-                    💼 Daily Job
-                </button>
+<div class="grid">
 
-                <button onclick="showService('instagram')">
-                    📷 Instagram Sell
-                </button>
+<button onclick="dailyJobs()">
+💼 Daily Job
+</button>
 
-                <button onclick="showService('gmail')">
-                    📧 Gmail Sell
-                </button>
+<button onclick="servicePage('instagram')">
+📷 Instagram Sell
+</button>
 
-                <button onclick="showService('telegram')">
-                    📣 Join Telegram
-                </button>
+<button onclick="servicePage('gmail')">
+📧 Gmail Sell
+</button>
 
-                <button onclick="showWithdraw()">
-                    💸 Withdraw
-                </button>
+<button onclick="telegramPage()">
+📣 Join Telegram
+</button>
 
-                <button
-                    class="gray"
-                    onclick="loadMyRequests()"
-                >
-                    🧾 My Requests
-                </button>
+<button onclick="withdrawPage()">
+💸 Withdraw
+</button>
 
-            </div>
+<button class="gray" onclick="requestsPage()">
+🧾 My Requests
+</button>
 
-        </div>
+</div>
 
+</div>
 
-        <!-- CONTENT -->
-        <div
-            id="content"
-            class="card"
-        >
+<div id="content" class="card">
 
-            <h2>
-                📌 Select an option
-            </h2>
+<h2>📌 Welcome</h2>
 
-            <p class="small">
-                উপরের অপশন থেকে একটি নির্বাচন করুন।
-            </p>
+<p>
+একটি অপশন নির্বাচন করুন।
+</p>
 
-        </div>
+</div>
 
-    </div>
+</div>
 
 
-    <!-- LOGOUT -->
-    <button
-        class="red"
-        onclick="logout()"
-    >
-        Logout
-    </button>
+<button class="red" onclick="logout()">
+Logout
+</button>
 
 </div>
 
@@ -334,9 +239,9 @@ a{
 
 <script>
 
-/* =========================
+/* =====================================================
    SUPABASE CONFIG
-========================= */
+   ===================================================== */
 
 const SUPABASE_URL =
 "YOUR_SUPABASE_URL";
@@ -344,1063 +249,801 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
 "YOUR_SUPABASE_ANON_KEY";
 
-const sb =
+const db =
 supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
+SUPABASE_URL,
+SUPABASE_ANON_KEY
 );
 
-
-/* =========================
-   CURRENT USER
-========================= */
-
-let user = null;
+let currentUser=null;
+let profile=null;
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
+/* =====================================================
+   HELPERS
+   ===================================================== */
+
+function $(id){
+ return document.getElementById(id);
+}
 
 function esc(value){
-
-    return String(value ?? '')
-        .replace(
-            /[&<>"']/g,
-            function(m){
-
-                return {
-
-                    '&':'&amp;',
-                    '<':'&lt;',
-                    '>':'&gt;',
-                    '"':'&quot;',
-                    "'":'&#39;'
-
-                }[m];
-
-            }
-        );
-
+ return String(value ?? '').replace(
+ /[&<>"']/g,
+ m=>({
+  '&':'&amp;',
+  '<':'&lt;',
+  '>':'&gt;',
+  '"':'&quot;',
+  "'":'&#39;'
+ }[m])
+ );
 }
 
 
-/* =========================
-   REGISTER / LOGIN
-========================= */
+/* =====================================================
+   AUTH TABS
+   ===================================================== */
 
-async function register(){
+function showLogin(){
+ $("loginForm").classList.remove("hidden");
+ $("signupForm").classList.add("hidden");
+}
 
-    const name =
-        document
-        .getElementById('name')
-        .value
-        .trim();
-
-    const phone =
-        document
-        .getElementById('phone')
-        .value
-        .trim();
-
-    const email =
-        document
-        .getElementById('email')
-        .value
-        .trim()
-        .toLowerCase();
-
-
-    if(
-        !name ||
-        !phone ||
-        !email
-    ){
-
-        alert(
-            'নাম, মোবাইল ও ইমেইল দিন'
-        );
-
-        return;
-    }
-
-
-    const result =
-        await sb
-        .from('users')
-        .select('*')
-        .eq('email',email)
-        .maybeSingle();
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-    }
-
-
-    let data =
-        result.data;
-
-
-    /* নতুন user */
-
-    if(!data){
-
-        const insertResult =
-            await sb
-            .from('users')
-            .insert({
-
-                name:name,
-                phone:phone,
-                email:email
-
-            })
-            .select()
-            .single();
-
-
-        if(insertResult.error){
-
-            alert(
-                insertResult.error.message
-            );
-
-            return;
-        }
-
-
-        data =
-            insertResult.data;
-
-    }
-
-
-    user =
-        data;
-
-
-    render();
-
+function showSignup(){
+ $("loginForm").classList.add("hidden");
+ $("signupForm").classList.remove("hidden");
 }
 
 
-/* =========================
-   RENDER USER
-========================= */
+/* =====================================================
+   REGISTRATION
+   ===================================================== */
 
-async function render(){
+async function signup(){
 
-    if(!user)
-        return;
+ const name=$("regName").value.trim();
+ const phone=$("regPhone").value.trim();
+ const email=$("regEmail").value.trim().toLowerCase();
+ const password=$("regPassword").value;
 
+ if(!name||!phone||!email||!password){
+  $("authMsg").textContent=
+  "সব তথ্য পূরণ করুন।";
+  return;
+ }
 
-    const result =
-        await sb
-        .from('users')
-        .select('*')
-        .eq('id',user.id)
-        .single();
+ if(password.length<6){
+  $("authMsg").textContent=
+  "Password কমপক্ষে ৬ অক্ষরের হতে হবে।";
+  return;
+ }
 
+ const auth=await db.auth.signUp({
+  email:email,
+  password:password,
+  options:{
+   data:{
+    name:name,
+    phone:phone
+   }
+  }
+ });
 
-    if(result.data){
+ if(auth.error){
+  $("authMsg").textContent=auth.error.message;
+  return;
+ }
 
-        user =
-            result.data;
+ /*
+   Email confirmation চালু থাকলে Supabase
+   verification email পাঠাতে পারে।
+ */
 
-    }
+ if(auth.data.user){
 
+  const userId=auth.data.user.id;
 
-    document
-        .getElementById('auth')
-        .classList
-        .add('hidden');
+  const result=await db
+  .from("users")
+  .insert({
+   id:userId,
+   name:name,
+   phone:phone,
+   email:email,
+   balance:0,
+   active:false
+  });
 
+  if(result.error){
+   $("authMsg").textContent=
+   result.error.message;
+   return;
+  }
+ }
 
-    document
-        .getElementById('app')
-        .classList
-        .remove('hidden');
+ $("authMsg").textContent=
+ "✅ Registration হয়েছে। এখন Login করুন।";
 
-
-    document
-        .getElementById('welcome')
-        .textContent =
-        '👤 ' + user.name;
-
-
-    document
-        .getElementById('balance')
-        .textContent =
-        Number(
-            user.balance || 0
-        ).toFixed(2);
-
-
-    const status =
-        document
-        .getElementById('activeStatus');
-
-
-    if(user.active){
-
-        status.textContent =
-            '🟢 Active';
-
-        status.style.background =
-            '#d9f6df';
-
-        document
-            .getElementById('activation')
-            .classList
-            .add('hidden');
-
-
-        document
-            .getElementById('services')
-            .classList
-            .remove('hidden');
-
-    }else{
-
-        status.textContent =
-            '🔴 Inactive';
-
-        status.style.background =
-            '#ffdede';
-
-
-        document
-            .getElementById('activation')
-            .classList
-            .remove('hidden');
-
-
-        document
-            .getElementById('services')
-            .classList
-            .add('hidden');
-
-    }
-
+ showLogin();
 }
 
 
-/* =========================
-   ACTIVATION REQUEST
-========================= */
+/* =====================================================
+   LOGIN
+   ===================================================== */
 
-async function submitActivation(){
+async function login(){
 
-    const trx =
-        document
-        .getElementById('activationTrx')
-        .value
-        .trim();
+ const email=$("loginEmail")
+ .value.trim().toLowerCase();
 
+ const password=$("loginPassword").value;
 
-    if(!trx){
+ if(!email||!password){
+  $("authMsg").textContent=
+  "Email এবং Password দিন।";
+  return;
+ }
 
-        alert(
-            'Transaction ID দিন'
-        );
+ const result=
+ await db.auth.signInWithPassword({
+  email:email,
+  password:password
+ });
 
-        return;
-    }
+ if(result.error){
+  $("authMsg").textContent=
+  result.error.message;
+  return;
+ }
 
+ currentUser=result.data.user;
 
-    const result =
-        await sb
-        .from('activation_requests')
-        .insert({
-
-            user_id:user.id,
-
-            trx_id:trx,
-
-            amount:30
-
-        });
-
-
-    const message =
-        document
-        .getElementById('activationMsg');
-
-
-    if(result.error){
-
-        message.textContent =
-            result.error.message;
-
-    }else{
-
-        message.textContent =
-            '✅ Request Admin Panel-এ পাঠানো হয়েছে।';
-
-        message.className =
-            'success';
-
-    }
-
+ await loadProfile();
 }
 
 
-/* =========================
+/* =====================================================
+   LOAD PROFILE
+   ===================================================== */
+
+async function loadProfile(){
+
+ if(!currentUser)return;
+
+ const result=
+ await db
+ .from("users")
+ .select("*")
+ .eq("id",currentUser.id)
+ .single();
+
+ if(result.error){
+  alert(result.error.message);
+  return;
+ }
+
+ profile=result.data;
+
+ renderApp();
+}
+
+
+/* =====================================================
+   RENDER
+   ===================================================== */
+
+function renderApp(){
+
+ $("authBox").classList.add("hidden");
+ $("app").classList.remove("hidden");
+
+ $("welcome").textContent=
+ "👤 "+(profile.name||"User");
+
+ $("balance").textContent=
+ Number(profile.balance||0).toFixed(2);
+
+ if(profile.active){
+
+  $("accountStatus").textContent=
+  "🟢 Active";
+
+  $("accountStatus").style.background=
+  "#d9f6df";
+
+  $("activationBox").classList.add("hidden");
+  $("mainMenu").classList.remove("hidden");
+
+ }else{
+
+  $("accountStatus").textContent=
+  "🔴 Inactive";
+
+  $("accountStatus").style.background=
+  "#ffdede";
+
+  $("activationBox").classList.remove("hidden");
+  $("mainMenu").classList.add("hidden");
+ }
+}
+
+
+/* =====================================================
+   ACTIVATION
+   ===================================================== */
+
+async function sendActivation(){
+
+ const trx=$("activationTrx")
+ .value.trim();
+
+ if(!trx){
+  alert("Transaction ID দিন।");
+  return;
+ }
+
+ const result=
+ await db
+ .from("activation_requests")
+ .insert({
+  user_id:currentUser.id,
+  trx_id:trx,
+  amount:30,
+  status:"pending"
+ });
+
+ if(result.error){
+  $("activationMsg").textContent=
+  result.error.message;
+  return;
+ }
+
+ $("activationMsg").textContent=
+ "✅ Activation request Admin Panel-এ পাঠানো হয়েছে।";
+
+ $("activationTrx").value="";
+}
+
+
+/* =====================================================
    DAILY JOB
-========================= */
+   ===================================================== */
 
-async function showTasks(){
+async function dailyJobs(){
 
-    const box =
-        document
-        .getElementById('content');
+ const box=$("content");
 
+ box.innerHTML=
+ "<h2>💼 Daily Job</h2><p>Loading...</p>";
 
-    box.innerHTML =
-        '<h2>💼 Daily Job</h2>' +
-        '<p>Loading...</p>';
+ const result=
+ await db
+ .from("tasks")
+ .select("*")
+ .eq("is_open",true)
+ .order("created_at",{ascending:false});
 
+ if(result.error){
+  box.innerHTML=
+  "<p>"+esc(result.error.message)+"</p>";
+  return;
+ }
 
-    const result =
-        await sb
-        .from('tasks')
-        .select('*')
-        .eq('is_open',true)
-        .order(
-            'created_at',
-            {
-                ascending:false
-            }
-        );
+ if(!result.data.length){
+  box.innerHTML=
+  "<h2>💼 Daily Job</h2><p>এখন কোনো Task নেই।</p>";
+  return;
+ }
 
+ box.innerHTML=
+ "<h2>💼 Daily Job</h2>"+
+ result.data.map(task=>`
 
-    if(result.error){
+ <div class="item">
 
-        box.innerHTML =
-            '<p>' +
-            esc(
-                result.error.message
-            ) +
-            '</p>';
+ <b>${esc(task.title)}</b>
 
-        return;
-    }
+ <br><br>
 
+ ${esc(task.description||"")}
 
-    if(
-        !result.data ||
-        result.data.length === 0
-    ){
+ <br><br>
 
-        box.innerHTML =
-            '<h2>💼 Daily Job</h2>' +
-            '<p>এখন কোনো Task নেই।</p>';
+ 💰 Reward:
+ <b>৳${Number(task.reward||0).toFixed(2)}</b>
 
-        return;
-    }
+ <textarea
+ id="proof_${task.id}"
+ placeholder="Task proof / submission">
+ </textarea>
 
+ <button onclick="submitTask('${task.id}')">
+ 📤 Submit Task
+ </button>
 
-    box.innerHTML =
-        '<h2>💼 Daily Job</h2>' +
+ </div>
 
-        result.data
-        .map(
-            function(task){
-
-                return `
-
-                <div class="item">
-
-                    <b>
-                        ${esc(task.title)}
-                    </b>
-
-                    <br>
-
-                    ${esc(
-                        task.description || ''
-                    )}
-
-                    <br><br>
-
-                    Reward:
-                    <b>
-                        ৳${Number(
-                            task.reward || 0
-                        ).toFixed(2)}
-                    </b>
-
-                    <textarea
-                        id="proof_${task.id}"
-                        placeholder="Task proof / submission"
-                    ></textarea>
-
-                    <button
-                        onclick="submitTask('${task.id}')"
-                    >
-                        📤 Submit Task
-                    </button>
-
-                </div>
-
-                `;
-
-            }
-        )
-        .join('');
-
+ `).join("");
 }
 
 
-/* =========================
-   SUBMIT TASK
-========================= */
+/* =====================================================
+   TASK SUBMIT
+   ===================================================== */
 
 async function submitTask(taskId){
 
-    const proof =
-        document
-        .getElementById(
-            'proof_' + taskId
-        )
-        .value
-        .trim();
+ const proof=$("proof_"+taskId)
+ .value.trim();
 
+ if(!proof){
+  alert("Task proof দিন।");
+  return;
+ }
 
-    if(!proof){
+ const result=
+ await db
+ .from("task_submissions")
+ .insert({
+  task_id:taskId,
+  user_id:currentUser.id,
+  proof:proof,
+  status:"pending"
+ });
 
-        alert(
-            'Submission / proof দিন'
-        );
+ if(result.error){
+  alert(result.error.message);
+  return;
+ }
 
-        return;
-    }
+ alert(
+ "✅ Task Admin Panel-এ পাঠানো হয়েছে।"
+ );
 
-
-    const result =
-        await sb
-        .from('task_submissions')
-        .insert({
-
-            task_id:taskId,
-
-            user_id:user.id,
-
-            proof:proof
-
-        });
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-    }else{
-
-        alert(
-            '✅ Task submission পাঠানো হয়েছে।'
-        );
-
-    }
-
+ dailyJobs();
 }
 
 
-/* =========================
-   GMAIL / INSTAGRAM / TELEGRAM
-========================= */
+/* =====================================================
+   GMAIL / INSTAGRAM
+   ===================================================== */
 
-async function showService(type){
+function servicePage(type){
 
-    const box =
-        document
-        .getElementById('content');
+ const box=$("content");
 
+ const gmail=type==="gmail";
 
-    /* TELEGRAM */
+ box.innerHTML=`
 
-    if(type === 'telegram'){
+ <h2>
+ ${gmail?"📧 Gmail Sell":"📷 Instagram Sell"}
+ </h2>
 
-        const result =
-            await sb
-            .from('settings')
-            .select('value')
-            .eq(
-                'key',
-                'telegram_link'
-            )
-            .maybeSingle();
+ <p>
+ ${gmail
+ ?"Gmail account submission করুন।"
+ :"Instagram account/username submission করুন।"
+ }
+ </p>
 
+ <p class="small">
+ ⚠️ Password, OTP বা recovery code দেবেন না।
+ </p>
 
-        const link =
-            result.data?.value || '#';
+ <input
+ id="serviceAccount"
+ placeholder="${gmail
+ ?'Gmail Address'
+ :'Instagram Username'}">
 
+ <textarea
+ id="serviceProof"
+ placeholder="Proof / প্রয়োজনীয় তথ্য">
+ </textarea>
 
-        box.innerHTML = `
+ <button
+ class="orange"
+ onclick="submitService('${type}')">
 
-            <h2>
-                📣 Join Telegram
-            </h2>
+ 📤 Submit Request
 
-            <p>
-                Admin দেওয়া Telegram
-                channel-এ join করুন।
-            </p>
+ </button>
 
-            <a
-                href="${esc(link)}"
-                target="_blank"
-            >
-
-                <button>
-                    Join Telegram
-                </button>
-
-            </a>
-
-        `;
-
-        return;
-
-    }
-
-
-    const title =
-        type === 'gmail'
-        ? '📧 Gmail Sell'
-        : '📷 Instagram Sell';
-
-
-    const placeholder =
-        type === 'gmail'
-        ? 'Gmail Address'
-        : 'Instagram Username';
-
-
-    box.innerHTML = `
-
-        <h2>
-            ${title}
-        </h2>
-
-        <p>
-            আপনার account/email বা
-            username এবং প্রয়োজনীয়
-            proof দিন।
-        </p>
-
-        <div class="notice">
-
-            ⚠️ Password এখানে দেবেন না।
-
-        </div>
-
-        <input
-            id="svc_account"
-            placeholder="${placeholder}"
-        >
-
-        <textarea
-            id="svc_proof"
-            placeholder="Proof / প্রয়োজনীয় তথ্য"
-        ></textarea>
-
-        <button
-            class="orange"
-            onclick="submitService('${type}')"
-        >
-
-            📤 Submit Request
-
-        </button>
-
-    `;
-
+ `;
 }
 
 
-/* =========================
-   SERVICE SUBMISSION
-========================= */
+/* =====================================================
+   SERVICE SUBMIT
+   ===================================================== */
 
 async function submitService(type){
 
-    const account =
-        document
-        .getElementById(
-            'svc_account'
-        )
-        .value
-        .trim();
+ const account=
+ $("serviceAccount").value.trim();
 
+ const proof=
+ $("serviceProof").value.trim();
 
-    const proof =
-        document
-        .getElementById(
-            'svc_proof'
-        )
-        .value
-        .trim();
+ if(!account){
+  alert("Account/Username দিন।");
+  return;
+ }
 
+ const result=
+ await db
+ .from("service_submissions")
+ .insert({
+  user_id:currentUser.id,
+  service_type:type,
+  account:account,
+  proof:proof,
+  status:"pending"
+ });
 
-    if(!account){
+ if(result.error){
+  alert(result.error.message);
+  return;
+ }
 
-        alert(
-            'Account / Username দিন'
-        );
+ alert(
+ "✅ Submission Admin Panel-এ পাঠানো হয়েছে।"
+ );
 
-        return;
-    }
-
-
-    const result =
-        await sb
-        .from('service_submissions')
-        .insert({
-
-            user_id:user.id,
-
-            service_type:type,
-
-            account:account,
-
-            proof:proof
-
-        });
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-    }else{
-
-        alert(
-            '✅ Request Admin Panel-এ পাঠানো হয়েছে।'
-        );
-
-    }
-
+ $("serviceAccount").value="";
+ $("serviceProof").value="";
 }
 
 
-/* =========================
+/* =====================================================
+   TELEGRAM
+   ===================================================== */
+
+async function telegramPage(){
+
+ const box=$("content");
+
+ box.innerHTML=
+ "<h2>📣 Join Telegram</h2><p>Loading...</p>";
+
+ const result=
+ await db
+ .from("settings")
+ .select("value")
+ .eq("key","telegram_link")
+ .maybeSingle();
+
+ if(result.error){
+  box.innerHTML=
+  "<p>"+esc(result.error.message)+"</p>";
+  return;
+ }
+
+ const link=result.data?.value||"";
+
+ if(!link){
+  box.innerHTML=`
+  <h2>📣 Join Telegram</h2>
+  <p>Admin এখনো Telegram link সেট করেনি।</p>
+  `;
+  return;
+ }
+
+ box.innerHTML=`
+
+ <h2>📣 Join Telegram</h2>
+
+ <p>
+ Admin দেওয়া Telegram channel-এ Join করুন।
+ </p>
+
+ <a
+ href="${esc(link)}"
+ target="_blank"
+ rel="noopener">
+
+ <button>
+ 📣 Join Telegram
+ </button>
+
+ </a>
+
+ `;
+}
+
+
+/* =====================================================
    WITHDRAW PAGE
-========================= */
+   ===================================================== */
 
-async function showWithdraw(){
+function withdrawPage(){
 
-    const box =
-        document
-        .getElementById('content');
+ const box=$("content");
 
+ box.innerHTML=`
 
-    box.innerHTML = `
+ <h2>💸 Withdraw</h2>
 
-        <h2>
-            💸 Withdraw
-        </h2>
+ <div class="notice">
+ Available Balance:
+ <b>৳${Number(profile.balance||0).toFixed(2)}</b>
+ </div>
 
-        <p>
-            Available Balance:
-            <b>
-                ৳${Number(
-                    user.balance || 0
-                ).toFixed(2)}
-            </b>
-        </p>
+ <select id="withdrawMethod">
 
-        <select id="wd_method">
+ <option value="Nagad">
+ Nagad
+ </option>
 
-            <option>
-                Nagad
-            </option>
+ <option value="bKash">
+ bKash
+ </option>
 
-            <option>
-                bKash
-            </option>
+ </select>
 
-        </select>
+ <input
+ id="withdrawNumber"
+ placeholder="Nagad / bKash Number">
 
-        <input
-            id="wd_number"
-            placeholder="Nagad / bKash Number"
-        >
+ <input
+ id="withdrawAmount"
+ type="number"
+ min="1"
+ placeholder="Withdraw Amount">
 
-        <input
-            id="wd_amount"
-            type="number"
-            min="1"
-            placeholder="Amount"
-        >
+ <button onclick="sendWithdraw()">
+ 💸 Withdraw Request
+ </button>
 
-        <button
-            onclick="submitWithdraw()"
-        >
-
-            💸 Withdraw Request
-
-        </button>
-
-    `;
+ `;
 
 }
 
 
-/* =========================
+/* =====================================================
    WITHDRAW REQUEST
-========================= */
+   ===================================================== */
 
-async function submitWithdraw(){
+async function sendWithdraw(){
 
-    const method =
-        document
-        .getElementById(
-            'wd_method'
-        )
-        .value;
+ const method=
+ $("withdrawMethod").value;
 
+ const number=
+ $("withdrawNumber")
+ .value.trim();
 
-    const number =
-        document
-        .getElementById(
-            'wd_number'
-        )
-        .value
-        .trim();
+ const amount=
+ Number(
+  $("withdrawAmount").value
+ );
 
+ if(!number||!amount||amount<=0){
+  alert("সব তথ্য দিন।");
+  return;
+ }
 
-    const amount =
-        Number(
-            document
-            .getElementById(
-                'wd_amount'
-            )
-            .value
-        );
+ if(amount>Number(profile.balance||0)){
+  alert("Balance যথেষ্ট নেই।");
+  return;
+ }
 
+ const result=
+ await db
+ .from("withdrawals")
+ .insert({
+  user_id:currentUser.id,
+  method:method,
+  account_number:number,
+  amount:amount,
+  status:"pending"
+ });
 
-    if(
-        !number ||
-        !amount ||
-        amount <= 0
-    ){
+ if(result.error){
+  alert(result.error.message);
+  return;
+ }
 
-        alert(
-            'সব তথ্য দিন'
-        );
-
-        return;
-    }
-
-
-    if(
-        amount >
-        Number(
-            user.balance || 0
-        )
-    ){
-
-        alert(
-            'Balance যথেষ্ট নয়'
-        );
-
-        return;
-    }
-
-
-    const result =
-        await sb
-        .from('withdrawals')
-        .insert({
-
-            user_id:user.id,
-
-            method:method,
-
-            account_number:number,
-
-            amount:amount
-
-        });
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-    }else{
-
-        alert(
-            '✅ Withdraw request পাঠানো হয়েছে।'
-        );
-
-    }
+ alert(
+ "✅ Withdraw request Admin Panel-এ পাঠানো হয়েছে।"
+ );
 
 }
 
 
-/* =========================
+/* =====================================================
    MY REQUESTS
-========================= */
-
-async function loadMyRequests(){
-
-    const box =
-        document
-        .getElementById('content');
+   ===================================================== */
 
+async function requestsPage(){
 
-    box.innerHTML =
-        '<h2>🧾 My Requests</h2>' +
-        '<p>Loading...</p>';
+ const box=$("content");
 
-
-    const results =
-        await Promise.all([
-
-            sb
-            .from('activation_requests')
-            .select('*')
-            .eq(
-                'user_id',
-                user.id
-            )
-            .order(
-                'created_at',
-                {
-                    ascending:false
-                }
-            ),
+ box.innerHTML=
+ "<h2>🧾 My Requests</h2><p>Loading...</p>";
 
-            sb
-            .from('task_submissions')
-            .select(
-                '*,tasks(title)'
-            )
-            .eq(
-                'user_id',
-                user.id
-            )
-            .order(
-                'created_at',
-                {
-                    ascending:false
-                }
-            ),
+ const activation=
+ await db
+ .from("activation_requests")
+ .select("*")
+ .eq("user_id",currentUser.id)
+ .order("created_at",{ascending:false});
 
-            sb
-            .from('service_submissions')
-            .select('*')
-            .eq(
-                'user_id',
-                user.id
-            )
-            .order(
-                'created_at',
-                {
-                    ascending:false
-                }
-            ),
+ const tasks=
+ await db
+ .from("task_submissions")
+ .select("*,tasks(title,reward)")
+ .eq("user_id",currentUser.id)
+ .order("created_at",{ascending:false});
 
-            sb
-            .from('withdrawals')
-            .select('*')
-            .eq(
-                'user_id',
-                user.id
-            )
-            .order(
-                'created_at',
-                {
-                    ascending:false
-                }
-            )
+ const services=
+ await db
+ .from("service_submissions")
+ .select("*")
+ .eq("user_id",currentUser.id)
+ .order("created_at",{ascending:false});
 
-        ]);
+ const withdrawals=
+ await db
+ .from("withdrawals")
+ .select("*")
+ .eq("user_id",currentUser.id)
+ .order("created_at",{ascending:false});
 
+ let html="<h2>🧾 My Requests</h2>";
 
-    const activation =
-        results[0].data || [];
+ let count=0;
 
+ (activation.data||[]).forEach(x=>{
 
-    const tasks =
-        results[1].data || [];
+  count++;
 
+  html+=`
 
-    const services =
-        results[2].data || [];
+  <div class="item">
+  🔐 Activation<br>
+  Transaction ID:
+  <b>${esc(x.trx_id)}</b><br>
+  Status:
+  <b>${esc(x.status)}</b>
+  </div>
 
+  `;
+ });
 
-    const withdrawals =
-        results[3].data || [];
 
+ (tasks.data||[]).forEach(x=>{
 
-    let html =
-        '<h2>🧾 My Requests</h2>';
+  count++;
 
+  html+=`
 
-    activation.forEach(
-        function(item){
+  <div class="item">
+  💼 Daily Job<br>
+  Task:
+  ${esc(x.tasks?.title)}<br>
+  Reward:
+  ৳${Number(x.tasks?.reward||0).toFixed(2)}<br>
+  Status:
+  <b>${esc(x.status)}</b>
+  </div>
 
-            html += `
+  `;
+ });
 
-            <div class="item">
 
-                Activation
+ (services.data||[]).forEach(x=>{
 
-                • ${esc(
-                    item.trx_id
-                )}
+  count++;
 
-                • Status:
-                <b>
-                    ${esc(
-                        item.status
-                    )}
-                </b>
+  html+=`
 
-            </div>
+  <div class="item">
+  ${x.service_type==="gmail"
+  ?"📧 Gmail"
+  :"📷 Instagram"}<br>
 
-            `;
+  Account:
+  ${esc(x.account)}<br>
 
-        }
-    );
+  Status:
+  <b>${esc(x.status)}</b>
 
+  </div>
 
-    tasks.forEach(
-        function(item){
+  `;
+ });
 
-            html += `
 
-            <div class="item">
+ (withdrawals.data||[]).forEach(x=>{
 
-                Task
+  count++;
 
-                • ${esc(
-                    item.tasks?.title
-                )}
+  html+=`
 
-                • Status:
-                <b>
-                    ${esc(
-                        item.status
-                    )}
-                </b>
+  <div class="item">
+  💸 Withdraw<br>
 
-            </div>
+  Method:
+  ${esc(x.method)}<br>
 
-            `;
+  Number:
+  ${esc(x.account_number)}<br>
 
-        }
-    );
+  Amount:
+  ৳${Number(x.amount||0).toFixed(2)}<br>
 
+  Status:
+  <b>${esc(x.status)}</b>
 
-    services.forEach(
-        function(item){
+  </div>
 
-            html += `
+  `;
+ });
 
-            <div class="item">
 
-                ${esc(
-                    item.service_type
-                )}
+ if(count===0){
+  html+="<p>কোনো request নেই।</p>";
+ }
 
-                • ${esc(
-                    item.account
-                )}
-
-                • Status:
-                <b>
-                    ${esc(
-                        item.status
-                    )}
-                </b>
-
-            </div>
-
-            `;
-
-        }
-    );
-
-
-    withdrawals.forEach(
-        function(item){
-
-            html += `
-
-            <div class="item">
-
-                Withdraw
-
-                • ${esc(
-                    item.method
-                )}
-
-                • ৳${Number(
-                    item.amount || 0
-                ).toFixed(2)}
-
-                • Status:
-                <b>
-                    ${esc(
-                        item.status
-                    )}
-                </b>
-
-            </div>
-
-            `;
-
-        }
-    );
-
-
-    if(
-        activation.length === 0 &&
-        tasks.length === 0 &&
-        services.length === 0 &&
-        withdrawals.length === 0
-    ){
-
-        html +=
-            '<p>কোনো request নেই।</p>';
-
-    }
-
-
-    box.innerHTML =
-        html;
-
+ box.innerHTML=html;
 }
 
 
-/* =========================
+/* =====================================================
    LOGOUT
-========================= */
+   ===================================================== */
 
-function logout(){
+async function logout(){
 
-    user =
-        null;
+ await db.auth.signOut();
 
-    location.reload();
+ currentUser=null;
+ profile=null;
 
+ location.reload();
 }
+
+
+/* =====================================================
+   AUTO SESSION
+   ===================================================== */
+
+(async function(){
+
+ const session=
+ await db.auth.getSession();
+
+ if(session.data.session){
+
+  currentUser=
+  session.data.session.user;
+
+  await loadProfile();
+ }
+
+})();
+
+
+/* =====================================================
+   AUTH STATE
+   ===================================================== */
+
+db.auth.onAuthStateChange(
+ async(event,session)=>{
+
+  if(session && !currentUser){
+
+   currentUser=session.user;
+
+   await loadProfile();
+  }
+
+ }
+);
 
 </script>
 
