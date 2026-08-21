@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BD Earn Hub</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,"Noto Sans Bengali",sans-serif;
+}
+
+body{
+    background:#eef7f1;
+    min-height:100vh;
+    color:#222;
+}
+
+.header{
+    background:#087b18;
+    color:white;
+    padding:18px;
+    text-align:center;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.container{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.10);
+    margin-bottom:18px;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#777;
+    margin-bottom:20px;
+}
+
+.tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+}
+
+.tabs button{
+    flex:1;
+    padding:12px;
+    border:0;
+    border-radius:8px;
+    background:#ddd;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.tabs button.active{
+    background:#087b18;
+    color:white;
+}
+
+.form{
+    display:none;
+}
+
+.form.active{
+    display:block;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin:12px 0 6px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#087b18;
+}
+
+.main-btn{
+    width:100%;
+    border:0;
+    background:#087b18;
+    color:white;
+    padding:15px;
+    border-radius:9px;
+    font-size:17px;
+    font-weight:bold;
+    margin-top:18px;
+}
+
+.error{
+    color:#d00000;
+    text-align:center;
+    margin-top:12px;
+}
+
+.success{
+    color:#087b18;
+    text-align:center;
+    margin-top:12px;
+}
+
+.dashboard{
+    display:none;
+}
+
+.profile{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.avatar{
+    width:75px;
+    height:75px;
+    background:#087b18;
+    color:white;
+    border-radius:50%;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.profile h2{
+    margin-top:10px;
+}
+
+.balance{
+    background:#087b18;
+    color:white;
+    padding:22px;
+    border-radius:13px;
+    text-align:center;
+    margin-bottom:18px;
+}
+
+.balance small{
+    display:block;
+}
+
+.balance strong{
+    font-size:38px;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.menu button{
+    border:0;
+    background:#f5f5f5;
+    padding:18px 8px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.activation{
+    margin-top:18px;
+    border:2px solid #e21c2a;
+    border-radius:12px;
+    padding:18px;
+}
+
+.activation h3{
+    color:#e21c2a;
+    text-align:center;
+    margin-bottom:12px;
+}
+
+.amount{
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+    color:#087b18;
+    margin:12px 0;
+}
+
+.number{
+    background:#f3f3f3;
+    padding:14px;
+    text-align:center;
+    border-radius:8px;
+    font-size:22px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.copy{
+    width:100%;
+    border:0;
+    background:#555;
+    color:white;
+    padding:11px;
+    border-radius:7px;
+}
+
+.logout{
+    width:100%;
+    background:#d00000;
+    color:white;
+    border:0;
+    padding:14px;
+    border-radius:9px;
+    font-size:17px;
+    font-weight:bold;
+    margin-top:18px;
+}
+
+.footer{
+    text-align:center;
+    color:#777;
+    font-size:13px;
+    padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    BD Earn Hub
+</div>
+
+
+<!-- AUTH SECTION -->
+<div id="authSection" class="container">
+
+    <div class="card">
+
+        <h2>স্বাগতম 👋</h2>
+
+        <div class="subtitle">
+            BD Earn Hub-এ অ্যাকাউন্ট তৈরি করুন
+        </div>
+
+        <div class="tabs">
+
+            <button
+                id="loginTab"
+                class="active"
+                onclick="showLogin()">
+                Login
+            </button>
+
+            <button
+                id="registerTab"
+                onclick="showRegister()">
+                Registration
+            </button>
+
+        </div>
+
+
+        <!-- LOGIN -->
+        <div id="loginForm" class="form active">
+
+            <label>ইমেইল অথবা মোবাইল নাম্বার</label>
+
+            <input
+                id="loginUser"
+                type="text"
+                placeholder="Email / Mobile Number"
+            >
+
+            <label>পাসওয়ার্ড</label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Password"
+            >
+
+            <button
+                class="main-btn"
+                onclick="login()">
+                🔐 Login
+            </button>
+
+            <div id="loginMessage"></div>
+
+        </div>
+
+
+        <!-- REGISTRATION -->
+        <div id="registerForm" class="form">
+
+            <label>আপনার নাম</label>
+
+            <input
+                id="regName"
+                type="text"
+                placeholder="পূর্ণ নাম"
+            >
+
+            <label>মোবাইল নাম্বার</label>
+
+            <input
+                id="regPhone"
+                type="tel"
+                placeholder="01XXXXXXXXX"
+            >
+
+            <label>ইমেইল</label>
+
+            <input
+                id="regEmail"
+                type="email"
+                placeholder="example@gmail.com"
+            >
+
+            <label>পাসওয়ার্ড</label>
+
+            <input
+                id="regPassword"
+                type="password"
+                placeholder="Password"
+            >
+
+            <label>সেম পাসওয়ার্ড</label>
+
+            <input
+                id="regConfirm"
+                type="password"
+                placeholder="Confirm Password"
+            >
+
+            <button
+                class="main-btn"
+                onclick="register()">
+                🚀 Create Account
+            </button>
+
+            <div id="registerMessage"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="container dashboard">
+
+    <div class="card">
+
+        <div class="profile">
+
+            <div id="avatar" class="avatar">
+                U
+            </div>
+
+            <h2 id="userName">
+                User
+            </h2>
+
+            <p id="userPhone"></p>
+
+        </div>
+
+
+        <div class="balance">
+
+            <small>Available Balance</small>
+
+            <strong>৳0.00</strong>
+
+        </div>
+
+
+        <div class="menu">
+
+            <button onclick="alert('Daily Job শীঘ্রই আসছে')">
+                💼 Daily Job
+            </button>
+
+            <button onclick="alert('Recharge শীঘ্রই আসছে')">
+                📱 Recharge
+            </button>
+
+            <button onclick="alert('Withdraw শীঘ্রই আসছে')">
+                💸 Withdraw
+            </button>
+
+            <button onclick="alert('Refer & Earn শীঘ্রই আসছে')">
+                🎁 Refer & Earn
+            </button>
+
+        </div>
+
+
+        <!-- ACTIVATION -->
+        <div class="activation">
+
+            <h3>
+                🔴 Account Activation
+            </h3>
+
+            <p style="text-align:center;">
+                অ্যাকাউন্ট চালু করতে Send Money করুন
+            </p>
+
+            <div class="amount">
+                ৳30
+            </div>
+
+            <p style="text-align:center;">
+                Nagad Send Money
+            </p>
+
+            <div class="number">
+                01865501991
+            </div>
+
+            <button
+                class="copy"
+                onclick="copyNumber()">
+                📋 নম্বর কপি করুন
+            </button>
+
+            <label>
+                Nagad TrxID
+            </label>
+
+            <input
+                id="trxid"
+                type="text"
+                placeholder="আপনার Transaction ID"
+            >
+
+            <button
+                class="main-btn"
+                onclick="submitActivation()">
+                ✅ Active Now
+            </button>
+
+            <div
+                id="activationMessage"
+                style="text-align:center;margin-top:12px;">
+            </div>
+
+        </div>
+
+
+        <button
+            class="logout"
+            onclick="logout()">
+            🚪 Logout
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="footer">
+    © 2026 BD Earn Hub. All Rights Reserved.
+</div>
+
+
+<script>
+
+/* =========================
+   SHOW LOGIN
+========================= */
+
+function showLogin(){
+
+    document.getElementById("loginForm")
+        .classList.add("active");
+
+    document.getElementById("registerForm")
+        .classList.remove("active");
+
+    document.getElementById("loginTab")
+        .classList.add("active");
+
+    document.getElementById("registerTab")
+        .classList.remove("active");
+}
+
+
+/* =========================
+   SHOW REGISTER
+========================= */
+
+function showRegister(){
+
+    document.getElementById("registerForm")
+        .classList.add("active");
+
+    document.getElementById("loginForm")
+        .classList.remove("active");
+
+    document.getElementById("registerTab")
+        .classList.add("active");
+
+    document.getElementById("loginTab")
+        .classList.remove("active");
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+function register(){
+
+    const name =
+        document.getElementById("regName").value.trim();
+
+    const phone =
+        document.getElementById("regPhone").value.trim();
+
+    const email =
+        document.getElementById("regEmail").value.trim();
+
+    const password =
+        document.getElementById("regPassword").value;
+
+    const confirm =
+        document.getElementById("regConfirm").value;
+
+    const message =
+        document.getElementById("registerMessage");
+
+
+    if(!name || !phone || !email ||
+       !password || !confirm){
+
+        message.className = "error";
+        message.innerText =
+            "সবগুলো তথ্য পূরণ করুন।";
+
+        return;
+    }
+
+
+    if(password.length < 6){
+
+        message.className = "error";
+        message.innerText =
+            "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।";
+
+        return;
+    }
+
+
+    if(password !== confirm){
+
+        message.className = "error";
+        message.innerText =
+            "দুইটি পাসওয়ার্ড একই নয়।";
+
+        return;
+    }
+
+
+    const oldUser =
+        JSON.parse(localStorage.getItem("bdEarnUser") || "null");
+
+
+    if(oldUser &&
+       (oldUser.email === email ||
+        oldUser.phone === phone)){
+
+        message.className = "error";
+        message.innerText =
+            "এই Email অথবা Mobile আগে থেকেই ব্যবহার করা হয়েছে।";
+
+        return;
+    }
+
+
+    const user = {
+
+        name:name,
+        phone:phone,
+        email:email,
+        password:password,
+        active:false,
+        trxid:""
+
+    };
+
+
+    localStorage.setItem(
+        "bdEarnUser",
+        JSON.stringify(user)
+    );
+
+
+    message.className = "success";
+    message.innerText =
+        "Registration সফল হয়েছে। এখন Login করুন।";
+
+
+    document.getElementById("regName").value="";
+    document.getElementById("regPhone").value="";
+    document.getElementById("regEmail").value="";
+    document.getElementById("regPassword").value="";
+    document.getElementById("regConfirm").value="";
+
+
+    setTimeout(function(){
+
+        showLogin();
+
+    },1200);
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+    const username =
+        document.getElementById("loginUser").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const message =
+        document.getElementById("loginMessage");
+
+
+    const user =
+        JSON.parse(localStorage.getItem("bdEarnUser") || "null");
+
+
+    if(!user){
+
+        message.className = "error";
+        message.innerText =
+            "কোনো অ্যাকাউন্ট পাওয়া যায়নি। আগে Registration করুন।";
+
+        return;
+    }
+
+
+    if(
+        (username === user.email ||
+         username === user.phone)
+        &&
+        password === user.password
+    ){
+
+        localStorage.setItem(
+            "bdEarnLoggedIn",
+            "true"
+        );
+
+        showDashboard();
+
+    }else{
+
+        message.className = "error";
+        message.innerText =
+            "Email/Mobile অথবা Password ভুল।";
+
+    }
+}
+
+
+/* =========================
+   SHOW DASHBOARD
+========================= */
+
+function showDashboard(){
+
+    const user =
+        JSON.parse(localStorage.getItem("bdEarnUser") || "null");
+
+    if(!user) return;
+
+
+    document.getElementById("authSection")
+        .style.display = "none";
+
+    document.getElementById("dashboard")
+        .style.display = "block";
+
+
+    document.getElementById("userName")
+        .innerText = user.name;
+
+    document.getElementById("userPhone")
+        .innerText = user.phone;
+
+
+    document.getElementById("avatar")
+        .innerText =
+        user.name.charAt(0).toUpperCase();
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    localStorage.removeItem("bdEarnLoggedIn");
+
+    document.getElementById("dashboard")
+        .style.display = "none";
+
+    document.getElementById("authSection")
+        .style.display = "block";
+
+    document.getElementById("loginUser").value="";
+    document.getElementById("loginPassword").value="";
+
+    showLogin();
+}
+
+
+/* =========================
+   COPY NAGAD NUMBER
+========================= */
+
+function copyNumber(){
+
+    const number =
+        "01865501991";
+
+    navigator.clipboard.writeText(number)
+    .then(function(){
+
+        alert(
+            "Nagad নম্বর কপি হয়েছে: " +
+            number
+        );
+
+    })
+    .catch(function(){
+
+        alert(
+            "Nagad নম্বর: " +
+            number
+        );
+
+    });
+}
+
+
+/* =========================
+   ACTIVATION
+========================= */
+
+function submitActivation(){
+
+    const trxid =
+        document.getElementById("trxid")
+        .value.trim();
+
+    const message =
+        document.getElementById("activationMessage");
+
+
+    if(!trxid){
+
+        message.style.color="#d00000";
+
+        message.innerText =
+            "দয়া করে TrxID লিখুন।";
+
+        return;
+    }
+
+
+    const user =
+        JSON.parse(
+            localStorage.getItem("bdEarnUser")
+            || "null"
+        );
+
+
+    if(user){
+
+        user.trxid = trxid;
+
+        localStorage.setItem(
+            "bdEarnUser",
+            JSON.stringify(user)
+        );
+
+    }
+
+
+    message.style.color="#087b18";
+
+    message.innerText =
+        "TrxID জমা হয়েছে। পেমেন্ট যাচাইয়ের পর অ্যাকাউন্ট Active হবে।";
+}
+
+
+/* =========================
+   AUTO LOGIN
+========================= */
+
+window.onload = function(){
+
+    const loggedIn =
+        localStorage.getItem("bdEarnLoggedIn");
+
+    const user =
+        localStorage.getItem("bdEarnUser");
+
+
+    if(loggedIn === "true" && user){
+
+        showDashboard();
+
+    }else{
+
+        document.getElementById("authSection")
+            .style.display = "block";
+
+        document.getElementById("dashboard")
+            .style.display = "none";
+
+    }
+};
+
+</script>
+
+</body>
+</html>
