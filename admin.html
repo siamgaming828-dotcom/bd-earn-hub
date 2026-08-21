@@ -4,1419 +4,2044 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BD Earn Hub - Admin Panel</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#eef8f2;font-family:Arial,"Noto Sans Bengali",sans-serif;color:#222}
-header{background:#087b18;color:#fff;padding:18px;text-align:center;font-size:24px;font-weight:700}
-.wrap{max-width:1100px;margin:auto;padding:16px}
-.card{background:#fff;padding:18px;margin:14px 0;border-radius:16px;box-shadow:0 4px 18px #0001}
-h2{color:#087b18;margin-top:0}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.stat{background:#f5f5f5;border-radius:12px;padding:18px;text-align:center}
-.stat b{display:block;font-size:25px;margin-top:7px}
-button{border:0;border-radius:9px;padding:10px 13px;margin:4px;color:#fff;background:#087b18;font-weight:700;cursor:pointer}
+
+body{
+  margin:0;
+  background:#eef8f2;
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+  color:#222
+}
+
+header{
+  background:#087b18;
+  color:white;
+  text-align:center;
+  padding:18px;
+  font-size:24px;
+  font-weight:700
+}
+
+.wrap{
+  max-width:1100px;
+  margin:auto;
+  padding:16px
+}
+
+.card{
+  background:white;
+  padding:18px;
+  margin:14px 0;
+  border-radius:16px;
+  box-shadow:0 4px 18px #0001
+}
+
+h2{
+  color:#087b18;
+  margin-top:0
+}
+
+input,textarea,select{
+  width:100%;
+  padding:11px;
+  margin:5px 0 10px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:15px
+}
+
+textarea{
+  min-height:80px
+}
+
+button{
+  border:0;
+  border-radius:9px;
+  padding:10px 13px;
+  margin:4px;
+  color:white;
+  background:#087b18;
+  font-weight:700;
+  cursor:pointer
+}
+
 button.red{background:#d90000}
 button.orange{background:#ed9700}
-button.gray{background:#666}
 button.blue{background:#1769aa}
-input,textarea,select{width:100%;padding:11px;margin:5px 0 10px;border:1px solid #ccc;border-radius:9px;font-size:15px}
-textarea{min-height:80px}
-.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#eee}
-.active{background:#d9f6df;color:#087b18}
-.pending{background:#fff1bd;color:#805b00}
-.rejected{background:#ffdede;color:#a00000}
-.hidden{display:none}
-.item{background:#f5f5f5;padding:13px;border-radius:10px;margin:8px 0}
-.notice{background:#fff4c7;padding:12px;border-radius:10px}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:750px}
-th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left;vertical-align:top}
-th{background:#087b18;color:#fff}
-@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}}
-@media(max-width:500px){.grid{grid-template-columns:1fr}}
+button.gray{background:#666}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px
+}
+
+.stat{
+  background:#f5f5f5;
+  border-radius:12px;
+  padding:18px;
+  text-align:center
+}
+
+.stat b{
+  display:block;
+  font-size:25px;
+  margin-top:7px
+}
+
+.item{
+  background:#f5f5f5;
+  padding:13px;
+  border-radius:10px;
+  margin:8px 0
+}
+
+.notice{
+  background:#fff4c7;
+  padding:12px;
+  border-radius:10px
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#eee
+}
+
+.hidden{
+  display:none
+}
+
+.table-wrap{
+  overflow-x:auto
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:750px
+}
+
+th,td{
+  padding:10px;
+  border-bottom:1px solid #ddd;
+  text-align:left
+}
+
+th{
+  background:#087b18;
+  color:white
+}
+
+@media(max-width:800px){
+  .grid{
+    grid-template-columns:1fr 1fr
+  }
+}
+
+@media(max-width:500px){
+  .grid{
+    grid-template-columns:1fr
+  }
+}
 </style>
 </head>
 
 <body>
 
-<header>🔐 BD Earn Hub — Admin Panel</header>
+<header>
+🔐 BD Earn Hub — Admin Panel
+</header>
 
 <div class="wrap">
 
 <!-- LOGIN -->
 <div id="loginBox" class="card">
-<h2>🔐 Admin Login</h2>
 
-<input
- id="adminEmail"
- type="email"
- value="siamg1237@gmail.com"
- placeholder="Admin Email">
+  <h2>🔐 Admin Login</h2>
 
-<input
- id="adminPassword"
- type="password"
- placeholder="Admin Password">
+  <input
+    id="adminEmail"
+    type="email"
+    placeholder="Admin Email"
+  >
 
-<button onclick="adminLogin()">Login</button>
+  <input
+    id="adminPassword"
+    type="password"
+    placeholder="Admin Password"
+  >
 
-<p id="loginMsg"></p>
+  <button onclick="adminLogin()">
+    Login
+  </button>
+
+  <p id="loginMsg"></p>
+
 </div>
 
 
-<!-- ADMIN -->
+<!-- ADMIN APP -->
 <div id="adminApp" class="hidden">
 
-<!-- DASHBOARD -->
-<div class="card">
-<h2>📊 Admin Dashboard</h2>
+  <div class="card">
 
-<div class="grid">
+    <h2>📊 Dashboard</h2>
 
-<div class="stat">
-👥 Users
-<b id="totalUsers">0</b>
+    <div class="grid">
+
+      <div class="stat">
+        👥 Users
+        <b id="totalUsers">0</b>
+      </div>
+
+      <div class="stat">
+        🟢 Active
+        <b id="activeUsers">0</b>
+      </div>
+
+      <div class="stat">
+        📋 Tasks
+        <b id="totalTasks">0</b>
+      </div>
+
+      <div class="stat">
+        💸 Withdraw
+        <b id="withdrawCount">0</b>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TASKS -->
+  <div class="card">
+
+    <h2>📋 Task Management</h2>
+
+    <input
+      id="taskTitle"
+      placeholder="Task Title"
+    >
+
+    <textarea
+      id="taskDescription"
+      placeholder="Task Description"
+    ></textarea>
+
+    <input
+      id="taskReward"
+      type="number"
+      min="0"
+      placeholder="Reward"
+    >
+
+    <button onclick="createTask()">
+      ➕ Create Task
+    </button>
+
+    <div id="taskList">
+      Loading...
+    </div>
+
+  </div>
+
+
+  <!-- ACTIVATION -->
+  <div class="card">
+
+    <h2>🔐 Activation Requests</h2>
+
+    <div id="activationList">
+      Loading...
+    </div>
+
+  </div>
+
+
+  <!-- TASK SUBMISSIONS -->
+  <div class="card">
+
+    <h2>📤 Task Submissions</h2>
+
+    <div id="submissionList">
+      Loading...
+    </div>
+
+  </div>
+
+
+  <!-- SERVICES -->
+  <div class="card">
+
+    <h2>📧 Gmail / 📷 Instagram Requests</h2>
+
+    <div id="serviceList">
+      Loading...
+    </div>
+
+  </div>
+
+
+  <!-- WITHDRAW -->
+  <div class="card">
+
+    <h2>💸 Withdraw Requests</h2>
+
+    <div id="withdrawList">
+      Loading...
+    </div>
+
+  </div>
+
+
+  <!-- USERS -->
+  <div class="card">
+
+    <h2>👥 User Management</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Balance</th>
+            <th>Status</th>
+            <th>Management</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="userList"></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- SETTINGS -->
+  <div class="card">
+
+    <h2>⚙️ Site Settings</h2>
+
+    <label>
+      Telegram Channel Link
+    </label>
+
+    <input
+      id="telegramLink"
+      placeholder="https://t.me/yourchannel"
+    >
+
+    <button onclick="saveTelegramLink()">
+      💾 Save Telegram Link
+    </button>
+
+  </div>
+
+
+  <button
+    class="red"
+    onclick="adminLogout()"
+  >
+    Logout
+  </button>
+
 </div>
 
-<div class="stat">
-🟢 Active
-<b id="activeUsers">0</b>
-</div>
-
-<div class="stat">
-📋 Tasks
-<b id="totalTasks">0</b>
-</div>
-
-<div class="stat">
-💸 Withdraw
-<b id="withdrawCount">0</b>
-</div>
-
-</div>
-</div>
-
-
-<!-- TASK -->
-<div class="card">
-<h2>📋 Task Management</h2>
-
-<input id="taskTitle" placeholder="Task Title">
-
-<textarea id="taskDescription"
-placeholder="Task Description"></textarea>
-
-<input id="taskReward"
-type="number"
-min="0"
-placeholder="Reward">
-
-<button onclick="createTask()">➕ Create Task</button>
-
-<div id="taskList">Loading...</div>
-</div>
-
-
-<!-- ACTIVATION -->
-<div class="card">
-<h2>🔐 Account Activation Requests</h2>
-<div id="activationList">Loading...</div>
-</div>
-
-
-<!-- TASK SUBMISSION -->
-<div class="card">
-<h2>📤 Task Submissions</h2>
-<div id="submissionList">Loading...</div>
-</div>
-
-
-<!-- SERVICE -->
-<div class="card">
-<h2>📧 Gmail / 📷 Instagram Requests</h2>
-<div id="serviceList">Loading...</div>
-</div>
-
-
-<!-- WITHDRAW -->
-<div class="card">
-<h2>💸 Withdraw Requests</h2>
-<div id="withdrawList">Loading...</div>
-</div>
-
-
-<!-- USERS -->
-<div class="card">
-<h2>👥 User Management</h2>
-
-<div class="table-wrap">
-<table>
-
-<thead>
-<tr>
-<th>Name</th>
-<th>Phone</th>
-<th>Email</th>
-<th>Balance</th>
-<th>Status</th>
-<th>Management</th>
-</tr>
-</thead>
-
-<tbody id="userList"></tbody>
-
-</table>
-</div>
-</div>
-
-
-<!-- SETTINGS -->
-<div class="card">
-<h2>⚙️ Site Settings</h2>
-
-<label>Telegram Channel Link</label>
-
-<input
- id="telegramLink"
- placeholder="https://t.me/yourchannel">
-
-<button onclick="saveTelegramLink()">
-💾 Save Telegram Link
-</button>
-</div>
-
-
-<button class="red" onclick="adminLogout()">
-Logout
-</button>
-
-</div>
 </div>
 
 
 <script>
 
 /* =========================
-SUPABASE CONFIG
+   CONFIG
 ========================= */
 
-const SUPABASE_URL="YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_URL =
+"YOUR_SUPABASE_URL";
 
-const sb=supabase.createClient(
-SUPABASE_URL,
-SUPABASE_ANON_KEY
+const SUPABASE_ANON_KEY =
+"YOUR_SUPABASE_ANON_KEY";
+
+
+const ADMIN_EMAIL =
+"siamg1237@gmail.com";
+
+
+const sb =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
 );
 
 
 /* =========================
-HTML ESCAPE
+   ESCAPE
 ========================= */
 
-function esc(value){
+function esc(v){
 
-return String(value ?? '')
-.replace(/[&<>"']/g,m=>({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#39;'
-}[m]));
+  return String(v ?? '').replace(
+    /[&<>"']/g,
+    m => ({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    }[m])
+  );
 
 }
 
 
 /* =========================
-ADMIN LOGIN
+   LOGIN
 ========================= */
 
 async function adminLogin(){
 
-const email=
-document.getElementById('adminEmail')
-.value.trim();
+  const email =
+    document
+    .getElementById('adminEmail')
+    .value.trim()
+    .toLowerCase();
 
-const password=
-document.getElementById('adminPassword')
-.value;
 
-if(!email || !password){
+  const password =
+    document
+    .getElementById('adminPassword')
+    .value;
 
-document.getElementById('loginMsg')
-.textContent=
-'Email এবং Password দিন।';
 
-return;
-}
+  const msg =
+    document
+    .getElementById('loginMsg');
 
-const {data,error}=
-await sb.auth.signInWithPassword({
 
-email:email,
-password:password
+  if(!email || !password){
 
-});
+    msg.textContent =
+      'Email এবং Password দিন।';
 
-if(error){
+    return;
+  }
 
-document.getElementById('loginMsg')
-.textContent=
-error.message;
 
-return;
-}
+  if(email !== ADMIN_EMAIL){
 
-document.getElementById('loginBox')
-.classList.add('hidden');
+    msg.textContent =
+      'এই Email-এর Admin access নেই।';
 
-document.getElementById('adminApp')
-.classList.remove('hidden');
+    return;
+  }
 
-loadAll();
+
+  const result =
+    await sb.auth.signInWithPassword({
+
+      email:email,
+
+      password:password
+
+    });
+
+
+  if(result.error){
+
+    msg.textContent =
+      result.error.message;
+
+    return;
+  }
+
+
+  document
+  .getElementById('loginBox')
+  .classList.add('hidden');
+
+
+  document
+  .getElementById('adminApp')
+  .classList.remove('hidden');
+
+
+  await loadAll();
 
 }
 
 
 /* =========================
-LOGOUT
-========================= */
-
-async function adminLogout(){
-
-await sb.auth.signOut();
-
-location.reload();
-
-}
-
-
-/* =========================
-LOAD ALL
+   LOAD ALL
 ========================= */
 
 async function loadAll(){
 
-await Promise.all([
+  await Promise.all([
 
-loadDashboard(),
-loadTasks(),
-loadActivations(),
-loadTaskSubmissions(),
-loadServices(),
-loadWithdrawals(),
-loadUsers(),
-loadSettings()
+    loadDashboard(),
 
-]);
+    loadTasks(),
+
+    loadActivations(),
+
+    loadTaskSubmissions(),
+
+    loadServices(),
+
+    loadWithdrawals(),
+
+    loadUsers(),
+
+    loadSettings()
+
+  ]);
 
 }
 
 
 /* =========================
-DASHBOARD
+   DASHBOARD
 ========================= */
 
 async function loadDashboard(){
 
-const users=
-await sb.from('users')
-.select('id,active,balance');
+  const users =
+    await sb
+    .from('users')
+    .select('id,active');
 
-const tasks=
-await sb.from('tasks')
-.select('id');
 
-const withdrawals=
-await sb.from('withdrawals')
-.select('id')
-.eq('status','pending');
+  const tasks =
+    await sb
+    .from('tasks')
+    .select('id');
 
-const userData=users.data||[];
 
-document.getElementById('totalUsers')
-.textContent=userData.length;
+  const withdrawals =
+    await sb
+    .from('withdrawals')
+    .select('id')
+    .eq(
+      'status',
+      'pending'
+    );
 
-document.getElementById('activeUsers')
-.textContent=
-userData.filter(u=>u.active).length;
 
-document.getElementById('totalTasks')
-.textContent=
-(tasks.data||[]).length;
+  const data =
+    users.data || [];
 
-document.getElementById('withdrawCount')
-.textContent=
-(withdrawals.data||[]).length;
+
+  document
+  .getElementById('totalUsers')
+  .textContent =
+    data.length;
+
+
+  document
+  .getElementById('activeUsers')
+  .textContent =
+    data.filter(
+      u => u.active
+    ).length;
+
+
+  document
+  .getElementById('totalTasks')
+  .textContent =
+    (tasks.data || []).length;
+
+
+  document
+  .getElementById('withdrawCount')
+  .textContent =
+    (withdrawals.data || []).length;
 
 }
 
 
 /* =========================
-CREATE TASK
+   CREATE TASK
 ========================= */
 
 async function createTask(){
 
-const title=
-document.getElementById('taskTitle')
-.value.trim();
+  const title =
+    document
+    .getElementById('taskTitle')
+    .value.trim();
 
-const description=
-document.getElementById('taskDescription')
-.value.trim();
 
-const reward=
-Number(
-document.getElementById('taskReward').value
-);
+  const description =
+    document
+    .getElementById('taskDescription')
+    .value.trim();
 
-if(!title || reward<=0){
 
-alert('Task title এবং reward দিন।');
+  const reward =
+    Number(
+      document
+      .getElementById('taskReward')
+      .value
+    );
 
-return;
-}
 
-const {error}=
-await sb.from('tasks').insert({
+  if(!title || reward <= 0){
 
-title:title,
-description:description,
-reward:reward,
-is_open:true
+    alert(
+      'Task title এবং reward দিন।'
+    );
 
-});
+    return;
+  }
 
-if(error){
 
-alert(error.message);
+  const result =
+    await sb
+    .from('tasks')
+    .insert({
 
-return;
-}
+      title:title,
 
-document.getElementById('taskTitle').value='';
-document.getElementById('taskDescription').value='';
-document.getElementById('taskReward').value='';
+      description:description,
 
-loadTasks();
-loadDashboard();
+      reward:reward,
+
+      is_open:true
+
+    });
+
+
+  if(result.error){
+
+    alert(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  document.getElementById(
+    'taskTitle'
+  ).value='';
+
+
+  document.getElementById(
+    'taskDescription'
+  ).value='';
+
+
+  document.getElementById(
+    'taskReward'
+  ).value='';
+
+
+  await loadTasks();
+
+  await loadDashboard();
 
 }
 
 
 /* =========================
-TASK LIST
+   TASK LIST
 ========================= */
 
 async function loadTasks(){
 
-const box=
-document.getElementById('taskList');
+  const box =
+    document.getElementById(
+      'taskList'
+    );
 
-const {data,error}=
-await sb.from('tasks')
-.select('*')
-.order('created_at',{ascending:false});
 
-if(error){
+  const result =
+    await sb
+    .from('tasks')
+    .select('*')
+    .order(
+      'created_at',
+      {ascending:false}
+    );
 
-box.innerHTML=
-'<p>'+esc(error.message)+'</p>';
 
-return;
-}
+  if(result.error){
 
-if(!data.length){
+    box.innerHTML =
+      '<p>' +
+      esc(result.error.message) +
+      '</p>';
 
-box.innerHTML=
-'<p>কোনো Task নেই।</p>';
+    return;
+  }
 
-return;
-}
 
-box.innerHTML=data.map(task=>`
+  if(!result.data.length){
 
-<div class="item">
+    box.innerHTML =
+      '<p>কোনো Task নেই।</p>';
 
-<b>${esc(task.title)}</b>
+    return;
+  }
 
-<br>
 
-${esc(task.description||'')}
+  box.innerHTML =
+    result.data.map(t => `
 
-<br>
+      <div class="item">
 
-Reward:
-<b>৳${Number(task.reward||0).toFixed(2)}</b>
+        <b>${esc(t.title)}</b>
 
-<br>
+        <br>
 
-Status:
-${task.is_open?'🟢 Open':'🔴 Closed'}
+        ${esc(t.description || '')}
 
-<br>
+        <br>
 
-<button onclick="toggleTask('${task.id}',${task.is_open})">
+        Reward:
+        ৳${Number(t.reward || 0).toFixed(2)}
 
-${task.is_open?'🔴 Close':'🟢 Open'}
+        <br>
 
-</button>
+        Status:
+        ${t.is_open ? '🟢 Open' : '🔴 Closed'}
 
-<button class="red"
-onclick="deleteTask('${task.id}')">
+        <br>
 
-🗑 Delete
+        <button
+          onclick="toggleTask('${t.id}',${t.is_open})"
+        >
+          ${t.is_open ? '🔴 Close' : '🟢 Open'}
+        </button>
 
-</button>
+        <button
+          class="red"
+          onclick="deleteTask('${t.id}')"
+        >
+          🗑 Delete
+        </button>
 
-</div>
+      </div>
 
-`).join('');
+    `).join('');
 
 }
 
 
 /* =========================
-TOGGLE TASK
+   TOGGLE TASK
 ========================= */
 
 async function toggleTask(id,current){
 
-const {error}=
-await sb.from('tasks')
-.update({is_open:!current})
-.eq('id',id);
+  const result =
+    await sb
+    .from('tasks')
+    .update({
 
-if(error){
+      is_open:!current
 
-alert(error.message);
-return;
+    })
+    .eq(
+      'id',
+      id
+    );
 
-}
 
-loadTasks();
+  if(result.error){
+
+    alert(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  await loadTasks();
 
 }
 
 
 /* =========================
-DELETE TASK
+   DELETE TASK
 ========================= */
 
 async function deleteTask(id){
 
-if(!confirm('এই Task মুছে ফেলবেন?'))
-return;
+  if(!confirm(
+    'এই Task মুছে ফেলবেন?'
+  )) return;
 
-const {error}=
-await sb.from('tasks')
-.delete()
-.eq('id',id);
 
-if(error){
+  const result =
+    await sb
+    .from('tasks')
+    .delete()
+    .eq(
+      'id',
+      id
+    );
 
-alert(error.message);
-return;
 
-}
+  if(result.error){
 
-loadTasks();
-loadDashboard();
+    alert(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  await loadTasks();
 
 }
 
 
 /* =========================
-ACTIVATION
+   ACTIVATIONS
 ========================= */
 
 async function loadActivations(){
 
-const box=
-document.getElementById('activationList');
+  const box =
+    document.getElementById(
+      'activationList'
+    );
 
-const {data,error}=
-await sb.from('activation_requests')
-.select('*,users(name,phone,email)')
-.order('created_at',{ascending:false});
 
-if(error){
+  const result =
+    await sb
+    .from('activation_requests')
+    .select(
+      '*,users(name,phone,email)'
+    )
+    .order(
+      'created_at',
+      {ascending:false}
+    );
 
-box.innerHTML='<p>'+esc(error.message)+'</p>';
-return;
 
-}
+  if(result.error){
 
-if(!data.length){
+    box.innerHTML =
+      '<p>' +
+      esc(result.error.message) +
+      '</p>';
 
-box.innerHTML=
-'<p>কোনো Activation Request নেই।</p>';
+    return;
+  }
 
-return;
-}
 
-box.innerHTML=data.map(item=>`
+  if(!result.data.length){
 
-<div class="item">
+    box.innerHTML =
+      '<p>কোনো Activation Request নেই।</p>';
 
-<b>👤 ${esc(item.users?.name)}</b>
+    return;
+  }
 
-<br>
-Phone: ${esc(item.users?.phone)}
 
-<br>
-Email: ${esc(item.users?.email)}
+  box.innerHTML =
+    result.data.map(x => `
 
-<br>
-Transaction ID:
-<b>${esc(item.trx_id)}</b>
+      <div class="item">
 
-<br>
-Amount:
-৳${Number(item.amount||30).toFixed(2)}
+        <b>
+          👤 ${esc(x.users?.name)}
+        </b>
 
-<br>
+        <br>
 
-Status:
-<span class="badge ${item.status}">
-${esc(item.status)}
-</span>
+        Phone:
+        ${esc(x.users?.phone)}
 
-<br>
+        <br>
 
-${
-item.status==='pending'
-?`
+        Email:
+        ${esc(x.users?.email)}
 
-<button
-onclick="approveActivation('${item.id}','${item.user_id}')">
-✅ Approve
-</button>
+        <br>
 
-<button class="red"
-onclick="rejectActivation('${item.id}')">
-❌ Reject
-</button>
+        Transaction ID:
+        <b>${esc(x.trx_id)}</b>
 
-`
-:''
-}
+        <br>
 
-</div>
+        Amount:
+        ৳${Number(x.amount || 30).toFixed(2)}
 
-`).join('');
+        <br>
+
+        Status:
+        ${esc(x.status)}
+
+        <br>
+
+        ${
+          x.status === 'pending'
+          ? `
+
+            <button
+              onclick="approveActivation('${x.id}','${x.user_id}')"
+            >
+              ✅ Approve
+            </button>
+
+            <button
+              class="red"
+              onclick="rejectActivation('${x.id}')"
+            >
+              ❌ Reject
+            </button>
+
+          `
+          : ''
+        }
+
+      </div>
+
+    `).join('');
 
 }
 
 
 /* =========================
-APPROVE ACTIVATION
+   APPROVE ACTIVATION
 ========================= */
 
-async function approveActivation(requestId,userId){
+async function approveActivation(
+  requestId,
+  userId
+){
 
-if(!confirm('এই Account Activate করবেন?'))
-return;
+  if(!confirm(
+    'এই Account Activate করবেন?'
+  )) return;
 
-const {error}=
-await sb.from('activation_requests')
-.update({status:'approved'})
-.eq('id',requestId)
-.eq('status','pending');
 
-if(error){
+  const request =
+    await sb
+    .from('activation_requests')
+    .update({
 
-alert(error.message);
-return;
+      status:'approved'
 
-}
+    })
+    .eq(
+      'id',
+      requestId
+    )
+    .eq(
+      'status',
+      'pending'
+    );
 
-const userUpdate=
-await sb.from('users')
-.update({active:true})
-.eq('id',userId);
 
-if(userUpdate.error){
+  if(request.error){
 
-alert(userUpdate.error.message);
-return;
+    alert(
+      request.error.message
+    );
 
-}
+    return;
+  }
 
-alert('✅ Account Active করা হয়েছে।');
 
-loadActivations();
-loadUsers();
-loadDashboard();
+  const userResult =
+    await sb
+    .from('users')
+    .update({
+
+      active:true
+
+    })
+    .eq(
+      'id',
+      userId
+    );
+
+
+  if(userResult.error){
+
+    alert(
+      userResult.error.message
+    );
+
+    return;
+  }
+
+
+  alert(
+    'Account Active করা হয়েছে।'
+  );
+
+
+  await loadActivations();
+
+  await loadUsers();
+
+  await loadDashboard();
 
 }
 
 
 /* =========================
-REJECT ACTIVATION
+   REJECT ACTIVATION
 ========================= */
 
 async function rejectActivation(id){
 
-const {error}=
-await sb.from('activation_requests')
-.update({status:'rejected'})
-.eq('id',id)
-.eq('status','pending');
+  const result =
+    await sb
+    .from('activation_requests')
+    .update({
 
-if(error){
+      status:'rejected'
 
-alert(error.message);
-return;
+    })
+    .eq(
+      'id',
+      id
+    )
+    .eq(
+      'status',
+      'pending'
+    );
 
-}
 
-loadActivations();
+  if(result.error){
+
+    alert(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  await loadActivations();
 
 }
 
 
 /* =========================
-TASK SUBMISSIONS
+   TASK SUBMISSIONS
 ========================= */
 
 async function loadTaskSubmissions(){
 
-const box=
-document.getElementById('submissionList');
+  const box =
+    document.getElementById(
+      'submissionList'
+    );
 
-const {data,error}=
-await sb.from('task_submissions')
-.select('*,tasks(title,reward),users(name,email)')
-.order('created_at',{ascending:false});
 
-if(error){
+  const result =
+    await sb
+    .from('task_submissions')
+    .select(
+      '*,tasks(title,reward),users(name,email)'
+    )
+    .order(
+      'created_at',
+      {ascending:false}
+    );
 
-box.innerHTML=
-'<p>'+esc(error.message)+'</p>';
 
-return;
+  if(result.error){
 
-}
+    box.innerHTML =
+      '<p>' +
+      esc(result.error.message) +
+      '</p>';
 
-if(!data.length){
+    return;
+  }
 
-box.innerHTML=
-'<p>কোনো Task Submission নেই।</p>';
 
-return;
-}
+  if(!result.data.length){
 
-box.innerHTML=data.map(item=>`
+    box.innerHTML =
+      '<p>কোনো Submission নেই।</p>';
 
-<div class="item">
+    return;
+  }
 
-<b>👤 ${esc(item.users?.name)}</b>
 
-<br>
+  box.innerHTML =
+    result.data.map(x => `
 
-Task:
-${esc(item.tasks?.title)}
+      <div class="item">
 
-<br>
+        <b>
+          👤 ${esc(x.users?.name)}
+        </b>
 
-Reward:
-৳${Number(item.tasks?.reward||0).toFixed(2)}
+        <br>
 
-<br>
+        Task:
+        ${esc(x.tasks?.title)}
 
-Proof:
+        <br>
 
-<div class="notice">
-${esc(item.proof)}
-</div>
+        Reward:
+        ৳${Number(x.tasks?.reward || 0).toFixed(2)}
 
-Status:
-<span class="badge ${item.status}">
-${esc(item.status)}
-</span>
+        <br>
 
-<br>
+        Proof:
 
-${
-item.status==='pending'
-?`
+        <div class="notice">
+          ${esc(x.proof)}
+        </div>
 
-<button
-onclick="approveTask(
-'${item.id}',
-'${item.user_id}',
-${Number(item.tasks?.reward||0)}
-)">
+        <br>
 
-✅ Approve + Reward
+        Status:
+        ${esc(x.status)}
 
-</button>
+        <br>
 
-<button class="red"
-onclick="rejectTask('${item.id}')">
+        ${
+          x.status === 'pending'
+          ? `
 
-❌ Reject
+            <button
+              onclick="approveTask('${x.id}','${x.user_id}',${Number(x.tasks?.reward || 0)})"
+            >
+              ✅ Approve + Reward
+            </button>
 
-</button>
+            <button
+              class="red"
+              onclick="rejectTask('${x.id}')"
+            >
+              ❌ Reject
+            </button>
 
-`
-:''
-}
+          `
+          : ''
+        }
 
-</div>
+      </div>
 
-`).join('');
+    `).join('');
 
 }
 
 
 /* =========================
-APPROVE TASK
+   APPROVE TASK
 ========================= */
 
 async function approveTask(
-submissionId,
-userId,
-reward
+  submissionId,
+  userId,
+  reward
 ){
 
-if(!confirm('Task Approve করে Reward যোগ করবেন?'))
-return;
+  if(!confirm(
+    'Task Approve করে Reward যোগ করবেন?'
+  )) return;
 
-const submission=
-await sb.from('task_submissions')
-.update({status:'approved'})
-.eq('id',submissionId)
-.eq('status','pending');
 
-if(submission.error){
+  const submission =
+    await sb
+    .from('task_submissions')
+    .update({
 
-alert(submission.error.message);
-return;
+      status:'approved'
 
-}
+    })
+    .eq(
+      'id',
+      submissionId
+    )
+    .eq(
+      'status',
+      'pending'
+    );
 
-const user=
-await sb.from('users')
-.select('balance')
-.eq('id',userId)
-.single();
 
-if(user.error){
+  if(submission.error){
 
-alert(user.error.message);
-return;
+    alert(
+      submission.error.message
+    );
 
-}
+    return;
+  }
 
-const balance=
-Number(user.data.balance||0);
 
-const {error}=
-await sb.from('users')
-.update({
-balance:balance+Number(reward)
-})
-.eq('id',userId);
+  const userResult =
+    await sb
+    .from('users')
+    .select('balance')
+    .eq(
+      'id',
+      userId
+    )
+    .single();
 
-if(error){
 
-alert(error.message);
-return;
+  if(userResult.error){
 
-}
+    alert(
+      userResult.error.message
+    );
 
-alert('✅ Task Approved এবং Reward যোগ হয়েছে।');
+    return;
+  }
 
-loadTaskSubmissions();
-loadUsers();
+
+  const balance =
+    Number(
+      userResult.data.balance || 0
+    );
+
+
+  const update =
+    await sb
+    .from('users')
+    .update({
+
+      balance:
+        balance + Number(reward)
+
+    })
+    .eq(
+      'id',
+      userId
+    );
+
+
+  if(update.error){
+
+    alert(
+      update.error.message
+    );
+
+    return;
+  }
+
+
+  alert(
+    'Task Approved এবং Reward যোগ হয়েছে।'
+  );
+
+
+  await loadTaskSubmissions();
+
+  await loadUsers();
 
 }
 
 
 /* =========================
-REJECT TASK
+   REJECT TASK
 ========================= */
 
 async function rejectTask(id){
 
-const {error}=
-await sb.from('task_submissions')
-.update({status:'rejected'})
-.eq('id',id)
-.eq('status','pending');
+  const result =
+    await sb
+    .from('task_submissions')
+    .update({
 
-if(error){
+      status:'rejected'
 
-alert(error.message);
-return;
+    })
+    .eq(
+      'id',
+      id
+    )
+    .eq(
+      'status',
+      'pending'
+    );
 
-}
 
-loadTaskSubmissions();
+  if(result.error){
+
+    alert(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  await loadTaskSubmissions();
 
 }
 
 
 /* =========================
-SERVICES
+   SERVICES
 ========================= */
 
 async function loadServices(){
 
-const box=
-document.getElementById('serviceList');
+  const box =
+    document.getElementById(
+      'serviceList'
+    );
 
-const {data,error}=
-await sb.from('service_submissions')
-.select('*,users(name,email,phone)')
-.order('created_at',{ascending:false});
 
-if(error){
+  const result =
+    await sb
+    .from('service_submissions')
+    .select(
+      '*,users(name,email,phone)'
+    )
+    .order(
+      'created_at',
+      {ascending:false}
+    );
 
-box.innerHTML=
-'<p>'+esc(error.message)+'</p>';
 
-return;
+  if(result.error){
 
-}
+    box.innerHTML =
+      '<p>' +
+      esc(result.error.message) +
+      '</p>';
 
-if(!data.length){
+    return;
+  }
 
-box.innerHTML=
-'<p>কোনো Service Request নেই।</p>';
 
-return;
-}
+  if(!result.data.length){
 
-box.innerHTML=data.map(item=>`
+    box.innerHTML =
+      '<p>কোনো Service Request নেই।</p>';
 
-<div class="item">
+    return;
+  }
 
-<b>
-${item.service_type==='gmail'
-?'📧 Gmail'
-:'📷 Instagram'}
-</b>
 
-<br>
+  box.innerHTML =
+    result.data.map(x => `
 
-User:
-${esc(item.users?.name)}
+      <div class="item">
 
-<br>
+        <b>
+          ${
+            x.service_type === 'gmail'
+            ? '📧 Gmail'
+            : '📷 Instagram'
+          }
+        </b>
 
-Account:
-<b>${esc(item.account)}</b>
+        <br>
 
-<br>
+        User:
+        ${esc(x.users?.name)}
 
-Proof:
-${esc(item.proof||'')}
+        <br>
 
-<br>
+        Account:
+        <b>${esc(x.account)}</b>
 
-Status:
-<span class="badge ${item.status}">
-${esc(item.status)}
-</span>
+        <br>
 
-<br>
+        Proof:
+        ${esc(x.proof || '')}
 
-${
-item.status==='pending'
-?`
+        <br>
 
-<button onclick="approveService('${item.id}')">
-✅ Approve
-</button>
+        Status:
+        ${esc(x.status)}
 
-<button class="red"
-onclick="rejectService('${item.id}')">
-❌ Reject
-</button>
+        <br>
 
-`
-:''
-}
+        ${
+          x.status === 'pending'
+          ? `
 
-</div>
+            <button
+              onclick="approveService('${x.id}')"
+            >
+              ✅ Approve
+            </button>
 
-`).join('');
+            <button
+              class="red"
+              onclick="rejectService('${x.id}')"
+            >
+              ❌ Reject
+            </button>
+
+          `
+          : ''
+        }
+
+      </div>
+
+    `).join('');
 
 }
 
 
 /* =========================
-SERVICE APPROVE
+   SERVICE APPROVE
 ========================= */
 
 async function approveService(id){
 
-const {data,error}=
-await sb.from('service_submissions')
-.update({status:'approved'})
-.eq('id',id)
-.eq('status','pending')
-.select('id,user_id')
-.single();
+  const result =
+    await sb
+    .from('service_submissions')
+    .update({
 
-if(error){
+      status:'approved'
 
-alert(error.message);
-return;
+    })
+    .eq(
+      'id',
+      id
+    )
+    .eq(
+      'status',
+      'pending'
+    );
 
-}
 
-/*
-এই অংশে Service Reward যোগ করতে
-তোমার Database-এ reward field প্রয়োজন।
-*/
+  if(result.error){
 
-alert('✅ Service Request Approved।');
+    alert(
+      result.error.message
+    );
 
-loadServices();
+    return;
+  }
+
+
+  await loadServices();
 
 }
 
 
 /* =========================
-SERVICE REJECT
+   SERVICE REJECT
 ========================= */
 
 async function rejectService(id){
 
-const {error}=
-await sb.from('service_submissions')
-.update({status:'rejected'})
-.eq('id',id)
-.eq('status','pending');
+  const result =
+    await sb
+    .from('service_submissions')
+    .update({
 
-if(error){
+      status:'rejected'
 
-alert(error.message);
-return;
+    })
+    .eq(
+      'id',
+      id
+    )
+    .eq(
+      'status',
+      'pending'
+    );
 
-}
 
-loadServices();
+  if(result.error){
+
+    alert(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  await loadServices();
 
 }
 
 
 /* =========================
-WITHDRAW
+   WITHDRAWALS
 ========================= */
 
 async function loadWithdrawals(){
 
-const box=
-document.getElementById('withdrawList');
+  const box =
+    document.getElementById(
+      'withdrawList'
+    );
 
-const {data,error}=
-await sb.from('withdrawals')
-.select('*,users(name,email,phone,balance)')
-.order('created_at',{ascending:false});
 
-if(error){
+  const result =
+    await sb
+    .from('withdrawals')
+    .select(
+      '*,users(name,email,phone,balance)'
+    )
+    .order(
+      'created_at',
+      {ascending:false}
+    );
 
-box.innerHTML=
-'<p>'+esc(error.message)+'</p>';
 
-return;
+  if(result.error){
 
-}
+    box.innerHTML =
+      '<p>' +
+      esc(result.error.message) +
+      '</p>';
 
-if(!data.length){
+    return;
+  }
 
-box.innerHTML=
-'<p>কোনো Withdraw Request নেই।</p>';
 
-return;
-}
+  if(!result.data.length){
 
-box.innerHTML=data.map(item=>`
+    box.innerHTML =
+      '<p>কোনো Withdraw Request নেই।</p>';
 
-<div class="item">
+    return;
+  }
 
-<b>👤 ${esc(item.users?.name)}</b>
 
-<br>
+  box.innerHTML =
+    result.data.map(x => `
 
-Method:
-<b>${esc(item.method)}</b>
+      <div class="item">
 
-<br>
+        <b>
+          👤 ${esc(x.users?.name)}
+        </b>
 
-Number:
-<b>${esc(item.account_number)}</b>
+        <br>
 
-<br>
+        Method:
+        ${esc(x.method)}
 
-Amount:
-<b>৳${Number(item.amount||0).toFixed(2)}</b>
+        <br>
 
-<br>
+        Number:
+        ${esc(x.account_number)}
 
-Status:
-<span class="badge ${item.status}">
-${esc(item.status)}
-</span>
+        <br>
 
-<br>
+        Amount:
+        <b>
+          ৳${Number(x.amount || 0).toFixed(2)}
+        </b>
 
-${
-item.status==='pending'
-?`
+        <br>
 
-<button
-onclick="approveWithdraw(
-'${item.id}',
-'${item.user_id}',
-${Number(item.amount||0)}
-)">
+        Status:
+        ${esc(x.status)}
 
-✅ Approve
+        <br>
 
-</button>
+        ${
+          x.status === 'pending'
+          ? `
 
-<button class="red"
-onclick="rejectWithdraw('${item.id}')">
+            <button
+              onclick="approveWithdraw('${x.id}','${x.user_id}',${Number(x.amount || 0)})"
+            >
+              ✅ Approve
+            </button>
 
-❌ Reject
+            <button
+              class="red"
+              onclick="rejectWithdraw('${x.id}')"
+            >
+              ❌ Reject
+            </button>
 
-</button>
+          `
+          : ''
+        }
 
-`
-:''
-}
+      </div>
 
-</div>
-
-`).join('');
+    `).join('');
 
 }
 
 
 /* =========================
-APPROVE WITHDRAW
+   APPROVE WITHDRAW
 ========================= */
 
 async function approveWithdraw(
-requestId,
-userId,
-amount
+  requestId,
+  userId,
+  amount
 ){
 
-if(!confirm('Withdraw Approve করবেন?'))
-return;
+  if(!confirm(
+    'Withdraw Approve করবেন?'
+  )) return;
 
-const user=
-await sb.from('users')
-.select('balance')
-.eq('id',userId)
-.single();
 
-if(user.error){
+  const userResult =
+    await sb
+    .from('users')
+    .select('balance')
+    .eq(
+      'id',
+      userId
+    )
+    .single();
 
-alert(user.error.message);
-return;
 
-}
+  if(userResult.error){
 
-const balance=
-Number(user.data.balance||0);
+    alert(
+      userResult.error.message
+    );
 
-if(amount>balance){
+    return;
+  }
 
-alert('User-এর balance যথেষ্ট নেই।');
-return;
 
-}
+  const balance =
+    Number(
+      userResult.data.balance || 0
+    );
 
-const request=
-await sb.from('withdrawals')
-.update({status:'approved'})
-.eq('id',requestId)
-.eq('status','pending');
 
-if(request.error){
+  if(amount > balance){
 
-alert(request.error.message);
-return;
+    alert(
+      'User-এর balance যথেষ্ট নেই।'
+    );
 
-}
+    return;
+  }
 
-const update=
-await sb.from('users')
-.update({
-balance:balance-amount
-})
-.eq('id',userId);
 
-if(update.error){
+  const updateUser =
+    await sb
+    .from('users')
+    .update({
 
-alert(update.error.message);
-return;
+      balance:
+        balance - amount
 
-}
+    })
+    .eq(
+      'id',
+      userId
+    );
 
-alert('✅ Withdraw Approved।');
 
-loadWithdrawals();
-loadUsers();
+  if(updateUser.error){
+
+    alert(
+      updateUser.error.message
+    );
+
+    return;
+  }
+
+
+  const request =
+    await sb
+    .from('withdrawals')
+    .update({
+
+      status:'approved'
+
+    })
+    .eq(
+      'id',
+      requestId
+    )
+    .eq(
+      'status',
+      'pending'
+    );
+
+
+  if(request.error){
+
+    alert(
+      request.error.message
+    );
+
+    return;
+  }
+
+
+  alert(
+    'Withdraw Approved।'
+  );
+
+
+  await loadWithdrawals();
+
+  await loadUsers();
 
 }
 
 
 /* =========================
-REJECT WITHDRAW
+   REJECT WITHDRAW
 ========================= */
 
 async function rejectWithdraw(id){
 
-const {error}=
-await sb.from('withdrawals')
-.update({status:'rejected'})
-.eq('id',id)
-.eq('status','pending');
+  const result =
+    await sb
+    .from('withdrawals')
+    .update({
 
-if(error){
+      status:'rejected'
 
-alert(error.message);
-return;
+    })
+    .eq(
+      'id',
+      id
+    )
+    .eq(
+      'status',
+      'pending'
+    );
 
-}
 
-loadWithdrawals();
+  if(result.error){
+
+    alert(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  await loadWithdrawals();
 
 }
 
 
 /* =========================
-USERS
+   USERS
 ========================= */
 
 async function loadUsers(){
 
-const tbody=
-document.getElementById('userList');
+  const tbody =
+    document.getElementById(
+      'userList'
+    );
 
-const {data,error}=
-await sb.from('users')
-.select('*')
-.order('created_at',{ascending:false});
 
-if(error){
+  const result =
+    await sb
+    .from('users')
+    .select('*')
+    .order(
+      'created_at',
+      {ascending:false}
+    );
 
-tbody.innerHTML=
-'<tr><td colspan="6">'+
-esc(error.message)+
-'</td></tr>';
 
-return;
+  if(result.error){
 
-}
+    tbody.innerHTML =
+      '<tr><td colspan="6">' +
+      esc(result.error.message) +
+      '</td></tr>';
 
-tbody.innerHTML=data.map(user=>`
+    return;
+  }
 
-<tr>
 
-<td>${esc(user.name)}</td>
+  tbody.innerHTML =
+    result.data.map(u => `
 
-<td>${esc(user.phone)}</td>
+      <tr>
 
-<td>${esc(user.email)}</td>
+        <td>${esc(u.name)}</td>
 
-<td>
-৳${Number(user.balance||0).toFixed(2)}
-</td>
+        <td>${esc(u.phone)}</td>
 
-<td>
+        <td>${esc(u.email)}</td>
 
-${
-user.active
-?'<span class="badge active">🟢 Active</span>'
-:'<span class="badge rejected">🔴 Inactive</span>'
-}
+        <td>
+          ৳${Number(u.balance || 0).toFixed(2)}
+        </td>
 
-</td>
+        <td>
+          ${u.active
+            ? '🟢 Active'
+            : '🔴 Inactive'
+          }
+        </td>
 
-<td>
+        <td>
 
-<button
-onclick="toggleUser(
-'${user.id}',
-${user.active}
-)">
+          <button
+            onclick="toggleUser('${u.id}',${u.active})"
+          >
+            ${
+              u.active
+              ? '🔴 Deactivate'
+              : '🟢 Activate'
+            }
+          </button>
 
-${user.active
-?'🔴 Deactivate'
-:'🟢 Activate'}
+          <button
+            class="blue"
+            onclick="changeBalance('${u.id}',${Number(u.balance || 0)})"
+          >
+            💰 Balance
+          </button>
 
-</button>
+        </td>
 
-<button class="blue"
-onclick="changeBalance(
-'${user.id}',
-${Number(user.balance||0)}
-)">
+      </tr>
 
-💰 Balance
-
-</button>
-
-</td>
-
-</tr>
-
-`).join('');
+    `).join('');
 
 }
 
 
 /* =========================
-TOGGLE USER
+   TOGGLE USER
 ========================= */
 
 async function toggleUser(id,active){
 
-const {error}=
-await sb.from('users')
-.update({active:!active})
-.eq('id',id);
+  const result =
+    await sb
+    .from('users')
+    .update({
 
-if(error){
+      active:!active
 
-alert(error.message);
-return;
+    })
+    .eq(
+      'id',
+      id
+    );
 
-}
 
-loadUsers();
-loadDashboard();
+  if(result.error){
+
+    alert(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  await loadUsers();
+
+  await loadDashboard();
 
 }
 
 
 /* =========================
-BALANCE
+   BALANCE
 ========================= */
 
-async function changeBalance(id,current){
+async function changeBalance(
+  id,
+  current
+){
 
-const value=
-prompt(
-'নতুন Balance লিখুন:',
-current
-);
+  const value =
+    prompt(
+      'নতুন Balance লিখুন:',
+      current
+    );
 
-if(value===null)
-return;
 
-const amount=Number(value);
+  if(value === null)
+    return;
 
-if(isNaN(amount)||amount<0){
 
-alert('সঠিক Amount দিন।');
-return;
+  const amount =
+    Number(value);
 
-}
 
-const {error}=
-await sb.from('users')
-.update({balance:amount})
-.eq('id',id);
+  if(!Number.isFinite(amount) || amount < 0){
 
-if(error){
+    alert(
+      'সঠিক Amount দিন।'
+    );
 
-alert(error.message);
-return;
+    return;
+  }
 
-}
 
-alert('✅ Balance Updated।');
+  const result =
+    await sb
+    .from('users')
+    .update({
 
-loadUsers();
+      balance:amount
+
+    })
+    .eq(
+      'id',
+      id
+    );
+
+
+  if(result.error){
+
+    alert(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  await loadUsers();
 
 }
 
 
 /* =========================
-TELEGRAM
+   SETTINGS
 ========================= */
 
 async function loadSettings(){
 
-const {data}=await sb
-.from('settings')
-.select('value')
-.eq('key','telegram_link')
-.maybeSingle();
+  const result =
+    await sb
+    .from('settings')
+    .select('value')
+    .eq(
+      'key',
+      'telegram_link'
+    )
+    .maybeSingle();
 
-if(data){
 
-document.getElementById('telegramLink')
-.value=data.value||'';
+  if(result.data){
 
-}
+    document
+    .getElementById(
+      'telegramLink'
+    )
+    .value =
+      result.data.value || '';
+
+  }
 
 }
 
 
 /* =========================
-SAVE TELEGRAM
+   SAVE TELEGRAM
 ========================= */
 
 async function saveTelegramLink(){
 
-const link=
-document.getElementById('telegramLink')
-.value.trim();
+  const link =
+    document
+    .getElementById(
+      'telegramLink'
+    )
+    .value.trim();
 
-const {error}=
-await sb.from('settings')
-.upsert({
-key:'telegram_link',
-value:link
-});
 
-if(error){
+  const result =
+    await sb
+    .from('settings')
+    .upsert({
 
-alert(error.message);
-return;
+      key:'telegram_link',
 
-}
+      value:link
 
-alert('✅ Telegram Link Saved।');
+    });
+
+
+  if(result.error){
+
+    alert(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  alert(
+    'Telegram Link Saved।'
+  );
 
 }
 
 
 /* =========================
-AUTO SESSION
+   LOGOUT
+========================= */
+
+async function adminLogout(){
+
+  await sb.auth.signOut();
+
+  location.reload();
+
+}
+
+
+/* =========================
+   AUTO LOGIN
 ========================= */
 
 (async function(){
 
-const {data}=
-await sb.auth.getSession();
+  const result =
+    await sb.auth.getSession();
 
-if(data.session){
 
-document.getElementById('loginBox')
-.classList.add('hidden');
+  const session =
+    result.data.session;
 
-document.getElementById('adminApp')
-.classList.remove('hidden');
 
-loadAll();
+  if(
+    session &&
+    session.user.email?.toLowerCase() ===
+    ADMIN_EMAIL.toLowerCase()
+  ){
 
-}
+    document
+    .getElementById('loginBox')
+    .classList.add('hidden');
+
+
+    document
+    .getElementById('adminApp')
+    .classList.remove('hidden');
+
+
+    await loadAll();
+
+  }
 
 })();
 
