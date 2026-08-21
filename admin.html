@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BD Earn Hub - Admin Panel</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+}
+
+body{
+  background:#eef7f1;
+  color:#222;
+  min-height:100vh;
+}
+
+.header{
+  background:#087b18;
+  color:white;
+  padding:18px;
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+}
+
+.container{
+  width:100%;
+  max-width:600px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:white;
+  border-radius:15px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 3px 12px rgba(0,0,0,.10);
+}
+
+.card h2{
+  margin-bottom:15px;
+  color:#087b18;
+}
+
+.info{
+  background:#f3f3f3;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+button{
+  width:100%;
+  border:0;
+  border-radius:8px;
+  padding:13px;
+  margin-top:8px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.green{
+  background:#087b18;
+  color:white;
+}
+
+.red{
+  background:#d90000;
+  color:white;
+}
+
+.gray{
+  background:#555;
+  color:white;
+}
+
+.status{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:20px;
+  background:#dff5e2;
+  color:#087b18;
+  font-weight:bold;
+}
+
+.warning{
+  background:#fff3cd;
+  color:#856404;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:15px;
+}
+
+.footer{
+  text-align:center;
+  padding:20px;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  🔐 BD Earn Hub<br>
+  <small>Demo Admin Panel</small>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h2>📊 Dashboard</h2>
+
+    <div class="info">
+      👥 Total Users:
+      <strong id="totalUsers">0</strong>
+    </div>
+
+    <div class="info">
+      🟢 Active Users:
+      <strong id="activeUsers">0</strong>
+    </div>
+
+    <div class="info">
+      ⚪ Inactive Users:
+      <strong id="inactiveUsers">0</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>👤 Demo User</h2>
+
+    <div class="info">
+      <strong>নাম:</strong> MD Siam
+    </div>
+
+    <div class="info">
+      <strong>মোবাইল:</strong> 018XXXXXXXX
+    </div>
+
+    <div class="info">
+      <strong>অ্যাকাউন্ট:</strong>
+      <span class="status" id="userStatus">Active</span>
+    </div>
+
+    <button class="green" onclick="setActive()">
+      🟢 Active
+    </button>
+
+    <button class="red" onclick="setInactive()">
+      🔴 Inactive
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>⚙️ Admin Controls</h2>
+
+    <div class="warning">
+      ⚠️ এটি শুধুমাত্র Demo/Test Admin Panel।
+      এখানে কোনো বাস্তব পেমেন্ট বা টাকা লেনদেন যাচাই করা হয় না।
+    </div>
+
+    <button class="gray" onclick="showMessage()">
+      🔄 Refresh Data
+    </button>
+
+    <button class="red" onclick="logoutAdmin()">
+      🚪 Logout
+    </button>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2026 BD Earn Hub
+</div>
+
+<script>
+
+let users = 1;
+let active = 1;
+
+function updateDashboard(){
+
+  document.getElementById("totalUsers").innerText = users;
+
+  document.getElementById("activeUsers").innerText = active;
+
+  document.getElementById("inactiveUsers").innerText =
+    users - active;
+}
+
+function setActive(){
+
+  active = 1;
+
+  document.getElementById("userStatus").innerText =
+    "Active";
+
+  updateDashboard();
+
+  alert("Demo user Active করা হয়েছে।");
+}
+
+function setInactive(){
+
+  active = 0;
+
+  document.getElementById("userStatus").innerText =
+    "Inactive";
+
+  updateDashboard();
+
+  alert("Demo user Inactive করা হয়েছে।");
+}
+
+function showMessage(){
+
+  updateDashboard();
+
+  alert("Dashboard data refresh হয়েছে।");
+}
+
+function logoutAdmin(){
+
+  alert("Demo Admin থেকে Logout করা হয়েছে।");
+
+  window.location.href = "index.html";
+}
+
+updateDashboard();
+
+</script>
+
+</body>
+</html>
