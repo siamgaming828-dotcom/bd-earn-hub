@@ -1,368 +1,782 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BD Earn Hub - Admin Panel</title>
 
-<title>BD Earn Hub - Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
 
 body{
- margin:0;
- background:#eef7f1;
- color:#222;
- font-family:Arial,"Noto Sans Bengali",sans-serif
+    margin:0;
+    background:#eef8f2;
+    font-family:Arial,"Noto Sans Bengali",sans-serif;
+    color:#222;
 }
 
 header{
- background:#087b18;
- color:white;
- padding:20px;
- text-align:center;
- font-size:24px;
- font-weight:bold
+    background:#087b18;
+    color:#fff;
+    padding:18px;
+    text-align:center;
+    font-size:24px;
+    font-weight:700;
 }
 
-.container{
- max-width:700px;
- margin:auto;
- padding:18px
+.wrap{
+    max-width:1100px;
+    margin:auto;
+    padding:16px;
 }
 
 .card{
- background:white;
- padding:20px;
- border-radius:16px;
- margin-bottom:18px;
- box-shadow:0 3px 15px rgba(0,0,0,.10)
+    background:#fff;
+    padding:18px;
+    margin:14px 0;
+    border-radius:16px;
+    box-shadow:0 4px 18px #0001;
 }
 
 h2{
- color:#087b18;
- margin-top:0
+    color:#087b18;
+    margin-top:0;
 }
 
-.stats{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
 }
 
 .stat{
- background:#f3f3f3;
- padding:15px;
- border-radius:10px;
- text-align:center
+    background:#f5f5f5;
+    border-radius:12px;
+    padding:18px;
+    text-align:center;
 }
 
-.stat strong{
- display:block;
- font-size:25px;
- margin-top:5px
-}
-
-input,textarea{
- width:100%;
- padding:13px;
- margin-top:8px;
- border:1px solid #ccc;
- border-radius:8px;
- font-size:16px
+.stat b{
+    display:block;
+    font-size:25px;
+    margin-top:7px;
 }
 
 button{
- width:100%;
- border:0;
- border-radius:8px;
- padding:12px;
- margin-top:8px;
- font-size:16px;
- font-weight:bold
+    border:0;
+    border-radius:9px;
+    padding:10px 13px;
+    margin:4px;
+    color:#fff;
+    background:#087b18;
+    font-weight:700;
+    cursor:pointer;
 }
 
-.green{background:#087b18;color:white}
-.red{background:#d90000;color:white}
-.gray{background:#555;color:white}
-.blue{background:#1976d2;color:white}
+button.red{background:#d90000}
+button.orange{background:#ed9700}
+button.gray{background:#666}
+button.blue{background:#1769aa}
 
-.item{
- background:#f3f3f3;
- padding:14px;
- border-radius:10px;
- margin-top:10px
+input,
+textarea,
+select{
+    width:100%;
+    padding:11px;
+    margin:5px 0 10px;
+    border:1px solid #ccc;
+    border-radius:9px;
+    font-size:15px;
+}
+
+textarea{
+    min-height:80px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:750px;
+}
+
+th,td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+    vertical-align:top;
+}
+
+th{
+    background:#087b18;
+    color:#fff;
 }
 
 .badge{
- display:inline-block;
- padding:5px 10px;
- border-radius:15px;
- background:#ddd
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    background:#eee;
+}
+
+.active{
+    background:#d9f6df;
+    color:#087b18;
 }
 
 .pending{
- background:#fff3cd;
- color:#856404
-}
-
-.approved{
- background:#d9f7df;
- color:#087b18
+    background:#fff1bd;
+    color:#805b00;
 }
 
 .rejected{
- background:#ffdede;
- color:#d00000
+    background:#ffdede;
+    color:#a00000;
 }
 
-.hidden{display:none}
+.hidden{
+    display:none;
+}
 
-.warning{
- background:#fff3cd;
- padding:12px;
- border-radius:10px;
- margin-bottom:15px
+.item{
+    background:#f5f5f5;
+    padding:13px;
+    border-radius:10px;
+    margin:8px 0;
+}
+
+.notice{
+    background:#fff4c7;
+    padding:12px;
+    border-radius:10px;
+}
+
+@media(max-width:800px){
+    .grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:500px){
+    .grid{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<header>🔐 BD Earn Hub — Admin Panel</header>
+<header>
+    🔐 BD Earn Hub — Admin Panel
+</header>
 
-<div class="container">
+<div class="wrap">
 
-<div class="warning">
-⚠️ এটি Demo/Admin Prototype। GitHub Pages-এ এটি নিরাপদ production database নয়।
-</div>
+<!-- LOGIN -->
+<div id="loginBox" class="card">
 
-<!-- DASHBOARD -->
+    <h2>🔐 Admin Login</h2>
 
-<div class="card">
+    <input
+        id="adminEmail"
+        type="email"
+        placeholder="Admin Email"
+    >
 
-<h2>📊 Dashboard</h2>
+    <input
+        id="adminPassword"
+        type="password"
+        placeholder="Admin Password"
+    >
 
-<div class="stats">
+    <button onclick="adminLogin()">
+        Login
+    </button>
 
-<div class="stat">
-👤 Users
-<strong id="totalUsers">1</strong>
-</div>
-
-<div class="stat">
-🟢 Active
-<strong id="activeUsers">0</strong>
-</div>
-
-<div class="stat">
-📋 Tasks
-<strong id="totalTasks">0</strong>
-</div>
-
-<div class="stat">
-💰 Balance
-<strong id="totalBalance">৳0</strong>
-</div>
-
-<div class="stat">
-📤 Submissions
-<strong id="pendingSubmissions">0</strong>
-</div>
-
-<div class="stat">
-💸 Withdraw
-<strong id="pendingWithdrawals">0</strong>
-</div>
-
-</div>
-</div>
-
-<!-- USER -->
-
-<div class="card">
-
-<h2>👤 User Account</h2>
-
-<div id="userBox"></div>
-
-<h3>💰 Balance Management</h3>
-
-<input id="balanceAmount"
-type="number"
-placeholder="Amount">
-
-<button class="green"
-onclick="addBalance()">
-➕ Add Balance
-</button>
-
-<button class="red"
-onclick="removeBalance()">
-➖ Remove Balance
-</button>
-
-<br>
-
-<button class="green"
-onclick="setActive(true)">
-🟢 Make Active
-</button>
-
-<button class="red"
-onclick="setActive(false)">
-🔴 Make Inactive
-</button>
+    <p id="loginMsg"></p>
 
 </div>
 
-<!-- CREATE TASK -->
 
-<div class="card">
+<!-- ADMIN APP -->
+<div id="adminApp" class="hidden">
 
-<h2>📋 Create Task</h2>
+    <!-- DASHBOARD -->
+    <div class="card">
 
-<input id="taskTitle"
-placeholder="Task Title">
+        <h2>📊 Admin Dashboard</h2>
 
-<textarea id="taskDescription"
-placeholder="Task Description"></textarea>
+        <div class="grid">
 
-<input id="taskReward"
-type="number"
-placeholder="Reward">
+            <div class="stat">
+                👥 Users
+                <b id="totalUsers">0</b>
+            </div>
 
-<button class="green"
-onclick="createTask()">
-➕ Create Task
-</button>
+            <div class="stat">
+                🟢 Active
+                <b id="activeUsers">0</b>
+            </div>
+
+            <div class="stat">
+                📋 Tasks
+                <b id="totalTasks">0</b>
+            </div>
+
+            <div class="stat">
+                💸 Withdraw
+                <b id="withdrawCount">0</b>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TASK MANAGEMENT -->
+    <div class="card">
+
+        <h2>📋 Task Management</h2>
+
+        <input
+            id="taskTitle"
+            placeholder="Task Title"
+        >
+
+        <textarea
+            id="taskDescription"
+            placeholder="Task Description"
+        ></textarea>
+
+        <input
+            id="taskReward"
+            type="number"
+            min="0"
+            placeholder="Reward"
+        >
+
+        <button onclick="createTask()">
+            ➕ Create Task
+        </button>
+
+        <div id="taskList">
+            Loading...
+        </div>
+
+    </div>
+
+
+    <!-- ACTIVATION -->
+    <div class="card">
+
+        <h2>🔐 Account Activation Requests</h2>
+
+        <div
+            id="activationList"
+        >
+            Loading...
+        </div>
+
+    </div>
+
+
+    <!-- TASK SUBMISSIONS -->
+    <div class="card">
+
+        <h2>📤 Task Submissions</h2>
+
+        <div
+            id="submissionList"
+        >
+            Loading...
+        </div>
+
+    </div>
+
+
+    <!-- SERVICE SUBMISSIONS -->
+    <div class="card">
+
+        <h2>📧 Gmail / 📷 Instagram Requests</h2>
+
+        <div
+            id="serviceList"
+        >
+            Loading...
+        </div>
+
+    </div>
+
+
+    <!-- WITHDRAW -->
+    <div class="card">
+
+        <h2>💸 Withdraw Requests</h2>
+
+        <div
+            id="withdrawList"
+        >
+            Loading...
+        </div>
+
+    </div>
+
+
+    <!-- USERS -->
+    <div class="card">
+
+        <h2>👥 User Management</h2>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                        <th>Management</th>
+                    </tr>
+                </thead>
+
+                <tbody id="userList">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- SETTINGS -->
+    <div class="card">
+
+        <h2>⚙️ Site Settings</h2>
+
+        <label>
+            Telegram Channel Link
+        </label>
+
+        <input
+            id="telegramLink"
+            placeholder="https://t.me/yourchannel"
+        >
+
+        <button onclick="saveTelegramLink()">
+            💾 Save Telegram Link
+        </button>
+
+    </div>
+
+
+    <button
+        class="red"
+        onclick="adminLogout()"
+    >
+        Logout
+    </button>
 
 </div>
 
-<!-- TASK MANAGEMENT -->
-
-<div class="card">
-
-<h2>📋 Task Management</h2>
-
-<div id="taskList"></div>
-
 </div>
 
-<!-- SUBMISSIONS -->
-
-<div class="card">
-
-<h2>📤 Task Submissions</h2>
-
-<div id="submissionList"></div>
-
-</div>
-
-<!-- WITHDRAW -->
-
-<div class="card">
-
-<h2>💸 Withdraw Requests</h2>
-
-<div id="withdrawList"></div>
-
-</div>
-
-<!-- TRANSACTION -->
-
-<div class="card">
-
-<h2>🧾 Transaction Verification</h2>
-
-<div id="transactionList"></div>
-
-</div>
-
-<div class="card">
-
-<button class="gray"
-onclick="render()">
-🔄 Refresh Data
-</button>
-
-<button class="red"
-onclick="location.href='index.html'">
-🏠 User Site
-</button>
-
-</div>
-
-</div>
 
 <script>
 
-function getData(){
+/* =========================
+   SUPABASE CONFIG
+========================= */
 
- const data=localStorage.getItem("bdEarnData");
+const SUPABASE_URL =
+"YOUR_SUPABASE_URL";
 
- if(!data){
-   alert("User data পাওয়া যায়নি। আগে User Site খুলুন।");
-   return {
-     user:{
-       name:"MD Siam",
-       phone:"01865501991",
-       active:false,
-       balance:0,
-       activationPending:false
-     },
-     tasks:[],
-     submissions:[],
-     withdrawals:[],
-     transactions:[]
-   };
- }
+const SUPABASE_ANON_KEY =
+"YOUR_SUPABASE_ANON_KEY";
 
- return JSON.parse(data);
+const sb =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function esc(value){
+
+    return String(value ?? '')
+        .replace(
+            /[&<>"']/g,
+            function(m){
+
+                return {
+                    '&':'&amp;',
+                    '<':'&lt;',
+                    '>':'&gt;',
+                    '"':'&quot;',
+                    "'":'&#39;'
+                }[m];
+
+            }
+        );
+
 }
 
-function saveData(data){
- localStorage.setItem("bdEarnData",JSON.stringify(data));
+
+/* =========================
+   LOGIN
+========================= */
+
+async function adminLogin(){
+
+    const email =
+        document
+        .getElementById('adminEmail')
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById('adminPassword')
+        .value;
+
+
+    if(!email || !password){
+
+        document
+        .getElementById('loginMsg')
+        .textContent =
+        'Email এবং Password দিন।';
+
+        return;
+    }
+
+
+    const result =
+        await sb.auth.signInWithPassword({
+
+            email:email,
+
+            password:password
+
+        });
+
+
+    if(result.error){
+
+        document
+        .getElementById('loginMsg')
+        .textContent =
+        result.error.message;
+
+        return;
+    }
+
+
+    document
+    .getElementById('loginBox')
+    .classList
+    .add('hidden');
+
+
+    document
+    .getElementById('adminApp')
+    .classList
+    .remove('hidden');
+
+
+    loadAll();
+
 }
 
-function money(n){
- return "৳"+Number(n).toFixed(2);
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function adminLogout(){
+
+    await sb.auth.signOut();
+
+    location.reload();
+
 }
 
-function render(){
 
- const data=getData();
+/* =========================
+   LOAD EVERYTHING
+========================= */
 
- document.getElementById("activeUsers").innerText=
-   data.user.active ? 1 : 0;
+async function loadAll(){
 
- document.getElementById("totalTasks").innerText=
-   data.tasks.length;
+    await Promise.all([
 
- document.getElementById("totalBalance").innerText=
-   money(data.user.balance);
+        loadDashboard(),
 
- document.getElementById("pendingSubmissions").innerText=
-   data.submissions.filter(x=>x.status==="pending").length;
+        loadTasks(),
 
- document.getElementById("pendingWithdrawals").innerText=
-   data.withdrawals.filter(x=>x.status==="pending").length;
+        loadActivations(),
 
- document.getElementById("userBox").innerHTML=`
-   <div class="item">
-   <b>নাম:</b> ${data.user.name}<br>
-   <b>মোবাইল:</b> ${data.user.phone}<br>
-   <b>Balance:</b> ${money(data.user.balance)}<br><br>
+        loadTaskSubmissions(),
 
-   Status:
-   <span class="badge ${
-     data.user.active ? "approved":"rejected"
-   }">
-   ${data.user.active ? "🟢 Active":"🔴 Inactive"}
-   </span>
-   </div>
- `;
+        loadServices(),
 
- renderTasks(data);
- renderSubmissions(data);
- renderWithdrawals(data
+        loadWithdrawals(),
+
+        loadUsers(),
+
+        loadSettings()
+
+    ]);
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+async function loadDashboard(){
+
+    const users =
+        await sb
+        .from('users')
+        .select('id,active,balance');
+
+
+    const tasks =
+        await sb
+        .from('tasks')
+        .select('id');
+
+
+    const withdrawals =
+        await sb
+        .from('withdrawals')
+        .select('id')
+        .eq('status','pending');
+
+
+    const userData =
+        users.data || [];
+
+
+    document
+    .getElementById('totalUsers')
+    .textContent =
+    userData.length;
+
+
+    document
+    .getElementById('activeUsers')
+    .textContent =
+    userData.filter(
+        u => u.active
+    ).length;
+
+
+    document
+    .getElementById('totalTasks')
+    .textContent =
+    (tasks.data || []).length;
+
+
+    document
+    .getElementById('withdrawCount')
+    .textContent =
+    (withdrawals.data || []).length;
+
+}
+
+
+/* =========================
+   TASK CREATE
+========================= */
+
+async function createTask(){
+
+    const title =
+        document
+        .getElementById('taskTitle')
+        .value
+        .trim();
+
+
+    const description =
+        document
+        .getElementById('taskDescription')
+        .value
+        .trim();
+
+
+    const reward =
+        Number(
+            document
+            .getElementById('taskReward')
+            .value
+        );
+
+
+    if(!title || !reward){
+
+        alert(
+            'Task title এবং reward দিন।'
+        );
+
+        return;
+    }
+
+
+    const result =
+        await sb
+        .from('tasks')
+        .insert({
+
+            title:title,
+
+            description:description,
+
+            reward:reward,
+
+            is_open:true
+
+        });
+
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+    }
+
+
+    document
+    .getElementById('taskTitle')
+    .value='';
+
+
+    document
+    .getElementById('taskDescription')
+    .value='';
+
+
+    document
+    .getElementById('taskReward')
+    .value='';
+
+
+    await loadTasks();
+
+    await loadDashboard();
+
+}
+
+
+/* =========================
+   LOAD TASKS
+========================= */
+
+async function loadTasks(){
+
+    const box =
+        document
+        .getElementById('taskList');
+
+
+    const result =
+        await sb
+        .from('tasks')
+        .select('*')
+        .order(
+            'created_at',
+            {
+                ascending:false
+            }
+        );
+
+
+    if(result.error){
+
+        box.innerHTML =
+            '<p>' +
+            esc(
+                result.error.message
+            ) +
+            '</p>';
+
+        return;
+    }
+
+
+    if(!result.data.length){
+
+        box.innerHTML =
+            '<p>কোনো Task নেই।</p>';
+
+        return;
+    }
+
+
+    box.innerHTML =
+        result.data
+        .map(
+            task => `
+
+            <div class="item">
+
+                <b>
+                    ${esc(task.title)}
+                </b>
+
+                <br>
+
+                ${esc(
+                    task.description || ''
+                )}
+
+                <br>
+
+                Reward:
+                <b>
+                    ৳${Number(
+                        task.reward || 0
+                    ).toFixed(2)}
+                </b>
+
+                <br>
+
+                Status:
+                ${task.is_open
+                    ? '🟢 Open'
+                    : '🔴 Closed'
+                }
+
+                <br>
+
+                <button
+                    onclick="toggleTask('${task.id}',${task.is_open})"
+                >
+                    ${task.is_open
+                        ? '🔴 Close'
+                        : '🟢 Open'
+                    }
+                </button>
+
+                <button
+                    class="red"
+                    onclick="deleteTask('${task.id
