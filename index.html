@@ -2,608 +2,415 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BD Earn Hub</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,"Noto Sans Bengali",sans-serif}
-body{background:#f1f6f2;color:#222}
-.header{background:#087b18;color:#fff;text-align:center;padding:20px;font-size:24px;font-weight:bold}
-.container{max-width:600px;margin:auto;padding:16px}
-.card{background:#fff;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 3px 12px #0001}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#eef7f1;
+ color:#222;
+ font-family:Arial,"Noto Sans Bengali",sans-serif
+}
+header{
+ background:#087b18;
+ color:white;
+ text-align:center;
+ padding:18px;
+ font-size:24px;
+ font-weight:bold
+}
+.container{
+ width:100%;
+ max-width:650px;
+ margin:auto;
+ padding:18px
+}
+.card{
+ background:white;
+ border-radius:16px;
+ padding:20px;
+ margin-bottom:18px;
+ box-shadow:0 3px 15px rgba(0,0,0,.10)
+}
 .profile{text-align:center}
-.avatar{width:75px;height:75px;border-radius:50%;background:#087b18;color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold;margin:auto}
-.profile h2{margin-top:10px}
-.status{display:inline-block;padding:7px 14px;border-radius:20px;margin-top:10px;font-weight:bold}
-.active{background:#d9f5df;color:#087b18}
-.inactive{background:#ffdcdc;color:#d00000}
-.balance{background:#087b18;color:white;border-radius:14px;padding:20px;text-align:center;margin-top:18px}
-.balance small{font-size:15px}
-.balance strong{display:block;font-size:38px;margin-top:5px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.menu{background:#f2f2f2;border-radius:12px;padding:18px 5px;text-align:center;font-weight:bold;cursor:pointer}
-.section{margin-top:16px}
-.hidden{display:none!important}
-h2{color:#087b18;margin-bottom:14px}
-input,textarea{width:100%;padding:13px;border:1px solid #ccc;border-radius:9px;margin:6px 0 12px;font-size:15px}
-button{width:100%;border:0;border-radius:9px;padding:13px;margin-top:7px;font-size:16px;font-weight:bold;cursor:pointer}
-.green{background:#087b18;color:#fff}
-.red{background:#d00000;color:#fff}
-.gray{background:#555;color:#fff}
-.blue{background:#1976d2;color:#fff}
-.task{border:1px solid #ddd;border-radius:12px;padding:15px;margin-bottom:12px}
-.info{background:#f3f3f3;padding:13px;border-radius:9px;margin-bottom:10px}
-.activation{border:2px solid #d00000}
-.amount{font-size:34px;font-weight:bold;color:#087b18;text-align:center;margin:10px}
-footer{text-align:center;color:#777;padding:25px}
+.avatar{
+ width:90px;
+ height:90px;
+ border-radius:50%;
+ background:#087b18;
+ color:white;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:40px;
+ font-weight:bold;
+ margin:auto
+}
+h2{color:#087b18}
+.balance{
+ background:#087b18;
+ color:white;
+ border-radius:14px;
+ padding:22px;
+ text-align:center;
+ margin-top:15px
+}
+.balance strong{
+ display:block;
+ font-size:38px;
+ margin-top:8px
+}
+.status{
+ display:inline-block;
+ padding:8px 15px;
+ border-radius:20px;
+ margin-top:10px;
+ font-weight:bold
+}
+.active{background:#d9f7df;color:#087b18}
+.inactive{background:#ffdede;color:#d00000}
+
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px
+}
+button{
+ width:100%;
+ border:0;
+ border-radius:9px;
+ padding:13px;
+ margin-top:8px;
+ font-size:16px;
+ font-weight:bold;
+ cursor:pointer
+}
+.green{background:#087b18;color:white}
+.red{background:#d90000;color:white}
+.gray{background:#555;color:white}
+.blue{background:#1976d2;color:white}
+
+input,textarea{
+ width:100%;
+ padding:13px;
+ border:1px solid #ccc;
+ border-radius:9px;
+ margin-top:8px;
+ font-size:16px
+}
+.task{
+ background:#f3f3f3;
+ border-radius:10px;
+ padding:14px;
+ margin-top:10px
+}
+.hidden{display:none}
+.small{font-size:13px;color:#666}
+.notice{
+ background:#fff3cd;
+ padding:12px;
+ border-radius:10px;
+ margin-top:10px
+}
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  🔐 BD Earn Hub
-</div>
+<header>🔐 BD Earn Hub</header>
 
 <div class="container">
 
-<!-- USER PROFILE -->
 <div class="card profile">
-
   <div class="avatar">M</div>
-
-  <h2>MD Siam</h2>
-  <p>01865501991</p>
-
-  <div>
-    <span id="accountStatus" class="status inactive">
-      🔴 Inactive
-    </span>
-  </div>
+  <h2 id="userName">MD Siam</h2>
+  <div id="userPhone">01865501991</div>
+  <div id="statusBox" class="status active">🟢 Active</div>
 
   <div class="balance">
-    <small>Available Balance</small>
+    Available Balance
     <strong id="balance">৳0.00</strong>
   </div>
-
 </div>
 
-
-<!-- MENU -->
 <div class="card">
-
-  <div class="grid">
-
-    <div class="menu" onclick="openSection('tasks')">
-      💼<br>Daily Job
-    </div>
-
-    <div class="menu" onclick="openSection('recharge')">
-      📱<br>Recharge
-    </div>
-
-    <div class="menu" onclick="openSection('withdraw')">
-      💸<br>Withdraw
-    </div>
-
-    <div class="menu" onclick="openSection('refer')">
-      🎁<br>Refer & Earn
-    </div>
-
-  </div>
-
+<h2>📋 Daily Tasks</h2>
+<div id="taskList"></div>
 </div>
 
-
-<!-- ACTIVATION -->
-<div id="activationBox" class="card activation">
-
-  <h2 style="color:#d00000">
-    🔴 Account Activation
-  </h2>
-
-  <p>অ্যাকাউন্ট Active করার জন্য নিচের তথ্য ব্যবহার করুন।</p>
-
-  <div class="amount">৳30</div>
-
-  <div class="info">
-    <b>Nagad Number:</b><br>
-    <span id="nagadNumber">01865501991</span>
-  </div>
-
-  <button class="gray" onclick="copyNagad()">
-    📋 নম্বর কপি করুন
-  </button>
-
-  <input
-    id="trx"
-    type="text"
-    placeholder="Nagad TrxID লিখুন">
-
-  <button class="green" onclick="submitActivation()">
-    ✅ Active Now
-  </button>
-
-  <p id="activationMsg" style="margin-top:10px"></p>
-
-</div>
-
-
-<!-- TASK -->
-<div id="tasks" class="card section hidden">
-
-  <h2>📋 Daily Job</h2>
-
-  <div class="task">
-
-    <h3>🎯 Facebook Page Follow</h3>
-
-    <p>আমাদের Facebook Page Follow করুন।</p>
-
-    <b>Reward: ৳10</b>
-
-    <input
-      id="taskProof"
-      placeholder="Proof / Screenshot Link">
-
-    <button class="green" onclick="submitTask()">
-      📤 Task Submit
-    </button>
-
-  </div>
-
-  <div class="task">
-
-    <h3>📢 Telegram Join</h3>
-
-    <p>Telegram গ্রুপে Join করুন।</p>
-
-    <b>Reward: ৳15</b>
-
-    <input
-      id="telegramProof"
-      placeholder="Proof / Screenshot Link">
-
-    <button class="green" onclick="submitTelegram()">
-      📤 Task Submit
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- RECHARGE -->
-<div id="recharge" class="card section hidden">
-
-  <h2>📱 Recharge</h2>
-
-  <input
-    id="rechargeNumber"
-    placeholder="মোবাইল নম্বর">
-
-  <input
-    id="rechargeAmount"
-    type="number"
-    placeholder="Amount">
-
-  <button class="green" onclick="recharge()">
-    📤 Recharge Request
-  </button>
-
-</div>
-
-
-<!-- WITHDRAW -->
-<div id="withdraw" class="card section hidden">
-
-  <h2>💸 Withdraw</h2>
-
-  <div class="info">
-    Available Balance:
-    <b id="withdrawBalance">৳0.00</b>
-  </div>
-
-  <input
-    id="withdrawNumber"
-    placeholder="Nagad / bKash Number">
-
-  <input
-    id="withdrawAmount"
-    type="number"
-    placeholder="Withdraw Amount">
-
-  <button class="green" onclick="withdraw()">
-    💸 Withdraw Request
-  </button>
-
-</div>
-
-
-<!-- REFER -->
-<div id="refer" class="card section hidden">
-
-  <h2>🎁 Refer & Earn</h2>
-
-  <div class="info">
-    Referral Code:
-    <b>SIAM123</b>
-  </div>
-
-  <button class="blue" onclick="copyReferral()">
-    📋 Copy Referral Code
-  </button>
-
-</div>
-
-
-<!-- ADMIN LINK -->
 <div class="card">
+<h2>💸 Withdraw</h2>
 
-  <button class="gray" onclick="openAdmin()">
-    🔐 Admin Panel
-  </button>
+<input id="withdrawAmount" type="number" placeholder="টাকার পরিমাণ">
+<input id="withdrawNumber" placeholder="বিকাশ/নগদ নম্বর">
 
+<button class="green" onclick="withdrawRequest()">
+💸 Withdraw Request
+</button>
+
+<div id="withdrawMessage"></div>
+</div>
+
+<div class="card" id="activationCard">
+<h2>🔐 Account Activation</h2>
+
+<p>অ্যাকাউন্ট চালু করতে Transaction ID দিন।</p>
+
+<input id="trxId" placeholder="Transaction ID">
+
+<button class="green" onclick="submitTransaction()">
+🧾 Transaction ID Submit
+</button>
+
+<div id="trxMessage"></div>
+</div>
+
+<div class="card">
+<h2>🎁 Refer & Earn</h2>
+<p>আপনার Referral Code:</p>
+
+<input value="BD-EARN-001" readonly>
+
+<button class="gray"
+onclick="navigator.clipboard.writeText('BD-EARN-001')">
+📋 Copy Code
+</button>
+</div>
+
+<div class="card">
+<button class="gray" onclick="location.href='admin.html'">
+🔐 Admin Panel
+</button>
 </div>
 
 </div>
-
-
-<footer>
-© 2026 BD Earn Hub
-</footer>
-
 
 <script>
 
-/* =========================
-   DATA
-========================= */
+const DEFAULT_DATA = {
+ user:{
+   name:"MD Siam",
+   phone:"01865501991",
+   active:true,
+   balance:0,
+   activationPending:false
+ },
+ tasks:[
+   {
+     id:1,
+     title:"Facebook Page Follow",
+     description:"নির্দেশনা অনুযায়ী কাজটি সম্পন্ন করুন।",
+     reward:20,
+     status:"open"
+   },
+   {
+     id:2,
+     title:"Website Visit",
+     description:"ওয়েবসাইটটি ভিজিট করুন।",
+     reward:10,
+     status:"open"
+   }
+ ],
+ submissions:[],
+ withdrawals:[],
+ transactions:[]
+};
 
-let balance =
-  Number(localStorage.getItem("balance") || 0);
+function getData(){
+ let data=localStorage.getItem("bdEarnData");
 
-let active =
-  localStorage.getItem("accountActive") === "true";
+ if(!data){
+   localStorage.setItem("bdEarnData",JSON.stringify(DEFAULT_DATA));
+   return DEFAULT_DATA;
+ }
 
-
-/* =========================
-   UPDATE
-========================= */
-
-function update(){
-
-  document.getElementById("balance")
-    .innerText =
-    "৳" + balance.toFixed(2);
-
-  document.getElementById("withdrawBalance")
-    .innerText =
-    "৳" + balance.toFixed(2);
-
-
-  let status =
-    document.getElementById("accountStatus");
-
-  let activation =
-    document.getElementById("activationBox");
-
-
-  if(active){
-
-    status.innerText="🟢 Active";
-    status.className="status active";
-
-    /*
-      Active হওয়ার পর
-      Activation আর দেখাবে না
-    */
-
-    activation.classList.add("hidden");
-
-  }else{
-
-    status.innerText="🔴 Inactive";
-    status.className="status inactive";
-
-    activation.classList.remove("hidden");
-
-  }
-
+ return JSON.parse(data);
 }
 
-
-/* =========================
-   SAVE
-========================= */
-
-function save(){
-
-  localStorage.setItem(
-    "balance",
-    balance
-  );
-
-  localStorage.setItem(
-    "accountActive",
-    active
-  );
-
-  update();
-
+function saveData(data){
+ localStorage.setItem("bdEarnData",JSON.stringify(data));
 }
 
-
-/* =========================
-   SECTION
-========================= */
-
-function openSection(id){
-
-  document.querySelectorAll(".section")
-    .forEach(function(x){
-      x.classList.add("hidden");
-    });
-
-  document.getElementById(id)
-    .classList.remove("hidden");
-
+function money(n){
+ return "৳"+Number(n).toFixed(2);
 }
 
+function render(){
 
-/* =========================
-   COPY NAGAD
-========================= */
+ const data=getData();
 
-function copyNagad(){
+ document.getElementById("userName").innerText=data.user.name;
+ document.getElementById("userPhone").innerText=data.user.phone;
+ document.getElementById("balance").innerText=money(data.user.balance);
 
-  navigator.clipboard.writeText(
-    "01865501991"
-  );
+ const status=document.getElementById("statusBox");
 
-  alert("Nagad Number কপি হয়েছে");
+ if(data.user.active){
+   status.className="status active";
+   status.innerText="🟢 Active";
+ }else{
+   status.className="status inactive";
+   status.innerText="🔴 Inactive";
+ }
 
+ const activation=document.getElementById("activationCard");
+
+ if(data.user.active){
+   activation.classList.add("hidden");
+ }else{
+   activation.classList.remove("hidden");
+ }
+
+ const list=document.getElementById("taskList");
+ list.innerHTML="";
+
+ const openTasks=data.tasks.filter(t=>t.status==="open");
+
+ if(openTasks.length===0){
+   list.innerHTML="<p>এই মুহূর্তে কোনো Task নেই।</p>";
+   return;
+ }
+
+ openTasks.forEach(task=>{
+
+   const submitted=data.submissions.some(
+     s=>s.taskId===task.id && s.status==="pending"
+   );
+
+   const div=document.createElement("div");
+
+   div.className="task";
+
+   div.innerHTML=`
+     <h3>${task.title}</h3>
+     <p>${task.description}</p>
+     <b>Reward: ${money(task.reward)}</b>
+
+     ${
+       submitted
+       ?
+       `<button class="gray" disabled>⏳ Submitted</button>`
+       :
+       `<button class="green"
+          onclick="submitTask(${task.id})">
+          📤 Submit Task
+        </button>`
+     }
+   `;
+
+   list.appendChild(div);
+ });
 }
 
+function submitTask(id){
 
-/* =========================
-   ACTIVATION
-========================= */
+ const data=getData();
 
-function submitActivation(){
+ const task=data.tasks.find(t=>t.id===id);
 
-  let trx =
-    document.getElementById("trx")
-    .value.trim();
+ if(!task)return;
 
-  if(!trx){
+ if(!data.user.active){
+   alert("আপনার Account Active নয়।");
+   return;
+ }
 
-    alert("TrxID লিখুন");
+ data.submissions.push({
+   id:Date.now(),
+   taskId:id,
+   user:"MD Siam",
+   status:"pending",
+   reward:task.reward,
+   submittedAt:new Date().toISOString()
+ });
 
-    return;
+ saveData(data);
 
-  }
+ alert("Task Submit হয়েছে। Admin Approve করলে Reward Balance-এ যোগ হবে।");
 
-
-  /*
-    Demo version:
-    TrxID দেওয়ার পর সরাসরি Active।
-    
-    পরে Backend যুক্ত করলে
-    এখানে Admin verification রাখা যাবে।
-  */
-
-  active = true;
-
-  localStorage.setItem(
-    "activationTrx",
-    trx
-  );
-
-  save();
-
-  document.getElementById("activationMsg")
-    .innerText =
-    "✅ Account Active হয়েছে।";
-
-
-  document.getElementById("trx")
-    .value="";
-
+ render();
 }
 
+function withdrawRequest(){
 
-/* =========================
-   TASK
-========================= */
+ const data=getData();
 
-function submitTask(){
+ const amount=Number(
+   document.getElementById("withdrawAmount").value
+ );
 
-  let proof =
-    document.getElementById("taskProof")
-    .value.trim();
+ const number=
+   document.getElementById("withdrawNumber").value.trim();
 
-  if(!proof){
+ if(!data.user.active){
+   alert("Account Active নয়।");
+   return;
+ }
 
-    alert("Proof দিন");
+ if(!amount || amount<=0){
+   alert("সঠিক Amount দিন।");
+   return;
+ }
 
-    return;
+ if(amount>data.user.balance){
+   alert("আপনার Balance যথেষ্ট নয়।");
+   return;
+ }
 
-  }
+ if(!number){
+   alert("Payment Number দিন।");
+   return;
+ }
 
-  localStorage.setItem(
-    "task1",
-    "pending"
-  );
+ data.withdrawals.push({
+   id:Date.now(),
+   amount:amount,
+   number:number,
+   status:"pending",
+   createdAt:new Date().toISOString()
+ });
 
-  alert(
-    "✅ Task Submit হয়েছে। Admin Approve করলে Reward পাবেন।"
-  );
+ saveData(data);
 
+ document.getElementById("withdrawMessage").innerHTML=
+   '<div class="notice">✅ Withdraw Request পাঠানো হয়েছে।</div>';
+
+ document.getElementById("withdrawAmount").value="";
+ document.getElementById("withdrawNumber").value="";
 }
 
+function submitTransaction(){
 
-function submitTelegram(){
+ const data=getData();
 
-  let proof =
-    document.getElementById("telegramProof")
-    .value.trim();
+ const trx=
+   document.getElementById("trxId").value.trim();
 
-  if(!proof){
+ if(!trx){
+   alert("Transaction ID দিন।");
+   return;
+ }
 
-    alert("Proof দিন");
+ data.transactions.push({
+   id:Date.now(),
+   trxId:trx,
+   status:"pending",
+   createdAt:new Date().toISOString()
+ });
 
-    return;
+ data.user.activationPending=true;
 
-  }
+ saveData(data);
 
-  localStorage.setItem(
-    "task2",
-    "pending"
-  );
+ document.getElementById("trxMessage").innerHTML=
+   '<div class="notice">✅ Transaction ID জমা হয়েছে। Admin Verify করার পর Account Active হবে।</div>';
 
-  alert(
-    "✅ Task Submit হয়েছে।"
-  );
-
+ document.getElementById("trxId").value="";
 }
 
-
-/* =========================
-   RECHARGE
-========================= */
-
-function recharge(){
-
-  let number =
-    document.getElementById(
-      "rechargeNumber"
-    ).value.trim();
-
-  let amount =
-    Number(
-      document.getElementById(
-        "rechargeAmount"
-      ).value
-    );
-
-
-  if(!number || amount<=0){
-
-    alert("সব তথ্য পূরণ করুন");
-
-    return;
-
-  }
-
-  alert(
-    "✅ Recharge Request জমা হয়েছে।"
-  );
-
-}
-
-
-/* =========================
-   WITHDRAW
-========================= */
-
-function withdraw(){
-
-  if(!active){
-
-    alert(
-      "আগে Account Active করুন"
-    );
-
-    return;
-
-  }
-
-
-  let number =
-    document.getElementById(
-      "withdrawNumber"
-    ).value.trim();
-
-  let amount =
-    Number(
-      document.getElementById(
-        "withdrawAmount"
-      ).value
-    );
-
-
-  if(!number || amount<=0){
-
-    alert("সঠিক তথ্য দিন");
-
-    return;
-
-  }
-
-
-  if(amount>balance){
-
-    alert(
-      "আপনার Balance যথেষ্ট নেই"
-    );
-
-    return;
-
-  }
-
-
-  localStorage.setItem(
-    "withdrawRequest",
-    JSON.stringify({
-      number:number,
-      amount:amount,
-      status:"pending"
-    })
-  );
-
-
-  alert(
-    "✅ Withdraw Request জমা হয়েছে।"
-  );
-
-}
-
-
-/* =========================
-   REFERRAL
-========================= */
-
-function copyReferral(){
-
-  navigator.clipboard.writeText(
-    "SIAM123"
-  );
-
-  alert(
-    "Referral Code কপি হয়েছে"
-  );
-
-}
-
-
-/* =========================
-   ADMIN
-========================= */
-
-function openAdmin(){
-
-  window.location.href =
-    "admin.html";
-
-}
-
-
-/* =========================
-   START
-========================= */
-
-update();
+render();
 
 </script>
 
