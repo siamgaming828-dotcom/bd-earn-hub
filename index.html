@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>BD Earn Hub</title>
 
 <style>
@@ -16,53 +17,107 @@
 body{
   background:#eef7f1;
   color:#222;
+  min-height:100vh;
 }
 
-.header{
+header{
   background:#087b18;
   color:white;
   padding:18px;
   text-align:center;
 }
 
-.header h1{
+header h1{
   font-size:25px;
 }
 
+header p{
+  margin-top:5px;
+  font-size:15px;
+}
+
 .container{
-  max-width:700px;
+  width:100%;
+  max-width:650px;
   margin:auto;
-  padding:15px;
+  padding:18px;
 }
 
 .card{
   background:white;
-  border-radius:15px;
+  border-radius:16px;
   padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 3px 12px rgba(0,0,0,.1);
+  margin-bottom:18px;
+  box-shadow:0 3px 14px rgba(0,0,0,.10);
 }
 
-h2{
+.card h2{
   color:#087b18;
   margin-bottom:15px;
 }
 
-input,textarea,select{
+.balance{
+  background:#087b18;
+  color:white;
+  border-radius:15px;
+  padding:25px;
+  text-align:center;
+  margin-bottom:18px;
+}
+
+.balance small{
+  display:block;
+  font-size:15px;
+}
+
+.balance strong{
+  display:block;
+  font-size:38px;
+  margin-top:5px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.menu{
+  background:#f3f3f3;
+  padding:18px 10px;
+  text-align:center;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.menu:hover{
+  background:#e5e5e5;
+}
+
+.info{
+  background:#f3f3f3;
+  padding:13px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+input,select,textarea{
   width:100%;
-  padding:12px;
+  padding:13px;
   border:1px solid #ccc;
-  border-radius:8px;
-  margin:6px 0 10px;
+  border-radius:9px;
+  margin:7px 0 12px;
+  font-size:15px;
 }
 
 button{
   width:100%;
   border:0;
-  padding:12px;
-  border-radius:8px;
+  border-radius:9px;
+  padding:13px;
   margin-top:7px;
-  font-size:15px;
+  font-size:16px;
   font-weight:bold;
   cursor:pointer;
 }
@@ -73,12 +128,7 @@ button{
 }
 
 .red{
-  background:#d00000;
-  color:white;
-}
-
-.blue{
-  background:#1976d2;
+  background:#d90000;
   color:white;
 }
 
@@ -87,1628 +137,1754 @@ button{
   color:white;
 }
 
-.yellow{
-  background:#e5a500;
+.orange{
+  background:#f39c12;
   color:white;
 }
 
-.info{
-  background:#f3f3f3;
-  padding:12px;
-  border-radius:9px;
-  margin-bottom:9px;
+.blue{
+  background:#1976d2;
+  color:white;
 }
 
-.task,.request,.user{
-  background:#fafafa;
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:13px;
-  margin-bottom:10px;
-}
-
-.badge{
+.status{
   display:inline-block;
-  padding:5px 9px;
+  padding:6px 12px;
   border-radius:20px;
-  font-size:13px;
   font-weight:bold;
 }
 
 .active{
-  background:#d8f5df;
+  background:#d9f7df;
   color:#087b18;
 }
 
-.pending{
-  background:#fff0b8;
-  color:#856600;
+.inactive{
+  background:#ffdada;
+  color:#d90000;
 }
 
-.rejected{
-  background:#ffdada;
-  color:#b00000;
+.pending{
+  background:#fff1c7;
+  color:#9a6500;
+}
+
+.task{
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:12px;
+}
+
+.task h3{
+  margin-bottom:8px;
+}
+
+.task p{
+  margin-bottom:7px;
+  color:#555;
+}
+
+.admin{
+  border:2px solid #087b18;
 }
 
 .hidden{
-  display:none;
+  display:none !important;
 }
 
-.nav{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
+.notice{
+  background:#fff1bd;
+  padding:13px;
+  border-radius:10px;
   margin-bottom:15px;
 }
 
-.nav button{
-  margin:0;
-}
-
-.small{
-  color:#777;
-  font-size:13px;
-}
-
-hr{
-  border:0;
-  border-top:1px solid #ddd;
-  margin:15px 0;
+footer{
+  text-align:center;
+  padding:25px;
+  color:#666;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <h1>💰 BD Earn Hub</h1>
-  <p>User & Admin System</p>
-</div>
+<header>
+  <h1>🔐 BD Earn Hub</h1>
+  <p>User & Admin Demo System</p>
+</header>
 
 <div class="container">
 
-<!-- LOGIN -->
-<div id="loginPage" class="card">
+<!-- ================= USER PANEL ================= -->
 
-<h2>👤 User Login</h2>
+<div id="userPanel">
 
-<input id="loginPhone"
-       placeholder="মোবাইল নম্বর">
+  <div class="card">
+    <h2>👤 User Account</h2>
 
-<input id="loginName"
-       placeholder="আপনার নাম">
+    <div class="info">
+      <b>নাম:</b> MD Siam
+    </div>
 
-<button class="green" onclick="loginUser()">
-  Login / Create Account
-</button>
+    <div class="info">
+      <b>মোবাইল:</b> 01865501991
+    </div>
 
-<hr>
+    <div class="info">
+      <b>Account:</b>
+      <span id="userStatus" class="status inactive">
+        🔴 Inactive
+      </span>
+    </div>
+  </div>
 
-<button class="gray" onclick="showAdminLogin()">
-  🔐 Admin Panel
-</button>
+
+  <!-- BALANCE -->
+
+  <div class="balance">
+    <small>Available Balance</small>
+    <strong id="balance">৳0.00</strong>
+  </div>
+
+
+  <!-- MENU -->
+
+  <div class="card">
+
+    <div class="grid">
+
+      <div class="menu" onclick="showSection('tasks')">
+        💼 Daily Job
+      </div>
+
+      <div class="menu" onclick="showSection('recharge')">
+        📱 Recharge
+      </div>
+
+      <div class="menu" onclick="showSection('withdraw')">
+        💸 Withdraw
+      </div>
+
+      <div class="menu" onclick="showSection('refer')">
+        🎁 Refer & Earn
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ACTIVATION -->
+
+  <div id="activationBox" class="card">
+
+    <h2 style="color:#d90000">
+      🔴 Account Activation
+    </h2>
+
+    <div class="notice">
+      অ্যাকাউন্ট চালু করার জন্য Demo activation process ব্যবহার করুন।
+    </div>
+
+    <div class="balance">
+      <small>Activation Amount</small>
+      <strong>৳30</strong>
+    </div>
+
+    <p>
+      Nagad Number:
+    </p>
+
+    <div class="info">
+      <b>01865501991</b>
+    </div>
+
+    <button class="gray" onclick="copyNumber()">
+      📋 নম্বর কপি করুন
+    </button>
+
+    <label>
+      Transaction ID
+    </label>
+
+    <input
+      id="activationTrx"
+      placeholder="Nagad TrxID লিখুন">
+
+    <button class="green" onclick="submitActivation()">
+      ✅ Active Now
+    </button>
+
+    <p id="activationMessage"></p>
+
+  </div>
+
+
+  <!-- TASKS -->
+
+  <div id="tasks" class="card hidden">
+
+    <h2>📋 Available Tasks</h2>
+
+    <div id="taskList"></div>
+
+  </div>
+
+
+  <!-- SUBMITTED TASKS -->
+
+  <div id="submissions" class="card hidden">
+
+    <h2>📤 My Task Submissions</h2>
+
+    <div id="submissionList"></div>
+
+  </div>
+
+
+  <!-- RECHARGE -->
+
+  <div id="recharge" class="card hidden">
+
+    <h2>📱 Recharge</h2>
+
+    <div class="notice">
+      Recharge section Demo mode-এ চলছে।
+    </div>
+
+    <input
+      id="rechargeNumber"
+      placeholder="মোবাইল নম্বর">
+
+    <input
+      id="rechargeAmount"
+      type="number"
+      placeholder="Amount">
+
+    <button class="green" onclick="demoRecharge()">
+      Submit Recharge
+    </button>
+
+  </div>
+
+
+  <!-- WITHDRAW -->
+
+  <div id="withdraw" class="card hidden">
+
+    <h2>💸 Withdraw Request</h2>
+
+    <p>
+      Available:
+      <b id="withdrawBalance">৳0</b>
+    </p>
+
+    <input
+      id="withdrawNumber"
+      placeholder="bKash/Nagad Number">
+
+    <input
+      id="withdrawAmount"
+      type="number"
+      placeholder="Withdraw Amount">
+
+    <button class="green" onclick="requestWithdraw()">
+      💸 Submit Withdraw
+    </button>
+
+  </div>
+
+
+  <!-- REFER -->
+
+  <div id="refer" class="card hidden">
+
+    <h2>🎁 Refer & Earn</h2>
+
+    <div class="info">
+      আপনার Referral Code:
+      <b>SIAM123</b>
+    </div>
+
+    <button class="gray" onclick="copyReferral()">
+      📋 Copy Referral Code
+    </button>
+
+  </div>
+
+
+  <!-- LOGOUT -->
+
+  <div class="card">
+    <button class="red" onclick="logout()">
+      🚪 Logout
+    </button>
+
+    <button class="blue" onclick="openAdminLogin()">
+      🔐 Admin Panel
+    </button>
+  </div>
 
 </div>
 
 
-<!-- USER PANEL -->
-<div id="userPanel" class="hidden">
+<!-- ================= ADMIN LOGIN ================= -->
 
-<div class="card">
+<div id="adminLogin" class="card hidden">
 
-<h2>👤 My Account</h2>
+  <h2>🔐 Admin Login</h2>
 
-<div class="info">
-নাম:
-<b id="userName"></b>
-</div>
+  <input
+    id="adminPassword"
+    type="password"
+    placeholder="Admin Password">
 
-<div class="info">
-মোবাইল:
-<b id="userPhone"></b>
-</div>
+  <button class="green" onclick="adminLogin()">
+    Login
+  </button>
 
-<div class="info">
-Balance:
-<b id="userBalance">৳0</b>
-</div>
-
-<div class="info">
-Status:
-<span id="userStatus" class="badge active">
-Active
-</span>
-</div>
-
-<button class="gray" onclick="logoutUser()">
-🚪 Logout
-</button>
+  <button class="gray" onclick="backUser()">
+    ← Back
+  </button>
 
 </div>
 
 
-<!-- TASKS -->
-<div class="card">
+<!-- ================= ADMIN PANEL ================= -->
 
-<h2>📋 Available Tasks</h2>
-
-<div id="userTasks"></div>
-
-</div>
-
-
-<!-- SUBMISSIONS -->
-<div class="card">
-
-<h2>📤 My Submissions</h2>
-
-<div id="mySubmissions"></div>
-
-</div>
-
-
-<!-- WITHDRAW -->
-<div class="card">
-
-<h2>💸 Withdraw</h2>
-
-<input id="withdrawAmount"
-       type="number"
-       placeholder="Amount">
-
-<select id="withdrawMethod">
-
-<option value="bKash">bKash</option>
-<option value="Nagad">Nagad</option>
-<option value="Rocket">Rocket</option>
-
-</select>
-
-<input id="withdrawNumber"
-       placeholder="Payment Number">
-
-<button class="green"
-        onclick="submitWithdraw()">
-Submit Withdraw Request
-</button>
-
-</div>
-
-
-<!-- TRANSACTION -->
-<div class="card">
-
-<h2>🧾 Transaction ID</h2>
-
-<input id="trxAmount"
-       type="number"
-       placeholder="Amount">
-
-<input id="trxId"
-       placeholder="Transaction ID">
-
-<button class="green"
-        onclick="submitTransaction()">
-Submit Transaction
-</button>
-
-</div>
-
-</div>
-
-
-<!-- ADMIN LOGIN -->
-<div id="adminLogin" class="hidden card">
-
-<h2>🔐 Admin Login</h2>
-
-<input id="adminUser"
-       placeholder="Admin Username">
-
-<input id="adminPass"
-       type="password"
-       placeholder="Admin Password">
-
-<button class="green"
-        onclick="adminLogin()">
-Login
-</button>
-
-<button class="gray"
-        onclick="backToUserLogin()">
-Back
-</button>
-
-<p class="small">
-Demo login: admin / admin123
-</p>
-
-</div>
-
-
-<!-- ADMIN PANEL -->
 <div id="adminPanel" class="hidden">
 
-<div class="card">
+  <div class="card admin">
 
-<h2>📊 Admin Dashboard</h2>
+    <h2>🔐 Admin Dashboard</h2>
 
-<div class="info">
-Total Users:
-<b id="totalUsers">0</b>
+    <div class="grid">
+
+      <div class="info">
+        👤 Users
+        <b id="adminUsers">1</b>
+      </div>
+
+      <div class="info">
+        🟢 Active
+        <b id="adminActive">0</b>
+      </div>
+
+      <div class="info">
+        📋 Tasks
+        <b id="adminTasks">0</b>
+      </div>
+
+      <div class="info">
+        💸 Withdraw
+        <b id="adminWithdraw">0</b>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- USER CONTROL -->
+
+  <div class="card admin">
+
+    <h2>👤 User Control</h2>
+
+    <div class="info">
+      <b>Name:</b> MD Siam
+    </div>
+
+    <div class="info">
+      <b>Mobile:</b> 01865501991
+    </div>
+
+    <div class="info">
+      <b>Status:</b>
+      <span id="adminUserStatus"></span>
+    </div>
+
+    <div class="info">
+      <b>Balance:</b>
+      <span id="adminBalance"></span>
+    </div>
+
+    <button class="green" onclick="adminActivateUser()">
+      🟢 Account Active
+    </button>
+
+    <button class="red" onclick="adminDeactivateUser()">
+      🔴 Account Inactive
+    </button>
+
+  </div>
+
+
+  <!-- BALANCE MANAGEMENT -->
+
+  <div class="card admin">
+
+    <h2>💰 Balance Management</h2>
+
+    <input
+      id="balanceAmount"
+      type="number"
+      placeholder="Amount">
+
+    <button class="green" onclick="addBalance()">
+      ➕ Add Balance
+    </button>
+
+    <button class="red" onclick="removeBalance()">
+      ➖ Remove Balance
+    </button>
+
+  </div>
+
+
+  <!-- CREATE TASK -->
+
+  <div class="card admin">
+
+    <h2>📋 Create Task</h2>
+
+    <input
+      id="taskTitle"
+      placeholder="Task Name">
+
+    <textarea
+      id="taskDescription"
+      placeholder="Task Description"></textarea>
+
+    <input
+      id="taskReward"
+      type="number"
+      placeholder="Reward Amount">
+
+    <button class="green" onclick="createTask()">
+      ➕ Create Task
+    </button>
+
+  </div>
+
+
+  <!-- TASK MANAGEMENT -->
+
+  <div class="card admin">
+
+    <h2>📋 Task Management</h2>
+
+    <div id="adminTaskList"></div>
+
+  </div>
+
+
+  <!-- SUBMISSIONS -->
+
+  <div class="card admin">
+
+    <h2>📤 Task Submissions</h2>
+
+    <div id="adminSubmissionList"></div>
+
+  </div>
+
+
+  <!-- WITHDRAW REQUEST -->
+
+  <div class="card admin">
+
+    <h2>💸 Withdraw Requests</h2>
+
+    <div id="adminWithdrawList"></div>
+
+  </div>
+
+
+  <!-- TRANSACTION -->
+
+  <div class="card admin">
+
+    <h2>🧾 Transaction Verification</h2>
+
+    <div id="adminTransactionList"></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <button class="gray" onclick="refreshAdmin()">
+      🔄 Refresh Data
+    </button>
+
+    <button class="red" onclick="backUser()">
+      🚪 Exit Admin
+    </button>
+
+  </div>
+
 </div>
 
-<div class="info">
-Active Users:
-<b id="activeUsers">0</b>
-</div>
-
-<div class="info">
-Total Balance:
-<b id="totalBalance">৳0</b>
-</div>
-
-<div class="info">
-Pending Tasks:
-<b id="pendingTasks">0</b>
-</div>
-
-<div class="info">
-Pending Withdraw:
-<b id="pendingWithdraw">0</b>
-</div>
-
-<div class="info">
-Pending Transactions:
-<b id="pendingTransactions">0</b>
-</div>
-
 </div>
 
 
-<!-- TASK ADMIN -->
-<div class="card">
-
-<h2>📋 Task Management</h2>
-
-<input id="newTaskTitle"
-       placeholder="Task Name">
-
-<input id="newTaskReward"
-       type="number"
-       placeholder="Reward">
-
-<textarea id="newTaskDescription"
-          placeholder="Task Description"></textarea>
-
-<button class="green"
-        onclick="adminAddTask()">
-➕ Create Task
-</button>
-
-<div id="adminTasks"></div>
-
-</div>
-
-
-<!-- USER ADMIN -->
-<div class="card">
-
-<h2>👥 User Management</h2>
-
-<div id="adminUsers"></div>
-
-</div>
-
-
-<!-- SUBMISSION ADMIN -->
-<div class="card">
-
-<h2>📤 Task Submissions</h2>
-
-<div id="adminSubmissions"></div>
-
-</div>
-
-
-<!-- WITHDRAW ADMIN -->
-<div class="card">
-
-<h2>💸 Withdraw Requests</h2>
-
-<div id="adminWithdraws"></div>
-
-</div>
-
-
-<!-- TRANSACTION ADMIN -->
-<div class="card">
-
-<h2>🧾 Transaction Verification</h2>
-
-<div id="adminTransactions"></div>
-
-</div>
-
-
-<button class="red"
-        onclick="adminLogout()">
-🚪 Admin Logout
-</button>
-
-</div>
-
-</div>
+<footer>
+  © 2026 BD Earn Hub
+</footer>
 
 
 <script>
 
-/* =========================
-   DATABASE
-========================= */
+/* =====================================================
+   DATA
+===================================================== */
 
-let users =
-JSON.parse(localStorage.getItem("bd_users")) || [];
+let data = JSON.parse(
+  localStorage.getItem("bdEarnData")
+) || {
 
-let tasks =
-JSON.parse(localStorage.getItem("bd_tasks")) || [];
+  active:false,
 
-let submissions =
-JSON.parse(localStorage.getItem("bd_submissions")) || [];
+  balance:0,
 
-let withdraws =
-JSON.parse(localStorage.getItem("bd_withdraws")) || [];
+  activationTrx:"",
 
-let transactions =
-JSON.parse(localStorage.getItem("bd_transactions")) || [];
+  tasks:[],
 
-let currentUser =
-localStorage.getItem("bd_current_user");
+  submissions:[],
+
+  withdrawals:[],
+
+  transactions:[]
+};
 
 
-/* =========================
+/* =====================================================
    SAVE
-========================= */
+===================================================== */
 
 function save(){
 
-localStorage.setItem(
-"bd_users",
-JSON.stringify(users)
-);
+  localStorage.setItem(
+    "bdEarnData",
+    JSON.stringify(data)
+  );
 
-localStorage.setItem(
-"bd_tasks",
-JSON.stringify(tasks)
-);
+  updateUser();
+}
 
-localStorage.setItem(
-"bd_submissions",
-JSON.stringify(submissions)
-);
 
-localStorage.setItem(
-"bd_withdraws",
-JSON.stringify(withdraws)
-);
+/* =====================================================
+   USER UPDATE
+===================================================== */
 
-localStorage.setItem(
-"bd_transactions",
-JSON.stringify(transactions)
-);
+function updateUser(){
+
+  document.getElementById("balance")
+    .innerText =
+    "৳" + Number(data.balance).toFixed(2);
+
+  document.getElementById("withdrawBalance")
+    .innerText =
+    "৳" + Number(data.balance).toFixed(2);
+
+
+  let status =
+    document.getElementById("userStatus");
+
+  let activation =
+    document.getElementById("activationBox");
+
+  if(data.active){
+
+    status.innerText="🟢 Active";
+    status.className="status active";
+
+    /*
+      একবার Active হলে
+      Activation Box আর দেখাবে না
+    */
+
+    activation.classList.add("hidden");
+
+  }else{
+
+    status.innerText="🔴 Inactive";
+    status.className="status inactive";
+
+    activation.classList.remove("hidden");
+
+  }
+
+  renderTasks();
+  renderSubmissions();
+}
+
+
+/* =====================================================
+   COPY NUMBER
+===================================================== */
+
+function copyNumber(){
+
+  navigator.clipboard.writeText(
+    "01865501991"
+  );
+
+  alert("নম্বর কপি হয়েছে");
+}
+
+
+/* =====================================================
+   ACTIVATION
+===================================================== */
+
+function submitActivation(){
+
+  let trx =
+    document.getElementById("activationTrx")
+    .value.trim();
+
+  if(!trx){
+
+    alert("Transaction ID লিখুন");
+
+    return;
+  }
+
+
+  /*
+    Demo transaction তৈরি
+  */
+
+  data.activationTrx = trx;
+
+  data.transactions.push({
+
+    id:Date.now(),
+
+    type:"Account Activation",
+
+    trx:trx,
+
+    status:"Pending"
+
+  });
+
+
+  /*
+    Demo-তে সরাসরি Active করা হচ্ছে না।
+    Admin Verify করার পর Active হবে।
+  */
+
+  document.getElementById(
+    "activationMessage"
+  ).innerText =
+    "✅ TrxID জমা হয়েছে। Admin verification-এর অপেক্ষায়।";
+
+  save();
 
 }
 
 
-/* =========================
-   LOGIN
-========================= */
+/* =====================================================
+   SHOW SECTION
+===================================================== */
 
-function loginUser(){
+function showSection(id){
 
-let phone =
-document.getElementById("loginPhone")
-.value.trim();
+  [
+    "tasks",
+    "recharge",
+    "withdraw",
+    "refer",
+    "submissions"
+  ].forEach(function(x){
 
-let name =
-document.getElementById("loginName")
-.value.trim();
+    document.getElementById(x)
+      .classList.add("hidden");
 
-if(!phone || !name){
+  });
 
-alert("নাম এবং মোবাইল নম্বর দিন।");
-return;
 
-}
-
-let user =
-users.find(u=>u.phone===phone);
-
-if(!user){
-
-user={
-id:Date.now(),
-name:name,
-phone:phone,
-balance:0,
-status:"Active"
-};
-
-users.push(user);
-
-}
-
-currentUser=user.id;
-
-localStorage.setItem(
-"bd_current_user",
-user.id
-);
-
-save();
-
-showUserPanel();
+  document.getElementById(id)
+    .classList.remove("hidden");
 
 }
 
 
-function showUserPanel(){
+/* =====================================================
+   TASK RENDER
+===================================================== */
 
-document.getElementById("loginPage")
-.classList.add("hidden");
+function renderTasks(){
 
-document.getElementById("adminLogin")
-.classList.add("hidden");
+  let box =
+    document.getElementById("taskList");
 
-document.getElementById("userPanel")
-.classList.remove("hidden");
+  if(!box) return;
 
-renderUser();
-
-}
+  box.innerHTML="";
 
 
-function renderUser(){
-
-let user=
-users.find(u=>u.id==currentUser);
-
-if(!user) return;
-
-document.getElementById("userName")
-.innerText=user.name;
-
-document.getElementById("userPhone")
-.innerText=user.phone;
-
-document.getElementById("userBalance")
-.innerText=
-"৳"+Number(user.balance).toFixed(2);
-
-let status=
-document.getElementById("userStatus");
-
-status.innerText=user.status;
-
-status.className=
-"userStatus badge "+
-(user.status==="Active"
-?"active"
-:"rejected");
-
-renderUserTasks();
-renderMySubmissions();
-
-}
+  let activeTasks =
+    data.tasks.filter(t => t.status === "open");
 
 
-/* =========================
-   TASKS
-========================= */
+  if(activeTasks.length===0){
 
-function renderUserTasks(){
+    box.innerHTML =
+      "<div class='info'>কোনো Task নেই।</div>";
 
-let box=
-document.getElementById("userTasks");
+    return;
+  }
 
-box.innerHTML="";
 
-let activeTasks=
-tasks.filter(t=>t.status==="Active");
+  activeTasks.forEach(function(task){
 
-if(activeTasks.length===0){
+    box.innerHTML += `
 
-box.innerHTML=
-"<p class='small'>এখন কোনো Task নেই।</p>";
+      <div class="task">
 
-return;
+        <h3>${escapeHtml(task.title)}</h3>
+
+        <p>
+          ${escapeHtml(task.description)}
+        </p>
+
+        <p>
+          💰 Reward:
+          <b>৳${task.reward}</b>
+        </p>
+
+        <button
+          class="green"
+          onclick="submitTask(${task.id})">
+
+          📤 Submit Task
+
+        </button>
+
+      </div>
+
+    `;
+
+  });
 
 }
 
-activeTasks.forEach(task=>{
 
-let already=
-submissions.find(
-s=>s.taskId===task.id &&
-s.userId==currentUser
-);
-
-box.innerHTML+=`
-
-<div class="task">
-
-<h3>📋 ${escapeHTML(task.title)}</h3>
-
-<p>
-💰 Reward:
-<b>৳${task.reward}</b>
-</p>
-
-<p class="small">
-${escapeHTML(task.description)}
-</p>
-
-${
-already
-?
-`<span class="badge ${already.status==="Approved"?"active":already.status==="Rejected"?"rejected":"pending"}">
-${already.status}
-</span>`
-:
-`
-<textarea
-id="proof_${task.id}"
-placeholder="Task সম্পন্ন করার প্রমাণ/তথ্য লিখুন">
-</textarea>
-
-<button
-class="green"
-onclick="submitTask(${task.id})">
-📤 Task Submit
-</button>
-`
-}
-
-</div>
-
-`;
-
-});
-
-}
-
+/* =====================================================
+   SUBMIT TASK
+===================================================== */
 
 function submitTask(taskId){
 
-let user=
-users.find(u=>u.id==currentUser);
+  let task =
+    data.tasks.find(t => t.id === taskId);
 
-if(!user || user.status!=="Active"){
+  if(!task) return;
 
-alert("আপনার Account Active নয়।");
-return;
 
-}
+  data.submissions.push({
 
-let proof=
-document.getElementById(
-"proof_"+taskId
-).value.trim();
+    id:Date.now(),
 
-if(!proof){
+    taskId:task.id,
 
-alert("Task-এর প্রমাণ লিখুন।");
-return;
+    taskTitle:task.title,
 
-}
+    reward:task.reward,
 
-let exists=
-submissions.find(
-s=>s.taskId===taskId &&
-s.userId==currentUser
-);
+    status:"Pending"
 
-if(exists){
+  });
 
-alert("এই Task ইতিমধ্যে Submit করা হয়েছে।");
-return;
 
-}
+  save();
 
-submissions.push({
+  alert("Task জমা হয়েছে");
 
-id:Date.now(),
-
-taskId:taskId,
-
-userId:user.id,
-
-userName:user.name,
-
-proof:proof,
-
-status:"Pending",
-
-rewardGiven:false
-
-});
-
-save();
-
-renderUserTasks();
-renderMySubmissions();
-
-alert("Task Submit হয়েছে। Admin Review করবে।");
+  showSection("submissions");
 
 }
 
 
-function renderMySubmissions(){
+/* =====================================================
+   SUBMISSION LIST
+===================================================== */
 
-let box=
-document.getElementById("mySubmissions");
+function renderSubmissions(){
 
-box.innerHTML="";
+  let box =
+    document.getElementById("submissionList");
 
-let mine=
-submissions.filter(
-s=>s.userId==currentUser
-);
+  if(!box) return;
 
-if(mine.length===0){
+  box.innerHTML="";
 
-box.innerHTML=
-"<p class='small'>কোনো Submission নেই।</p>";
 
-return;
+  if(data.submissions.length===0){
 
-}
+    box.innerHTML =
+      "<div class='info'>কোনো Submission নেই।</div>";
 
-mine.forEach(s=>{
+    return;
+  }
 
-let task=
-tasks.find(t=>t.id===s.taskId);
 
-box.innerHTML+=`
+  data.submissions.forEach(function(s){
 
-<div class="request">
+    box.innerHTML += `
 
-<b>
-${escapeHTML(task ? task.title : "Task")}
-</b>
+      <div class="task">
 
-<div>
-Status:
-<span class="badge ${
-s.status==="Approved"
-?"active"
-:s.status==="Rejected"
-?"rejected"
-:"pending"
-}">
-${s.status}
-</span>
-</div>
+        <h3>${escapeHtml(s.taskTitle)}</h3>
 
-<div class="small">
-${escapeHTML(s.proof)}
-</div>
+        <p>
+          Reward: ৳${s.reward}
+        </p>
 
-</div>
+        <span class="status pending">
+          ${s.status}
+        </span>
 
-`;
+      </div>
 
-});
+    `;
+
+  });
 
 }
 
 
-/* =========================
-   WITHDRAW
-========================= */
-
-function submitWithdraw(){
-
-let user=
-users.find(u=>u.id==currentUser);
-
-if(!user || user.status!=="Active"){
-
-alert("Account Active নয়।");
-return;
-
-}
-
-let amount=
-Number(
-document.getElementById("withdrawAmount").value
-);
-
-let method=
-document.getElementById("withdrawMethod").value;
-
-let number=
-document.getElementById("withdrawNumber")
-.value.trim();
-
-if(!amount || amount<=0 || !number){
-
-alert("সঠিক তথ্য দিন।");
-return;
-
-}
-
-if(amount>user.balance){
-
-alert("আপনার Balance যথেষ্ট নয়।");
-return;
-
-}
-
-withdraws.push({
-
-id:Date.now(),
-
-userId:user.id,
-
-user:user.name,
-
-amount:amount,
-
-method:method,
-
-number:number,
-
-status:"Pending"
-
-});
-
-save();
-
-document.getElementById("withdrawAmount").value="";
-document.getElementById("withdrawNumber").value="";
-
-alert("Withdraw Request জমা হয়েছে।");
-
-}
-
-
-/* =========================
-   TRANSACTION
-========================= */
-
-function submitTransaction(){
-
-let user=
-users.find(u=>u.id==currentUser);
-
-if(!user){
-
-alert("Login করুন।");
-return;
-
-}
-
-let amount=
-Number(
-document.getElementById("trxAmount").value
-);
-
-let trx=
-document.getElementById("trxId")
-.value.trim();
-
-if(!amount || !trx){
-
-alert("Amount এবং Transaction ID দিন।");
-return;
-
-}
-
-transactions.push({
-
-id:Date.now(),
-
-userId:user.id,
-
-user:user.name,
-
-amount:amount,
-
-trxid:trx,
-
-status:"Pending"
-
-});
-
-save();
-
-document.getElementById("trxAmount").value="";
-document.getElementById("trxId").value="";
-
-alert("Transaction ID জমা হয়েছে। Admin Review করবে।");
-
-}
-
-
-/* =========================
+/* =====================================================
    ADMIN LOGIN
-========================= */
+===================================================== */
 
-function showAdminLogin(){
+function openAdminLogin(){
 
-document.getElementById("loginPage")
-.classList.add("hidden");
+  document.getElementById("userPanel")
+    .classList.add("hidden");
 
-document.getElementById("adminLogin")
-.classList.remove("hidden");
+  document.getElementById("adminLogin")
+    .classList.remove("hidden");
 
 }
 
 
 function adminLogin(){
 
-let username=
-document.getElementById("adminUser").value;
+  /*
+    Demo password:
+    123456
+  */
 
-let password=
-document.getElementById("adminPass").value;
-
-if(username!=="admin" ||
-password!=="admin123"){
-
-alert("Username অথবা Password ভুল।");
-return;
-
-}
-
-document.getElementById("adminLogin")
-.classList.add("hidden");
-
-document.getElementById("adminPanel")
-.classList.remove("hidden");
-
-renderAdmin();
-
-}
+  let password =
+    document.getElementById("adminPassword")
+    .value;
 
 
-/* =========================
-   ADMIN DASHBOARD
-========================= */
+  if(password !== "123456"){
 
-function renderAdmin(){
+    alert("ভুল Admin Password");
 
-renderAdminUsers();
-renderAdminTasks();
-renderSubmissions();
-renderWithdraws();
-renderTransactions();
-updateDashboard();
+    return;
+  }
+
+
+  document.getElementById("adminLogin")
+    .classList.add("hidden");
+
+  document.getElementById("adminPanel")
+    .classList.remove("hidden");
+
+
+  refreshAdmin();
 
 }
 
 
-function updateDashboard(){
+/* =====================================================
+   ADMIN USER STATUS
+===================================================== */
 
-document.getElementById("totalUsers")
-.innerText=users.length;
+function adminActivateUser(){
 
-document.getElementById("activeUsers")
-.innerText=
-users.filter(
-u=>u.status==="Active"
-).length;
+  data.active=true;
 
-document.getElementById("totalBalance")
-.innerText=
-"৳"+
-users.reduce(
-(a,u)=>a+Number(u.balance||0),
-0
-).toFixed(2);
+  save();
 
-document.getElementById("pendingTasks")
-.innerText=
-submissions.filter(
-s=>s.status==="Pending"
-).length;
+  refreshAdmin();
 
-document.getElementById("pendingWithdraw")
-.innerText=
-withdraws.filter(
-w=>w.status==="Pending"
-).length;
-
-document.getElementById("pendingTransactions")
-.innerText=
-transactions.filter(
-t=>t.status==="Pending"
-).length;
+  alert("User Active করা হয়েছে");
 
 }
 
 
-/* =========================
-   ADMIN TASK
-========================= */
+function adminDeactivateUser(){
 
-function adminAddTask(){
+  data.active=false;
 
-let title=
-document.getElementById("newTaskTitle")
-.value.trim();
+  save();
 
-let reward=
-Number(
-document.getElementById("newTaskReward")
-.value
-);
+  refreshAdmin();
 
-let description=
-document.getElementById("newTaskDescription")
-.value.trim();
-
-if(!title || !reward){
-
-alert("Task Name এবং Reward দিন।");
-return;
+  alert("User Inactive করা হয়েছে");
 
 }
 
-tasks.push({
 
-id:Date.now(),
+/* =====================================================
+   BALANCE MANAGEMENT
+===================================================== */
 
-title:title,
+function addBalance(){
 
-reward:reward,
+  let amount =
+    Number(
+      document.getElementById("balanceAmount")
+      .value
+    );
 
-description:description,
 
-status:"Active"
+  if(amount<=0){
 
-});
+    alert("সঠিক Amount দিন");
 
-save();
+    return;
+  }
 
-document.getElementById("newTaskTitle").value="";
-document.getElementById("newTaskReward").value="";
-document.getElementById("newTaskDescription").value="";
 
-renderAdminTasks();
-renderUserTasks();
+  data.balance += amount;
+
+  save();
+
+  refreshAdmin();
 
 }
 
+
+function removeBalance(){
+
+  let amount =
+    Number(
+      document.getElementById("balanceAmount")
+      .value
+    );
+
+
+  if(amount<=0){
+
+    alert("সঠিক Amount দিন");
+
+    return;
+  }
+
+
+  data.balance =
+    Math.max(0,data.balance-amount);
+
+  save();
+
+  refreshAdmin();
+
+}
+
+
+/* =====================================================
+   CREATE TASK
+===================================================== */
+
+function createTask(){
+
+  let title =
+    document.getElementById("taskTitle")
+    .value.trim();
+
+  let description =
+    document.getElementById("taskDescription")
+    .value.trim();
+
+  let reward =
+    Number(
+      document.getElementById("taskReward")
+      .value
+    );
+
+
+  if(!title || !description || reward<=0){
+
+    alert("সব তথ্য পূরণ করুন");
+
+    return;
+  }
+
+
+  data.tasks.push({
+
+    id:Date.now(),
+
+    title:title,
+
+    description:description,
+
+    reward:reward,
+
+    status:"open"
+
+  });
+
+
+  document.getElementById("taskTitle")
+    .value="";
+
+  document.getElementById("taskDescription")
+    .value="";
+
+  document.getElementById("taskReward")
+    .value="";
+
+
+  save();
+
+  refreshAdmin();
+
+  alert("Task তৈরি হয়েছে");
+
+}
+
+
+/* =====================================================
+   ADMIN TASK LIST
+===================================================== */
 
 function renderAdminTasks(){
 
-let box=
-document.getElementById("adminTasks");
+  let box =
+    document.getElementById("adminTaskList");
 
-box.innerHTML="";
+  box.innerHTML="";
 
-tasks.forEach(t=>{
 
-box.innerHTML+=`
+  if(data.tasks.length===0){
 
-<div class="task">
+    box.innerHTML =
+      "<div class='info'>কোনো Task নেই।</div>";
 
-<b>${escapeHTML(t.title)}</b>
+    return;
+  }
 
-<div>
-Reward: ৳${t.reward}
-</div>
 
-<div>
-Status:
-<span class="badge ${
-t.status==="Active"
-?"active"
-:"rejected"
-}">
-${t.status}
-</span>
-</div>
+  data.tasks.forEach(function(t){
 
-<button
-class="yellow"
-onclick="toggleTask(${t.id})">
-🔄 Active / বন্ধ
-</button>
+    box.innerHTML += `
 
-<button
-class="red"
-onclick="deleteTask(${t.id})">
-🗑️ Delete
-</button>
+      <div class="task">
 
-</div>
+        <h3>${escapeHtml(t.title)}</h3>
 
-`;
+        <p>
+          Reward: ৳${t.reward}
+        </p>
 
-});
+        <p>
+          Status:
+          <b>${t.status}</b>
+        </p>
+
+        <button
+          class="orange"
+          onclick="toggleTask(${t.id})">
+
+          ${t.status==="open"
+            ?"🔴 Close Task"
+            :"🟢 Open Task"}
+
+        </button>
+
+        <button
+          class="red"
+          onclick="deleteTask(${t.id})">
+
+          🗑 Delete Task
+
+        </button>
+
+      </div>
+
+    `;
+
+  });
 
 }
 
+
+/* =====================================================
+   TOGGLE TASK
+===================================================== */
 
 function toggleTask(id){
 
-let task=
-tasks.find(t=>t.id===id);
+  let task =
+    data.tasks.find(t => t.id===id);
 
-if(!task)return;
+  if(!task) return;
 
-task.status=
-task.status==="Active"
-?"Inactive"
-:"Active";
+  task.status =
+    task.status==="open"
+      ?"closed"
+      :"open";
 
-save();
+  save();
 
-renderAdminTasks();
-renderUserTasks();
+  refreshAdmin();
 
 }
 
+
+/* =====================================================
+   DELETE TASK
+===================================================== */
 
 function deleteTask(id){
 
-if(!confirm("Task Delete করবেন?"))
-return;
-
-tasks=
-tasks.filter(t=>t.id!==id);
-
-save();
-
-renderAdminTasks();
-renderUserTasks();
-
-}
+  if(!confirm("Task Delete করবেন?"))
+    return;
 
 
-/* =========================
-   ADMIN USERS
-========================= */
+  data.tasks =
+    data.tasks.filter(t => t.id!==id);
 
-function renderAdminUsers(){
+  save();
 
-let box=
-document.getElementById("adminUsers");
-
-box.innerHTML="";
-
-users.forEach(u=>{
-
-box.innerHTML+=`
-
-<div class="user">
-
-<b>👤 ${escapeHTML(u.name)}</b>
-
-<div>
-📱 ${escapeHTML(u.phone)}
-</div>
-
-<div>
-💰 Balance:
-<b>৳${u.balance}</b>
-</div>
-
-<div>
-Status:
-<span class="badge ${
-u.status==="Active"
-?"active"
-:"rejected"
-}">
-${u.status}
-</span>
-</div>
-
-<button
-class="green"
-onclick="setUserStatus(${u.id},'Active')">
-🟢 Active
-</button>
-
-<button
-class="red"
-onclick="setUserStatus(${u.id},'Inactive')">
-🔴 Inactive
-</button>
-
-<button
-class="blue"
-onclick="changeBalance(${u.id})">
-💰 Balance Change
-</button>
-
-</div>
-
-`;
-
-});
+  refreshAdmin();
 
 }
 
 
-function setUserStatus(id,status){
+/* =====================================================
+   ADMIN SUBMISSIONS
+===================================================== */
 
-let user=
-users.find(u=>u.id===id);
+function renderAdminSubmissions(){
 
-if(!user)return;
+  let box =
+    document.getElementById(
+      "adminSubmissionList"
+    );
 
-user.status=status;
-
-save();
-
-renderAdmin();
-
-}
+  box.innerHTML="";
 
 
-function changeBalance(id){
+  if(data.submissions.length===0){
 
-let user=
-users.find(u=>u.id===id);
+    box.innerHTML =
+      "<div class='info'>কোনো Submission নেই।</div>";
 
-if(!user)return;
-
-let amount=
-prompt(
-"নতুন Balance লিখুন:",
-user.balance
-);
-
-amount=Number(amount);
-
-if(isNaN(amount) || amount<0){
-
-alert("সঠিক Balance দিন।");
-return;
-
-}
-
-user.balance=amount;
-
-save();
-
-renderAdmin();
-
-}
+    return;
+  }
 
 
-/* =========================
-   SUBMISSIONS
-========================= */
+  data.submissions.forEach(function(s){
 
-function renderSubmissions(){
+    box.innerHTML += `
 
-let box=
-document.getElementById("adminSubmissions");
+      <div class="task">
 
-box.innerHTML="";
+        <h3>${escapeHtml(s.taskTitle)}</h3>
 
-if(submissions.length===0){
+        <p>
+          Reward: ৳${s.reward}
+        </p>
 
-box.innerHTML=
-"<p class='small'>কোনো Submission নেই।</p>";
+        <p>
+          Status:
+          <b>${s.status}</b>
+        </p>
 
-return;
+        ${
+          s.status==="Pending"
 
-}
+          ?`
 
-submissions.forEach(s=>{
+          <button
+            class="green"
+            onclick="approveTask(${s.id})">
 
-let task=
-tasks.find(t=>t.id===s.taskId);
+            ✅ Approve
 
-box.innerHTML+=`
+          </button>
 
-<div class="request">
+          <button
+            class="red"
+            onclick="rejectTask(${s.id})">
 
-<b>📋 ${
-escapeHTML(
-task ? task.title : "Unknown Task"
-)
-}</b>
+            ❌ Reject
 
-<div>
-👤 ${escapeHTML(s.userName)}
-</div>
+          </button>
 
-<div>
-Proof:
-${escapeHTML(s.proof)}
-</div>
+          `
 
-<div>
-Status:
-<span class="badge ${
-s.status==="Approved"
-?"active"
-:s.status==="Rejected"
-?"rejected"
-:"pending"
-}">
-${s.status}
-</span>
-</div>
+          :""
+        }
 
-${
-s.status==="Pending"
-?
-`
+      </div>
 
-<button
-class="green"
-onclick="approveSubmission(${s.id})">
-✅ Approve + Reward
-</button>
+    `;
 
-<button
-class="red"
-onclick="rejectSubmission(${s.id})">
-❌ Reject
-</button>
-
-`
-:""
-}
-
-</div>
-
-`;
-
-});
+  });
 
 }
 
 
-function approveSubmission(id){
+/* =====================================================
+   APPROVE TASK
+===================================================== */
 
-let sub=
-submissions.find(s=>s.id===id);
+function approveTask(id){
 
-if(!sub || sub.status!=="Pending")
-return;
+  let submission =
+    data.submissions.find(
+      s => s.id===id
+    );
 
-let task=
-tasks.find(t=>t.id===sub.taskId);
-
-let user=
-users.find(u=>u.id===sub.userId);
-
-if(!task || !user)return;
-
-sub.status="Approved";
-
-if(!sub.rewardGiven){
-
-user.balance=
-Number(user.balance||0)+
-Number(task.reward||0);
-
-sub.rewardGiven=true;
-
-}
-
-save();
-
-renderAdmin();
-
-}
+  if(!submission) return;
 
 
-function rejectSubmission(id){
+  if(submission.status!=="Pending")
+    return;
 
-let sub=
-submissions.find(s=>s.id===id);
 
-if(!sub)return;
+  submission.status="Approved";
 
-sub.status="Rejected";
 
-save();
+  /*
+    Reward balance-এ যোগ
+  */
 
-renderAdmin();
+  data.balance +=
+    Number(submission.reward);
+
+
+  save();
+
+  refreshAdmin();
+
+  alert(
+    "Task Approved এবং Reward যোগ হয়েছে"
+  );
 
 }
 
 
-/* =========================
-   WITHDRAW ADMIN
-========================= */
+/* =====================================================
+   REJECT TASK
+===================================================== */
 
-function renderWithdraws(){
+function rejectTask(id){
 
-let box=
-document.getElementById("adminWithdraws");
+  let submission =
+    data.submissions.find(
+      s => s.id===id
+    );
 
-box.innerHTML="";
+  if(!submission) return;
 
-withdraws.forEach(w=>{
 
-box.innerHTML+=`
+  submission.status="Rejected";
 
-<div class="request">
+  save();
 
-<b>💸 Withdraw Request</b>
-
-<div>
-👤 ${escapeHTML(w.user)}
-</div>
-
-<div>
-Amount:
-<b>৳${w.amount}</b>
-</div>
-
-<div>
-Method:
-${escapeHTML(w.method)}
-</div>
-
-<div>
-Number:
-${escapeHTML(w.number)}
-</div>
-
-<div>
-Status:
-<span class="badge ${
-w.status==="Approved"
-?"active"
-:w.status==="Rejected"
-?"rejected"
-:"pending"
-}">
-${w.status}
-</span>
-</div>
-
-${
-w.status==="Pending"
-?
-`
-
-<button
-class="green"
-onclick="approveWithdraw(${w.id})">
-✅ Approve
-</button>
-
-<button
-class="red"
-onclick="rejectWithdraw(${w.id})">
-❌ Reject
-</button>
-
-`
-:""
-}
-
-</div>
-
-`;
-
-});
+  refreshAdmin();
 
 }
 
+
+/* =====================================================
+   WITHDRAW
+===================================================== */
+
+function requestWithdraw(){
+
+  if(!data.active){
+
+    alert(
+      "Account Active না হলে Withdraw করা যাবে না"
+    );
+
+    return;
+  }
+
+
+  let number =
+    document.getElementById(
+      "withdrawNumber"
+    ).value.trim();
+
+
+  let amount =
+    Number(
+      document.getElementById(
+        "withdrawAmount"
+      ).value
+    );
+
+
+  if(!number || amount<=0){
+
+    alert("সঠিক তথ্য দিন");
+
+    return;
+  }
+
+
+  if(amount>data.balance){
+
+    alert("Balance কম");
+
+    return;
+  }
+
+
+  /*
+    টাকা আগে কাটা হচ্ছে না।
+    Admin Approve করলে balance থেকে কাটা হবে।
+  */
+
+  data.withdrawals.push({
+
+    id:Date.now(),
+
+    number:number,
+
+    amount:amount,
+
+    status:"Pending"
+
+  });
+
+
+  save();
+
+  alert("Withdraw Request জমা হয়েছে");
+
+}
+
+
+/* =====================================================
+   ADMIN WITHDRAW
+===================================================== */
+
+function renderAdminWithdraw(){
+
+  let box =
+    document.getElementById(
+      "adminWithdrawList"
+    );
+
+  box.innerHTML="";
+
+
+  if(data.withdrawals.length===0){
+
+    box.innerHTML =
+      "<div class='info'>কোনো Withdraw Request নেই।</div>";
+
+    return;
+  }
+
+
+  data.withdrawals.forEach(function(w){
+
+    box.innerHTML += `
+
+      <div class="task">
+
+        <p>
+          📱 Number:
+          <b>${escapeHtml(w.number)}</b>
+        </p>
+
+        <p>
+          💰 Amount:
+          <b>৳${w.amount}</b>
+        </p>
+
+        <p>
+          Status:
+          <b>${w.status}</b>
+        </p>
+
+        ${
+          w.status==="Pending"
+
+          ?`
+
+          <button
+            class="green"
+            onclick="approveWithdraw(${w.id})">
+
+            ✅ Approve
+
+          </button>
+
+          <button
+            class="red"
+            onclick="rejectWithdraw(${w.id})">
+
+            ❌ Reject
+
+          </button>
+
+          `
+
+          :""
+        }
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =====================================================
+   APPROVE WITHDRAW
+===================================================== */
 
 function approveWithdraw(id){
 
-let w=
-withdraws.find(x=>x.id===id);
+  let w =
+    data.withdrawals.find(
+      x => x.id===id
+    );
 
-if(!w)return;
+  if(!w || w.status!=="Pending")
+    return;
 
-let user=
-users.find(u=>u.id===w.userId);
 
-if(!user)return;
+  if(w.amount>data.balance){
 
-if(user.balance<w.amount){
+    alert("User balance যথেষ্ট নেই");
 
-alert("User-এর Balance যথেষ্ট নয়।");
-return;
+    return;
+  }
+
+
+  data.balance -=
+    Number(w.amount);
+
+
+  w.status="Approved";
+
+
+  save();
+
+  refreshAdmin();
+
+  alert("Withdraw Approved");
 
 }
 
-user.balance-=Number(w.amount);
 
-w.status="Approved";
-
-save();
-
-renderAdmin();
-
-}
-
+/* =====================================================
+   REJECT WITHDRAW
+===================================================== */
 
 function rejectWithdraw(id){
 
-let w=
-withdraws.find(x=>x.id===id);
+  let w =
+    data.withdrawals.find(
+      x => x.id===id
+    );
 
-if(!w)return;
+  if(!w) return;
 
-w.status="Rejected";
 
-save();
+  w.status="Rejected";
 
-renderAdmin();
+  save();
+
+  refreshAdmin();
+
+}
+
+
+/* =====================================================
+   TRANSACTION LIST
+===================================================== */
+
+function renderAdminTransactions(){
+
+  let box =
+    document.getElementById(
+      "adminTransactionList"
+    );
+
+  box.innerHTML="";
+
+
+  if(data.transactions.length===0){
+
+    box.innerHTML =
+      "<div class='info'>কোনো Transaction নেই।</div>";
+
+    return;
+  }
+
+
+  data.transactions.forEach(function(t){
+
+    box.innerHTML += `
+
+      <div class="task">
+
+        <p>
+          Type:
+          <b>${escapeHtml(t.type)}</b>
+        </p>
+
+        <p>
+          TrxID:
+          <b>${escapeHtml(t.trx)}</b>
+        </p>
+
+        <p>
+          Status:
+          <b>${t.status}</b>
+        </p>
+
+        ${
+          t.status==="Pending"
+
+          ?`
+
+          <button
+            class="green"
+            onclick="verifyTransaction(${t.id})">
+
+            ✅ Verify
+
+          </button>
+
+          <button
+            class="red"
+            onclick="rejectTransaction(${t.id})">
+
+            ❌ Reject
+
+          </button>
+
+          `
+
+          :""
+        }
+
+      </div>
+
+    `;
+
+  });
 
 }
 
 
-/* =========================
-   TRANSACTION ADMIN
-========================= */
-
-function renderTransactions(){
-
-let box=
-document.getElementById("adminTransactions");
-
-box.innerHTML="";
-
-transactions.forEach(t=>{
-
-box.innerHTML+=`
-
-<div class="request">
-
-<b>🧾 Transaction</b>
-
-<div>
-👤 ${escapeHTML(t.user)}
-</div>
-
-<div>
-💰 Amount:
-৳${t.amount}
-</div>
-
-<div>
-🔢 TrxID:
-<b>${escapeHTML(t.trxid)}</b>
-</div>
-
-<div>
-Status:
-<span class="badge ${
-t.status==="Verified"
-?"active"
-:t.status==="Rejected"
-?"rejected"
-:"pending"
-}">
-${t.status}
-</span>
-</div>
-
-${
-t.status==="Pending"
-?
-`
-
-<button
-class="green"
-onclick="verifyTransaction(${t.id})">
-✅ Verify
-</button>
-
-<button
-class="red"
-onclick="rejectTransaction(${t.id})">
-❌ Reject
-</button>
-
-`
-:""
-}
-
-</div>
-
-`;
-
-});
-
-}
-
+/* =====================================================
+   VERIFY ACTIVATION TRANSACTION
+===================================================== */
 
 function verifyTransaction(id){
 
-let t=
-transactions.find(x=>x.id===id);
+  let t =
+    data.transactions.find(
+      x => x.id===id
+    );
 
-if(!t)return;
+  if(!t || t.status!=="Pending")
+    return;
 
-t.status="Verified";
 
-save();
+  t.status="Verified";
 
-renderAdmin();
+
+  /*
+    Activation transaction হলে
+    Account Active হবে
+  */
+
+  if(t.type==="Account Activation"){
+
+    data.active=true;
+
+  }
+
+
+  save();
+
+  refreshAdmin();
+
+  alert("Transaction Verified");
 
 }
 
+
+/* =====================================================
+   REJECT TRANSACTION
+===================================================== */
 
 function rejectTransaction(id){
 
-let t=
-transactions.find(x=>x.id===id);
+  let t =
+    data.transactions.find(
+      x => x.id===id
+    );
 
-if(!t)return;
+  if(!t) return;
 
-t.status="Rejected";
 
-save();
+  t.status="Rejected";
 
-renderAdmin();
+  save();
+
+  refreshAdmin();
 
 }
 
 
-/* =========================
+/* =====================================================
+   ADMIN REFRESH
+===================================================== */
+
+function refreshAdmin(){
+
+  document.getElementById(
+    "adminBalance"
+  ).innerText =
+    "৳" + Number(data.balance).toFixed(2);
+
+
+  document.getElementById(
+    "adminUserStatus"
+  ).innerHTML =
+    data.active
+
+    ?"<span class='status active'>🟢 Active</span>"
+
+    :"<span class='status inactive'>🔴 Inactive</span>";
+
+
+  document.getElementById(
+    "adminTasks"
+  ).innerText =
+    data.tasks.length;
+
+
+  document.getElementById(
+    "adminWithdraw"
+  ).innerText =
+    data.withdrawals.filter(
+      w=>w.status==="Pending"
+    ).length;
+
+
+  document.getElementById(
+    "adminActive"
+  ).innerText =
+    data.active ? 1 : 0;
+
+
+  renderAdminTasks();
+  renderAdminSubmissions();
+  renderAdminWithdraw();
+  renderAdminTransactions();
+
+}
+
+
+/* =====================================================
+   COPY REFERRAL
+===================================================== */
+
+function copyReferral(){
+
+  navigator.clipboard.writeText(
+    "SIAM123"
+  );
+
+  alert("Referral Code কপি হয়েছে");
+
+}
+
+
+/* =====================================================
+   DEMO RECHARGE
+===================================================== */
+
+function demoRecharge(){
+
+  alert(
+    "Recharge feature এখন Demo mode-এ আছে।"
+  );
+
+}
+
+
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
-function logoutUser(){
+function logout(){
 
-localStorage.removeItem(
-"bd_current_user"
-);
-
-location.reload();
+  alert("Logout");
 
 }
 
 
-function adminLogout(){
+/* =====================================================
+   BACK USER
+===================================================== */
 
-location.reload();
+function backUser(){
 
-}
+  document.getElementById("adminLogin")
+    .classList.add("hidden");
 
+  document.getElementById("adminPanel")
+    .classList.add("hidden");
 
-function backToUserLogin(){
-
-location.reload();
-
-}
-
-
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function escapeHTML(text){
-
-return String(text ?? "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+  document.getElementById("userPanel")
+    .classList.remove("hidden");
 
 }
 
 
-/* =========================
-   AUTO LOGIN
-========================= */
+/* =====================================================
+   HTML SECURITY
+===================================================== */
 
-if(currentUser){
+function escapeHtml(text){
 
-showUserPanel();
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
+
+
+/* =====================================================
+   START
+===================================================== */
+
+updateUser();
 
 </script>
 
